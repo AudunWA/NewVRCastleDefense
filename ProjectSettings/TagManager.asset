@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - minionPrefab
+  - WorldController
+  - EvilCastle
+  - GoodCastle
+  - minion
+  - spell
+  - overlay
+  - spellPool
+  - arrowPool
+  - EvilPlayerGold
+  - GoodPlayerGold
+  - World
+  - GoodPlayer
+  - EvilPlayer
+  - FxTemporaire
+  - projectile
+  - VR
+  - vrcontroller
+  - controllermodel
+  - controllermenu
+  - leftcontroller
+  - rightcontroller
+  - bowhandle
+  - bowstring
+  - playerarrow
+  - leftcontrollermodel
+  - rightcontrollermodel
+  - playerbow
+  - playerhandarrow
+  - nook
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Minion
+  - Projectile
+  - LongbowArrow
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
