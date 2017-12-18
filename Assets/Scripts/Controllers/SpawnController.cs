@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
+using Valve.VR.InteractionSystem;
 
 public class SpawnController
 {
@@ -38,27 +40,20 @@ public class SpawnController
         string prefab = minion.SpawnType.ToString();
         GameObject goMinion = (GameObject)Object.Instantiate(Resources.Load(prefab));
         MinionController controller = goMinion.GetComponent<MinionController>();
-        Rigidbody archerBody = goMinion.GetComponent<Rigidbody>();
         controller.Minion = minion;
         controller.Owner = player;
+        controller.StateChanged += gameflowController.OnMinionKilled; // Gameflowhandler subscribes to state changed event
+
+        // Make the minion a archery target (for player's longbow)
+        ArcheryTarget target = goMinion.AddComponent<ArcheryTarget>();
+        target.onTakeDamage = new UnityEvent();
+        target.onTakeDamage.AddListener(controller.OnHitByPlayerArrow);
+
         int minionNumber = player.Minions.Count + 1;
-        if (minion is Archer)
-        {
-            archerBody.freezeRotation = true;
-        }
-        if (minion is Fighter)
-        {
-            SphereCollider sphereCollider = goMinion.AddComponent<SphereCollider>();
-            sphereCollider.radius = 0.5f;
-        }
-        else
-        {
-            goMinion.AddComponent<BoxCollider>();
-        }
+
         goMinion.name = player.PlayerType + "_"+minion.SpawnType+"_" + minionNumber+"_Level_"+minion.Level;
         goMinion.transform.Translate(minion.Position);
         player.AddMinion(minion);
-        controller.StateChanged += gameflowController.OnMinionKilled; // Gameflowhandler subscribes to state changed event
         minion.gameObject = goMinion;
     }
 

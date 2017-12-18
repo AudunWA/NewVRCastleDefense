@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using Valve.VR.InteractionSystem;
 using Random = UnityEngine.Random;
 
 public class MinionController : MonoBehaviour
@@ -151,7 +152,7 @@ public class MinionController : MonoBehaviour
 
     private void UpdateVariables()
     {
-        HealthBar.fillAmount = (float)(Minion.Health / maxHealth);
+        HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, (float)(Minion.Health / maxHealth), 0.1f);
         // Update position for data class
         Minion.Position = GetComponent<Rigidbody>().position;
         if (!Minion.IsAlive)
@@ -276,5 +277,13 @@ public class MinionController : MonoBehaviour
         {
             Minion = minion;
         }
+    }
+
+    /// <summary>
+    /// Called when an arrow shot by a player hits this minion
+    /// </summary>
+    public void OnHitByPlayerArrow()
+    {
+        Minion.TakeDamage(50);
     }
 }

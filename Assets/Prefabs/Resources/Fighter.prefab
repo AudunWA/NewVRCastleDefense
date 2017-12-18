@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 4660176508709634}
   - component: {fileID: 114668896076590902}
   - component: {fileID: 54513398286125730}
+  - component: {fileID: 135856731089416862}
   - component: {fileID: 195172373053283518}
   m_Layer: 8
   m_Name: Fighter
@@ -238,6 +239,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 114989315625460130}
+  Minion:
+    health: 0
+    position: {x: 0, y: 0, z: 0}
+    gameObject: {fileID: 0}
+    armor: 0
+    level: 0
+    range: 0
+    damage: 0
+    movementspeed: 0
+    attackCooldownTime: 0
+    bounty: 0
+    cost: 0
+    state: 0
+    spawnType: 0
   lightning: {fileID: 0}
 --- !u!114 &114730806972126674
 MonoBehaviour:
@@ -298,6 +313,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!135 &135856731089416862
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1447220558612500}
+  m_Material: {fileID: 13400000, guid: c509d5711dc2cc346be2763cd92383ca, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!195 &195172373053283518
 NavMeshAgent:
   m_ObjectHideFlags: 1

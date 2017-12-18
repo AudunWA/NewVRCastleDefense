@@ -105,7 +105,7 @@ namespace Valve.VR.InteractionSystem
 			{
 				Rigidbody rb = GetComponent<Rigidbody>();
 				float rbSpeed = rb.velocity.sqrMagnitude;
-				bool canStick = ( targetPhysMaterial != null && collision.collider.sharedMaterial == targetPhysMaterial && rbSpeed > 0.2f );
+			    bool canStick = true;//( targetPhysMaterial != null && collision.collider.sharedMaterial == targetPhysMaterial && rbSpeed > 0.2f );
 				bool hitBalloon = collision.collider.gameObject.GetComponent<Balloon>() != null;
 
 				if ( travelledFrames < 2 && !canStick )
