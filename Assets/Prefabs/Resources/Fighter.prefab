@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4046189418961914}
   - component: {fileID: 33108018343242686}
   - component: {fileID: 23821062852790068}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Minion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114988173198864488}
   - component: {fileID: 114573077259983076}
   - component: {fileID: 114730806972126674}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 54513398286125730}
   - component: {fileID: 135856731089416862}
   - component: {fileID: 195172373053283518}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Fighter
   m_TagString: minion
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 224380398459503274}
   - component: {fileID: 222952963749172970}
   - component: {fileID: 114441915321032876}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: HealthbarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 224712151480513610}
   - component: {fileID: 222615992754312034}
   - component: {fileID: 114989315625460130}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,8 +179,8 @@ Rigidbody:
   m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -333,7 +333,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1447220558612500}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -345,7 +345,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!222 &222615992754312034
 CanvasRenderer:
   m_ObjectHideFlags: 1

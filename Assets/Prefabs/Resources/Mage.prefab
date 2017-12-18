@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224247670073524676}
   - component: {fileID: 222116364536286800}
   - component: {fileID: 114306748219276874}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 224121785052103160}
   - component: {fileID: 222955595538784522}
   - component: {fileID: 114532910077663758}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: HealthbarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4122048536723138}
   - component: {fileID: 33302075282085328}
   - component: {fileID: 23167283894944304}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MageModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 114506119121977294}
   - component: {fileID: 114088462336816440}
   - component: {fileID: 114486646316354138}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 54397784050329338}
   - component: {fileID: 136945859642675008}
   - component: {fileID: 195120645070627694}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Mage
   m_TagString: minion
   m_Icon: {fileID: 0}
@@ -179,8 +179,8 @@ Rigidbody:
   m_Mass: 90
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -334,7 +334,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1536489122605968}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -346,7 +346,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!222 &222116364536286800
 CanvasRenderer:
   m_ObjectHideFlags: 1
