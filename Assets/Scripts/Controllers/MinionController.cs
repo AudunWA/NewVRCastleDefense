@@ -153,6 +153,8 @@ public class MinionController : MonoBehaviour
     private void UpdateVariables()
     {
         HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, (float)(Minion.Health / maxHealth), 0.1f);
+        HealthBar.color = Color.Lerp(Color.red, Color.green, HealthBar.fillAmount);
+
         // Update position for data class
         Minion.Position = GetComponent<Rigidbody>().position;
         if (!Minion.IsAlive)
