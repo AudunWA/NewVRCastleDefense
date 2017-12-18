@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -26,13 +27,15 @@ public class MinionController : MonoBehaviour
 
     public Minion Minion;
     public Player Owner { get; set; }
+
     private Castle GetEnemyCastle()
     {
         return worldController.GetOtherPlayer(Owner).Castle;
     }
 
     // Use this for initialization
-    private void Start () {
+    private void Start()
+    {
         worldController = GameObject.FindWithTag("World").GetComponent<WorldController>();
         maxHealth = Minion.Health;
         rigidbody = GetComponent<Rigidbody>();
@@ -40,13 +43,53 @@ public class MinionController : MonoBehaviour
         spellPool = GameObject.FindGameObjectWithTag("spellPool").GetComponent<ObjectPooling>();
         arrowPool = GameObject.FindGameObjectWithTag("arrowPool").GetComponent<ObjectPooling>();
         agent.speed = Minion.Movementspeed;
+
+        StartCoroutine(UpdateTarget());
+    }
+
+    private IEnumerator UpdateTarget()
+    {
+        while (true)
+        {
+            if (targetEntity != null && targetEntity.gameObject == null)
+            {
+                targetEntity = null;
+            }
+            switch (Minion.State)
+            {
+                case Minion.minionState.Moving:
+                    agent.isStopped = false;
+                    FindNewTargetEntity();
+
+                    if (Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) <=
+                        Minion.Range)
+                    {
+                        Minion.State = Minion.minionState.Fighting;
+                        break;
+                    }
+
+                    agent.destination = targetEntity.GetAttackPosition(transform.position);
+                    break;
+
+                case Minion.minionState.Fighting:
+                    if (targetEntity == null ||
+                        Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) >
+                        Minion.Range)
+                    {
+                        Minion.State = Minion.minionState.Moving;
+                        break;
+                    }
+                    break;
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     /// <summary>
     /// Used to render visual debug info.
     /// Uncomment Selected if you only want to see debug info of selected minions
     /// </summary>
-    void OnDrawGizmos/*Selected*/()
+    void OnDrawGizmosSelected()
     {
         // Draw calculated path
         Gizmos.color = GetStateColor();
@@ -92,37 +135,10 @@ public class MinionController : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update ()
+    private void Update()
     {
-        if (targetEntity != null && targetEntity.gameObject == null)
-        {
-            targetEntity = null;
-        }
-        switch (Minion.State)
-        {
-            case Minion.minionState.Moving:
-                agent.isStopped = false;
-                FindNewTargetEntity();
-
-                if (Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) <= Minion.Range)
-                {
-                    Minion.State = Minion.minionState.Fighting;
-                    break;
-                }
-
-                agent.destination = targetEntity.GetAttackPosition(transform.position);
-                break;
-
-            case Minion.minionState.Fighting:
-                if (targetEntity == null || Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) > Minion.Range)
-                {
-                    Minion.State = Minion.minionState.Moving;
-                    break;
-                }
-                HandleAttack();
-                break;
-        }
-
+        if (Minion.State == Minion.minionState.Fighting)
+            HandleAttack();
         UpdateVariables();
     }
 
@@ -132,14 +148,17 @@ public class MinionController : MonoBehaviour
         foreach (Collider collision in inRange)
         {
             MinionController otherMinionController = collision.gameObject.GetComponent<MinionController>();
-            if(otherMinionController == null || otherMinionController.Minion.Player == null || otherMinionController.Minion.Player == Minion.Player)
+            if (otherMinionController == null || otherMinionController.Minion.Player == null ||
+                otherMinionController.Minion.Player == Minion.Player)
                 continue;
 
             if (targetEntity == null)
             {
                 targetEntity = otherMinionController.Minion;
             }
-            else if(Vector3.Distance(transform.position, b: targetEntity.GetAttackPosition(transform.position)) > Vector3.Distance(transform.position, otherMinionController.Minion.GetAttackPosition(transform.position)))
+            else if (Vector3.Distance(transform.position, b: targetEntity.GetAttackPosition(transform.position)) >
+                     Vector3.Distance(transform.position,
+                         otherMinionController.Minion.GetAttackPosition(transform.position)))
             {
                 targetEntity = otherMinionController.Minion;
             }
@@ -152,7 +171,7 @@ public class MinionController : MonoBehaviour
 
     private void UpdateVariables()
     {
-        HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, (float)(Minion.Health / maxHealth), 0.1f);
+        HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, (float) (Minion.Health / maxHealth), 0.1f);
         HealthBar.color = Color.Lerp(Color.red, Color.green, HealthBar.fillAmount);
 
         // Update position for data class
@@ -192,7 +211,8 @@ public class MinionController : MonoBehaviour
             if (Minion is Archer)
             {
                 ShootProjectile();
-            } else if (Minion is Mage)
+            }
+            else if (Minion is Mage)
             {
                 ShootSpell();
             }
@@ -212,7 +232,6 @@ public class MinionController : MonoBehaviour
 
     private void ShootProjectile() //Archer only for now
     {
-
         GameObject go = arrowPool.GetPooledObject();
 
         go.GetComponent<ArrowController>().targetMinion = targetEntity;
@@ -256,19 +275,18 @@ public class MinionController : MonoBehaviour
 
         go.GetComponent<SpellController>().minion = targetEntity;
         go.GetComponent<SpellController>().parentMinion = Minion;
-        
+
         go.SetActive(true);
     }
 
     //THIS IS FOR SPELLS
     public GameObject lightning;
+
     private void ShootLightning() //Archer only for now
     {
-
-        GameObject go = (GameObject)Instantiate(lightning);
+        GameObject go = (GameObject) Instantiate(lightning);
         go.AddComponent<LightningController>(); //initiates the script
         go.GetComponent<LightningController>().minion = targetEntity;
-
     }
 
     public class MinionStateEventArgs : EventArgs
