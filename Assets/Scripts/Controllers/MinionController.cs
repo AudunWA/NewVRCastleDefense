@@ -185,6 +185,7 @@ public class MinionController : MonoBehaviour
                 {
                     DummyArrowController dummyarrows = gameObject.GetComponentInChildren<DummyArrowController>();
                     dummyarrows.unParent();
+                    dummyarrows.gameObject.SetActive(false);
                 }
             }
             Destroy(gameObject);

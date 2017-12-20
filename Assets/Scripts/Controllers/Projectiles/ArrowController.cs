@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 public class ArrowController : MonoBehaviour
 {
- 
+
     public GameEntity targetMinion;
     public GameObject parentGameObject;
     public Minion parentMinion;
@@ -24,7 +24,7 @@ public class ArrowController : MonoBehaviour
     // Velcoity needs to be hard coded for this, improvements possible
     private float velocity = 70f;
 
-    private float yValueAboveMinion = 1.0f;
+    private float yValueAboveMinion = 5.0f;
 
     private ObjectPooling dummyArrowPool;
 
@@ -42,8 +42,11 @@ public class ArrowController : MonoBehaviour
         if (parentMinion?.gameObject != null)
         {
             arrowDamage = parentMinion.Damage;
-            distance = FindDistanceToTarget();
-            ShootArrow();
+            if (targetMinion != null)
+            {
+                distance = FindDistanceToTarget();
+                ShootArrow();
+            }
         }
     }
 
@@ -54,41 +57,53 @@ public class ArrowController : MonoBehaviour
 
     private void OnDisable()
     {
-        
+
         CancelInvoke();
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
-        if (gameObject.GetComponent<Rigidbody>().velocity != Vector3.zero) { 
+    void FixedUpdate()
+    {
+        if (gameObject.GetComponent<Rigidbody>().velocity != Vector3.zero)
+        {
             // ArrowController looks 1.08 times steeper than the velocity for more realistic impacts
             transform.rotation = Quaternion.LookRotation(gameObject.GetComponent<Rigidbody>().velocity * 1.15f);
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject == parentGameObject)
+        {
+            return;
+        }
         GameObject dummyArrow = dummyArrowPool.GetPooledObject();
         dummyArrow.transform.position = gameObject.transform.position;
         dummyArrow.transform.rotation = gameObject.transform.rotation;
+        dummyArrow.SetActive(true);
+        gameObject.SetActive(false);
         if (collision.gameObject.tag == "minion")
         {
             // DO damage
             MinionController controller = collision.gameObject.GetComponent<MinionController>();
-            controller.Minion.TakeDamage(arrowDamage);
-            if (controller.Minion.Health > 0)
+            if (parentMinion.Player != controller.Minion.Player)
             {
-                dummyArrow.GetComponent<Transform>().SetParent(collision.gameObject.transform);
+                controller.Minion.TakeDamage(arrowDamage);
+                if (controller.Minion.Health > 0)
+                {
+                    dummyArrow.GetComponent<Transform>().SetParent(collision.gameObject.transform);
+                }
             }
         }
         else if (collision.gameObject.tag.Contains("Castle"))
         {
             CastleController controller = collision.gameObject.GetComponent<CastleController>();
-            controller.Castle.TakeDamage(parentMinion.Damage);
+            if (parentMinion.Player != controller.Castle.Player)
+            {
+                controller.Castle.TakeDamage(parentMinion.Damage);
+            }
 
         }
-        dummyArrow.SetActive(true);
-        gameObject.SetActive(false);
     }
 
     private void ShootArrow()
@@ -104,13 +119,13 @@ public class ArrowController : MonoBehaviour
         // Decides if the archer should hit its target
         if (!HitTarget())
         {
-            float radius = 8.0f;
+            float radius = 2.0f;
             Vector3 origo = targetMinion.Position;
-            Vector3 deviationVec = new Vector3(Random.Range(-radius,radius),Random.Range(-radius,radius),Random.Range(-radius,radius));
+            Vector3 deviationVec = new Vector3(Random.Range(-radius, radius), Random.Range(-radius, radius), Random.Range(-radius, radius));
             targetPosition.x += deviationVec.x;
             targetPosition.y += deviationVec.y;
             targetPosition.z += deviationVec.z;
-            
+
             //    float random = Random.Range(0,2);
             //    float deviation = (1 + (2 * -random));
             //    angleToMinion = Quaternion.Euler(0, (90f + 2f * deviation) - AngleCalculator(parentGameObject.transform.position, targetMinion.Position), 0);
@@ -129,31 +144,27 @@ public class ArrowController : MonoBehaviour
             angleToMinion *= Quaternion.Euler(angle, 0, 0);
         }
 
-
-
         transform.rotation = angleToMinion;//Quaternion.Slerp(transform.rotation, angleToMinion, Time.deltaTime);
 
         transform.position = arrowposition;
 
         gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.forward * velocity * 1.02f;
-
-
         gameObject.GetComponent<Rigidbody>().AddForce(Physics.gravity * gameObject.GetComponent<Rigidbody>().mass);
     }
 
     private float TrajectoryCalculations()
     {
         // NOTE! this is set in the prefab under constant force
-        float gravity = 4*9.81f;
-        
+        float gravity = 4 * 9.81f;
+
         // + 0.5 to target a little above minion
         float yValueTarget = targetPosition.y - yValueAboveMinion;
 
         // This calculates the angle in radians it has to shoot to hit its target
-        float thetaRad = Mathf.Atan((Mathf.Pow(velocity,2.0f) - Mathf.Sqrt(
-            Mathf.Pow(velocity, 4.0f) - gravity * 
-            (gravity * Mathf.Pow(distance, 2.0f) + 
-            2 * yValueTarget * Mathf.Pow(velocity, 2.0f)))) / 
+        float thetaRad = Mathf.Atan((Mathf.Pow(velocity, 2.0f) - Mathf.Sqrt(
+            Mathf.Pow(velocity, 4.0f) - gravity *
+            (gravity * Mathf.Pow(distance, 2.0f) +
+            2 * yValueTarget * Mathf.Pow(velocity, 2.0f)))) /
             (gravity * distance));
         float theta = thetaRad * Mathf.Rad2Deg;
 
@@ -197,7 +208,7 @@ public class ArrowController : MonoBehaviour
         bool hit = false;
         List<float> rands2 = new List<float>();
         List<float> rands = new List<float>();
-        int distance = (int)-Mathf.Pow(FindDistanceToTarget(),2.0f)/300;
+        int distance = (int)-Mathf.Pow(FindDistanceToTarget(), 2.0f) / 800;
         // Has to be +1 cause range doesnt include largest value
         int level = parentMinion.Level * 10 + 1;
         float random = Random.Range(distance, level);
