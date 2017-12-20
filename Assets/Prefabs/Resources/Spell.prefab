@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 199900965714485968}
   - component: {fileID: 114921860664471788}
   - component: {fileID: 65069137241426586}
-  m_Layer: 0
+  - component: {fileID: 54053932288240274}
+  m_Layer: 8
   m_Name: Spell
   m_TagString: projectile
   m_Icon: {fileID: 0}
@@ -39,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4567768881606672}
   - component: {fileID: 108190152628852308}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,6 +74,21 @@ Transform:
   m_Father: {fileID: 4166911934132648}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54053932288240274
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1623002561699952}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65069137241426586
 BoxCollider:
   m_ObjectHideFlags: 1

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 54329069517101170}
   - component: {fileID: 65913126568601592}
   - component: {fileID: 75867538534705524}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,5 +136,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentGameObject: {fileID: 0}
+  parentMinion:
+    health: 0
+    position: {x: 0, y: 0, z: 0}
+    gameObject: {fileID: 0}
+    armor: 0
+    level: 0
+    range: 0
+    damage: 0
+    movementspeed: 0
+    attackCooldownTime: 0
+    bounty: 0
+    cost: 0
+    state: 0
+    spawnType: 0
   moving: 0
   enemyMovementspeed: 0
