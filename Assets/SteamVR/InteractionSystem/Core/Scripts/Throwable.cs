@@ -16,7 +16,10 @@ namespace Valve.VR.InteractionSystem
 	[RequireComponent( typeof( VelocityEstimator ) )]
 	public class Throwable : MonoBehaviour
 	{
-		[EnumFlags]
+
+	    public float velocityMultiplier;
+
+        [EnumFlags]
 		[Tooltip( "The flags used to attach this object to the hand." )]
 		public Hand.AttachmentFlags attachmentFlags = Hand.AttachmentFlags.ParentToHand | Hand.AttachmentFlags.DetachFromOtherHand;
 
@@ -178,8 +181,8 @@ namespace Valve.VR.InteractionSystem
 			}
 			else
 			{
-				velocity = Player.instance.trackingOriginTransform.TransformVector( hand.controller.velocity );
-				angularVelocity = Player.instance.trackingOriginTransform.TransformVector( hand.controller.angularVelocity );
+				velocity = Player.instance.trackingOriginTransform.TransformVector( hand.controller.velocity ) * velocityMultiplier;
+				angularVelocity = Player.instance.trackingOriginTransform.TransformVector( hand.controller.angularVelocity) * velocityMultiplier;
 				position = hand.transform.position;
 			}
 
