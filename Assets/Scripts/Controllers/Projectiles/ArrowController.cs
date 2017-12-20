@@ -39,7 +39,7 @@ public class ArrowController : MonoBehaviour
     {
         Invoke("Destroy", 10.0f);
         //float random = Random.Range(0.98f, 1.01f);
-        if (parentMinion != null)
+        if (parentMinion?.gameObject != null)
         {
             arrowDamage = parentMinion.Damage;
             distance = FindDistanceToTarget();

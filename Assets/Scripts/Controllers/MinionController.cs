@@ -223,7 +223,7 @@ public class MinionController : MonoBehaviour
         }
         attackTimer += Time.deltaTime;
 
-        if (!targetEntity.IsAlive)
+        if (targetEntity == null || !targetEntity.IsAlive)
         {
             lightningAvailable = true;
             targetEntity = null;
