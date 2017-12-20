@@ -125,7 +125,7 @@ public class WorldController : MonoBehaviour
                     level: 1,
                     range: 80f,
                     bounty: bounties[SpawnType.Archer],
-                    damage: 4f,
+                    damage: 6f,
                     movementspeed: 2.8f,
                     attackCooldownTime: 2f,
                     cost: costs[SpawnType.Archer],

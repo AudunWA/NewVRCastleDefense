@@ -50,22 +50,31 @@ public class SpellController : MonoBehaviour {
                 //Debug.Log(transform.rotation.eulerAngles.x);
 
 
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 8 + 1 * (1 / (distance)));
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 1000);
             }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Invoke("Destroy", 0.05f);
+        Debug.Log(collision.gameObject);
+        if (collision.gameObject == parentMinion.gameObject)
+        {
+            return;
+        }
         if (collision.gameObject.tag == "minion")
         {
             MinionController controller = collision.gameObject.GetComponent<MinionController>();
-            controller.Minion.TakeDamage(parentMinion.Damage);
+            if (parentMinion.Player != controller.Minion.Player)
+            {
+                controller.Minion.TakeDamage(parentMinion.Damage);
+                gameObject.SetActive(false);
+            }
         } else if (collision.gameObject.tag.Contains("Castle"))
         {
             CastleController controller = collision.gameObject.GetComponent<CastleController>();
             controller.Castle.TakeDamage(parentMinion.Damage);
+            gameObject.SetActive(false);
                 
         }
     }
