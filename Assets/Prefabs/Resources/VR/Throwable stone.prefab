@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 54013013806531186}
   - component: {fileID: 114598416954796300}
   - component: {fileID: 114662015161484596}
+  - component: {fileID: 114522365039798580}
   m_Layer: 0
   m_Name: Throwable stone
   m_TagString: Untagged
@@ -113,6 +114,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b93b6a877adcbf94c89a9d6e0c0e844d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114522365039798580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1260702529330980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0767ed9a8064b9440ae6e18ce1d8d7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDamage: 75
+  damageRadius: 20
+  explosionParticles: {fileID: 1317119857779190, guid: 55c8070696af58441811b8885f5b9241,
+    type: 2}
 --- !u!114 &114598416954796300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffefbea063cab884ca33e5a449e5c22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocityMultiplier: 3
   attachmentFlags: 10
   attachmentPoint: 
   catchSpeedThreshold: 0
@@ -181,8 +198,8 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1260702529330980}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

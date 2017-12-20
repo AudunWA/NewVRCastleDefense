@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65587903292475232}
   - component: {fileID: 114198612315295844}
   - component: {fileID: 114746769598564930}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ControllerArcherModel
   m_TagString: controllermodel
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 23811364515694938}
   - component: {fileID: 114981868680257764}
   - component: {fileID: 114296619877398822}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ControllerMageModel
   m_TagString: controllermodel
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 23153239988449638}
   - component: {fileID: 114077374983303592}
   - component: {fileID: 114985422191932886}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ControllerTankModel
   m_TagString: controllermodel
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 65710328823598964}
   - component: {fileID: 114421527782277202}
   - component: {fileID: 114597503832485502}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ControllerFighterModel
   m_TagString: controllermodel
   m_Icon: {fileID: 0}
