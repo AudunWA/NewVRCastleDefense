@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyPlayerController : MonoBehaviour
 {
     private WorldController wo;
-    private float range = 80.0f;
+    public float range = 150.0f;
     private Minion target;
     public ObjectPooling arrowPool;
     public float Damage = 1f;
