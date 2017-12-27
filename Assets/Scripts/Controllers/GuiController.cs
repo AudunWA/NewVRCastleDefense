@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
-public class GuiController: MonoBehaviour
+public class GuiController : MonoBehaviour
 {
     public Player GoodPlayer { get; set; }
     public Player EvilPlayer { get; set; }
@@ -17,6 +19,12 @@ public class GuiController: MonoBehaviour
     public Button tankButton;
     public Button waveButton;
 
+    public Dictionary<SpawnType, Button> upgradeButtons = new Dictionary<SpawnType, Button>();
+    public Dictionary<SpawnType, Button> spawnButtons = new Dictionary<SpawnType, Button>();
+
+    public Dictionary<SpawnType, Button> evilUpgradeButtons = new Dictionary<SpawnType, Button>();
+
+    public Dictionary<SpawnType, Button> evilSpawnButtons = new Dictionary<SpawnType, Button>();
     // Upgrade buttons
     public Button fighterUpgradeButton;
     public Button archerUpgradeButton;
@@ -39,9 +47,36 @@ public class GuiController: MonoBehaviour
     public Button evilTankUpgradeButton;
     public Button evilCastleUpgradeButton;
 
+
+
+
     // Game mode toggle
     public Toggle singlePlayerToggle;
-    private void UpdateTextByLevel(Text textField,SpawnType spawnType,Player player)
+
+    private void AddButtonsToLists()
+    {
+        spawnButtons.Add(SpawnType.Fighter, fighterButton);
+        spawnButtons.Add(SpawnType.Tank, tankButton);
+        spawnButtons.Add(SpawnType.Mage, mageButton);
+        spawnButtons.Add(SpawnType.Archer, archerButton);
+
+        upgradeButtons.Add(SpawnType.Fighter, fighterUpgradeButton);
+        upgradeButtons.Add(SpawnType.Tank, tankUpgradeButton);
+        upgradeButtons.Add(SpawnType.Mage, mageUpgradeButton);
+        upgradeButtons.Add(SpawnType.Archer, archerUpgradeButton);
+
+        evilSpawnButtons.Add(SpawnType.Fighter, evilFighterButton);
+        evilSpawnButtons.Add(SpawnType.Tank, evilTankButton);
+        evilSpawnButtons.Add(SpawnType.Mage, evilMageButton);
+        evilSpawnButtons.Add(SpawnType.Archer, evilArcherButton);
+
+        evilUpgradeButtons.Add(SpawnType.Fighter, evilFighterUpgradeButton);
+        evilUpgradeButtons.Add(SpawnType.Tank, evilTankUpgradeButton);
+        evilUpgradeButtons.Add(SpawnType.Mage, evilMageUpgradeButton);
+        evilUpgradeButtons.Add(SpawnType.Archer, evilArcherUpgradeButton);
+    }
+
+    private void UpdateTextByLevel(Text textField, SpawnType spawnType, Player player)
     {
         string text = textField.text;
         string level = player.MinionStatistics[spawnType].Level.ToString();
@@ -73,7 +108,7 @@ public class GuiController: MonoBehaviour
         tankButton.GetComponentInChildren<Text>().text += " " + GoodPlayer.MinionStatistics[SpawnType.Tank].Cost;
         mageButton.GetComponentInChildren<Text>().text += " " + GoodPlayer.MinionStatistics[SpawnType.Mage].Cost;
 
-        evilArcherButton.GetComponentInChildren<Text>().text += " "+EvilPlayer.MinionStatistics[SpawnType.Archer].Cost;
+        evilArcherButton.GetComponentInChildren<Text>().text += " " + EvilPlayer.MinionStatistics[SpawnType.Archer].Cost;
         evilFighterButton.GetComponentInChildren<Text>().text += " " + EvilPlayer.MinionStatistics[SpawnType.Fighter].Cost;
         evilTankButton.GetComponentInChildren<Text>().text += " " + EvilPlayer.MinionStatistics[SpawnType.Tank].Cost;
         evilMageButton.GetComponentInChildren<Text>().text += " " + EvilPlayer.MinionStatistics[SpawnType.Mage].Cost;
@@ -138,7 +173,7 @@ public class GuiController: MonoBehaviour
                 Text textBox = fighterUpgradeButton.GetComponentInChildren<Text>();
                 Text spawnTextbox = fighterButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textBox, SpawnType.Fighter, GoodPlayer);
-                UpdateCostText(spawnTextbox,SpawnType.Fighter,GoodPlayer,previousCost);
+                UpdateCostText(spawnTextbox, SpawnType.Fighter, GoodPlayer, previousCost);
             }
         });
         archerUpgradeButton.onClick.AddListener(delegate
@@ -163,7 +198,7 @@ public class GuiController: MonoBehaviour
                 Text spawnTextbox = mageButton.GetComponentInChildren<Text>();
 
                 UpdateTextByLevel(textBox, SpawnType.Mage, GoodPlayer);
-                UpdateCostText(spawnTextbox, SpawnType.Mage, GoodPlayer,previousCost);
+                UpdateCostText(spawnTextbox, SpawnType.Mage, GoodPlayer, previousCost);
 
             }
         });
@@ -176,7 +211,7 @@ public class GuiController: MonoBehaviour
                 Text textBox = tankUpgradeButton.GetComponentInChildren<Text>();
                 Text spawnTextbox = tankButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textBox, SpawnType.Tank, GoodPlayer);
-                UpdateCostText(spawnTextbox, SpawnType.Tank, GoodPlayer,previousCost);
+                UpdateCostText(spawnTextbox, SpawnType.Tank, GoodPlayer, previousCost);
             }
         });
         castleUpgradeButton.onClick.AddListener(delegate
@@ -195,7 +230,7 @@ public class GuiController: MonoBehaviour
                 EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter);
                 Text textBox = evilFighterUpgradeButton.GetComponentInChildren<Text>();
                 Text spawnTextbox = evilFighterButton.GetComponentInChildren<Text>();
-                UpdateTextByLevel(textBox,SpawnType.Fighter,EvilPlayer);
+                UpdateTextByLevel(textBox, SpawnType.Fighter, EvilPlayer);
                 UpdateCostText(spawnTextbox, SpawnType.Fighter, EvilPlayer, previousCost);
             }
         });
@@ -243,11 +278,13 @@ public class GuiController: MonoBehaviour
 
     private void Start()
     {
+        AddButtonsToLists();
         InitPlayerMoneyGui();
         InitGoodButtons();
         InitEvilButtons();
         InitEvilUpgradeButtons();
         InitGoodUpgradeButtons();
+
         singlePlayerToggle.onValueChanged.AddListener(delegate
         {
             worldController.SinglePlayer = singlePlayerToggle.isOn;
@@ -256,6 +293,18 @@ public class GuiController: MonoBehaviour
 
     private void Update()
     {
+        Text upgradeTextBox;
+        Text spawnTextbox;
+        Player player = EvilPlayer;
+        foreach (SpawnType s in upgradeButtons.Keys)
+        {
+            upgradeTextBox = evilUpgradeButtons[s].GetComponentInChildren<Text>();
+            spawnTextbox = evilSpawnButtons[s].GetComponentInChildren<Text>();
+            string previousCost = player.MinionStatistics[s].Cost.ToString();
+            UpdateTextByLevel(upgradeTextBox, s, player);
+            UpdateCostText(spawnTextbox, s, player, previousCost);
+        }
+
     }
 
 }
