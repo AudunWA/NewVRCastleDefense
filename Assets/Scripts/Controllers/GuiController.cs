@@ -83,12 +83,12 @@ public class GuiController : MonoBehaviour
         textField.text = text.Remove(text.Length - 1) + level;
     }
 
-    private void UpdateCostText(Text textBox, SpawnType spawnType, Player player, string previousCost)
+    private void UpdateCostText(Text textbox, SpawnType spawnType, Player player, string previousCost)
     {
-        string text = textBox.text;
+        string text = textbox.text;
         string cost = player.MinionStatistics[spawnType].Cost.ToString();
         text = text.Remove(text.Length - previousCost.Length) + player.MinionStatistics[spawnType].Cost;
-        textBox.text = text;
+        textbox.text = text;
     }
 
     private void InitPlayerMoneyGui()
@@ -170,10 +170,10 @@ public class GuiController : MonoBehaviour
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Fighter].Cost.ToString();
                 GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter);
-                Text textBox = fighterUpgradeButton.GetComponentInChildren<Text>();
-                Text spawnTextbox = fighterButton.GetComponentInChildren<Text>();
-                UpdateTextByLevel(textBox, SpawnType.Fighter, GoodPlayer);
-                UpdateCostText(spawnTextbox, SpawnType.Fighter, GoodPlayer, previousCost);
+                Text textbox = fighterUpgradeButton.GetComponentInChildren<Text>();
+                Text spawntextbox = fighterButton.GetComponentInChildren<Text>();
+                UpdateTextByLevel(textbox, SpawnType.Fighter, GoodPlayer);
+                UpdateCostText(spawntextbox, SpawnType.Fighter, GoodPlayer, previousCost);
             }
         });
         archerUpgradeButton.onClick.AddListener(delegate
@@ -182,10 +182,10 @@ public class GuiController : MonoBehaviour
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Archer].Cost.ToString();
                 GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Archer);
-                Text textBox = archerUpgradeButton.GetComponentInChildren<Text>();
-                Text spawnTextbox = archerButton.GetComponentInChildren<Text>();
-                UpdateTextByLevel(textBox, SpawnType.Archer, GoodPlayer);
-                UpdateCostText(spawnTextbox, SpawnType.Archer, GoodPlayer, previousCost);
+                Text textbox = archerUpgradeButton.GetComponentInChildren<Text>();
+                Text spawntextbox = archerButton.GetComponentInChildren<Text>();
+                UpdateTextByLevel(textbox, SpawnType.Archer, GoodPlayer);
+                UpdateCostText(spawntextbox, SpawnType.Archer, GoodPlayer, previousCost);
             }
         });
         mageUpgradeButton.onClick.AddListener(delegate
@@ -194,11 +194,11 @@ public class GuiController : MonoBehaviour
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Mage].Cost.ToString();
                 GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Mage);
-                Text textBox = mageUpgradeButton.GetComponentInChildren<Text>();
-                Text spawnTextbox = mageButton.GetComponentInChildren<Text>();
+                Text textbox = mageUpgradeButton.GetComponentInChildren<Text>();
+                Text spawntextbox = mageButton.GetComponentInChildren<Text>();
 
-                UpdateTextByLevel(textBox, SpawnType.Mage, GoodPlayer);
-                UpdateCostText(spawnTextbox, SpawnType.Mage, GoodPlayer, previousCost);
+                UpdateTextByLevel(textbox, SpawnType.Mage, GoodPlayer);
+                UpdateCostText(spawntextbox, SpawnType.Mage, GoodPlayer, previousCost);
 
             }
         });
@@ -208,10 +208,10 @@ public class GuiController : MonoBehaviour
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Tank].Cost.ToString();
                 GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Tank);
-                Text textBox = tankUpgradeButton.GetComponentInChildren<Text>();
-                Text spawnTextbox = tankButton.GetComponentInChildren<Text>();
-                UpdateTextByLevel(textBox, SpawnType.Tank, GoodPlayer);
-                UpdateCostText(spawnTextbox, SpawnType.Tank, GoodPlayer, previousCost);
+                Text textbox = tankUpgradeButton.GetComponentInChildren<Text>();
+                Text spawntextbox = tankButton.GetComponentInChildren<Text>();
+                UpdateTextByLevel(textbox, SpawnType.Tank, GoodPlayer);
+                UpdateCostText(spawntextbox, SpawnType.Tank, GoodPlayer, previousCost);
             }
         });
         castleUpgradeButton.onClick.AddListener(delegate
@@ -228,10 +228,10 @@ public class GuiController : MonoBehaviour
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Fighter].Cost.ToString();
                 EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter);
-                Text textBox = evilFighterUpgradeButton.GetComponentInChildren<Text>();
-                Text spawnTextbox = evilFighterButton.GetComponentInChildren<Text>();
-                UpdateTextByLevel(textBox, SpawnType.Fighter, EvilPlayer);
-                UpdateCostText(spawnTextbox, SpawnType.Fighter, EvilPlayer, previousCost);
+                Text textbox = evilFighterUpgradeButton.GetComponentInChildren<Text>();
+                Text spawntextbox = evilFighterButton.GetComponentInChildren<Text>();
+                UpdateTextByLevel(textbox, SpawnType.Fighter, EvilPlayer);
+                UpdateCostText(spawntextbox, SpawnType.Fighter, EvilPlayer, previousCost);
             }
         });
         evilArcherUpgradeButton.onClick.AddListener(delegate
@@ -240,10 +240,10 @@ public class GuiController : MonoBehaviour
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Archer].Cost.ToString();
                 EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Archer);
-                Text spawnTextbox = evilArcherButton.GetComponentInChildren<Text>();
-                Text textBox = evilArcherUpgradeButton.GetComponentInChildren<Text>();
-                UpdateTextByLevel(textBox, SpawnType.Archer, EvilPlayer);
-                UpdateCostText(spawnTextbox, SpawnType.Archer, EvilPlayer, previousCost);
+                Text spawntextbox = evilArcherButton.GetComponentInChildren<Text>();
+                Text textbox = evilArcherUpgradeButton.GetComponentInChildren<Text>();
+                UpdateTextByLevel(textbox, SpawnType.Archer, EvilPlayer);
+                UpdateCostText(spawntextbox, SpawnType.Archer, EvilPlayer, previousCost);
             }
         });
         evilMageUpgradeButton.onClick.AddListener(delegate
@@ -252,10 +252,10 @@ public class GuiController : MonoBehaviour
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Mage].Cost.ToString();
                 EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Mage);
-                Text textBox = evilMageUpgradeButton.GetComponentInChildren<Text>();
-                Text spawnTextbox = evilMageButton.GetComponentInChildren<Text>();
-                UpdateTextByLevel(textBox, SpawnType.Mage, EvilPlayer);
-                UpdateCostText(spawnTextbox, SpawnType.Mage, EvilPlayer, previousCost);
+                Text textbox = evilMageUpgradeButton.GetComponentInChildren<Text>();
+                Text spawntextbox = evilMageButton.GetComponentInChildren<Text>();
+                UpdateTextByLevel(textbox, SpawnType.Mage, EvilPlayer);
+                UpdateCostText(spawntextbox, SpawnType.Mage, EvilPlayer, previousCost);
             }
         });
         evilTankUpgradeButton.onClick.AddListener(delegate
@@ -264,10 +264,10 @@ public class GuiController : MonoBehaviour
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Tank].Cost.ToString();
                 EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Tank);
-                Text textBox = evilTankUpgradeButton.GetComponentInChildren<Text>();
-                Text spawnTextbox = evilTankButton.GetComponentInChildren<Text>();
-                UpdateTextByLevel(textBox, SpawnType.Tank, EvilPlayer);
-                UpdateCostText(spawnTextbox, SpawnType.Tank, EvilPlayer, previousCost);
+                Text textbox = evilTankUpgradeButton.GetComponentInChildren<Text>();
+                Text spawntextbox = evilTankButton.GetComponentInChildren<Text>();
+                UpdateTextByLevel(textbox, SpawnType.Tank, EvilPlayer);
+                UpdateCostText(spawntextbox, SpawnType.Tank, EvilPlayer, previousCost);
             }
         });
         evilCastleUpgradeButton.onClick.AddListener(delegate
@@ -293,16 +293,16 @@ public class GuiController : MonoBehaviour
 
     private void Update()
     {
-        Text upgradeTextBox;
-        Text spawnTextbox;
+        Text upgradetextbox;
+        Text spawntextbox;
         Player player = EvilPlayer;
         foreach (SpawnType s in upgradeButtons.Keys)
         {
-            upgradeTextBox = evilUpgradeButtons[s].GetComponentInChildren<Text>();
-            spawnTextbox = evilSpawnButtons[s].GetComponentInChildren<Text>();
+            upgradetextbox = evilUpgradeButtons[s].GetComponentInChildren<Text>();
+            spawntextbox = evilSpawnButtons[s].GetComponentInChildren<Text>();
             string previousCost = player.MinionStatistics[s].Cost.ToString();
-            UpdateTextByLevel(upgradeTextBox, s, player);
-            UpdateCostText(spawnTextbox, s, player, previousCost);
+            UpdateTextByLevel(upgradetextbox, s, player);
+            UpdateCostText(spawntextbox, s, player, previousCost);
         }
 
     }
