@@ -59,7 +59,7 @@ public struct MinionStat
         Health = health;
         LevelUpgradeCost = levelUpgradeCost;
     }
-
+    
     public static MinionStat operator +(MinionStat left, MinionStat right)
     {
         return new MinionStat(

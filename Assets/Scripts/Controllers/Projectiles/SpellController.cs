@@ -5,6 +5,10 @@ public class SpellController : MonoBehaviour {
     public GameEntity minion;
     public Minion parentMinion;
     bool moving = true;
+    public AudioClip spellAudio;
+    private AudioSource audioSource;
+    public float VolLowRange { get; set; }
+    public float VolHighRange { get; set; }
 
     private void OnEnable()
     {
@@ -16,6 +20,7 @@ public class SpellController : MonoBehaviour {
             spellPosition = spellPosition + parentMinion.Position;
             transform.position = spellPosition;
         }
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Destroy()
@@ -30,6 +35,7 @@ public class SpellController : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
+        audioSource.PlayOneShot(spellAudio, 1f);
 
         //TODO FIX THIS
         if (minion != null)
