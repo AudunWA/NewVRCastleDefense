@@ -30,12 +30,13 @@ public class SpellController : MonoBehaviour {
 
     private void Update()
     {
+        audioSource.PlayOneShot(spellAudio, 1f);
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        audioSource.PlayOneShot(spellAudio, 1f);
 
         //TODO FIX THIS
         if (minion != null)
