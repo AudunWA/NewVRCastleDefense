@@ -269,8 +269,8 @@ public class WorldController : MonoBehaviour
 
     private void InitPlayers()
     {
-        goodPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, goodPlayer.Castle.Position.z - castleSize.z);
-        evilPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, evilPlayer.Castle.Position.z + castleSize.z);
+        goodPlayer.SpawnLocation = GameObject.Find("LeftCastle/Spawnspot").transform.position;
+        evilPlayer.SpawnLocation = GameObject.Find("RightCastle/Spawnspot").transform.position;
         goodPlayer.Money = 1000;
         evilPlayer.Money = 1000;
         goodPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(minionStats);
