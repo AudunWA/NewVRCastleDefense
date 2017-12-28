@@ -47,9 +47,6 @@ public class SpellController : MonoBehaviour {
 
                 var rotation = Quaternion.LookRotation(minion.Position - transform.position);
 
-                //Debug.Log(transform.rotation.eulerAngles.x);
-
-
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 1000);
             }
         }
@@ -57,7 +54,6 @@ public class SpellController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject);
         if (collision.gameObject == parentMinion.gameObject)
         {
             return;
