@@ -171,7 +171,7 @@ public class GameAI
         if (CurrentAction == AIAction.Upgrade)
         {
             // If more than sufficient amount of money, or enemy has more than twice as many minions, spawn instead of saving money
-            if (player.MinionStatistics[CurrentUpgradeType].LevelUpgradeCost <= player.Money || otherPlayer.Minions.Count >= player.Minions.Count*2)
+            if (player.Money >= SaveMoneyGoal || otherPlayer.Minions.Count >= player.Minions.Count*2)
             {
                 CurrentAction = AIAction.Spawn;
             }
