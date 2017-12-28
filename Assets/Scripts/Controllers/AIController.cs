@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AIController
 {
     private GameAI gameAI;
-    private SpawnController _spawnController;
+    private GameflowController gameflowController;
     private List<SpawnType> spawnTypes;
     private Dictionary<SpawnType, bool> availableSpawnTypes;
     public AIController(Player aiPlayer, Player player)
     {
         gameAI = new GameAI();
         gameAI.Player = aiPlayer;
-        gameAI.OtherPlayer = player; 
+        gameAI.OtherPlayer = player;
         spawnTypes = new List<SpawnType>
         {
             SpawnType.Archer,
@@ -30,13 +31,14 @@ public class AIController
     public void PlayAI()
     {
         SetAvailableAIActions();
+        if (gameAI.CurrentAction == GameAI.AIAction.Spawn)
+            gameAI.Player.SpawnController.Spawn(gameAI.CurrentSpawnType);
+        else if (gameAI.CurrentAction == GameAI.AIAction.Upgrade)
+            gameAI.Player.SpawnController.UpgradeMinionType(gameAI.CurrentUpgradeType);
+
         gameAI.FindNextAction();
-        DoAIAction();
     }
-    private void DoAIAction()
-    {
-       gameAI.Player.SpawnController.Spawn(gameAI.CurrentAction);
-    }
+
     private void SetAvailableAIActions()
     {
         Dictionary<SpawnType, bool> availableTimers = gameAI.Player.SpawnController.GetAvailableSpawnTypeTimers();
