@@ -134,7 +134,7 @@ public class GameAI
         }
         CountOtherMinions(otherMinionCounts);
         CountMinions(minionCounts);
-        if (sum <= otherSum && otherPlayer.Minions.Count / player.Minions.Count < 2) CurrentAction = AIAction.Upgrade;
+        if (sum <= otherSum && otherPlayer.Minions.Count < player.Minions.Count*2) CurrentAction = AIAction.Upgrade;
     }
     // Finds the type which has the lowest cost to upgrade
     private void FindIdealUpgradeType()
@@ -171,7 +171,7 @@ public class GameAI
         if (CurrentAction == AIAction.Upgrade)
         {
             // If more than sufficient amount of money, or enemy has more than twice as many minions, spawn instead of saving money
-            if (player.MinionStatistics[CurrentUpgradeType].LevelUpgradeCost <= player.Money || otherPlayer.Minions.Count / player.Minions.Count < 2)
+            if (player.MinionStatistics[CurrentUpgradeType].LevelUpgradeCost <= player.Money || otherPlayer.Minions.Count >= player.Minions.Count*2)
             {
                 CurrentAction = AIAction.Spawn;
             }
