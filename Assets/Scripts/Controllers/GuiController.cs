@@ -129,18 +129,19 @@ public class GuiController: MonoBehaviour
 
     private void InitGoodUpgradeButtons()
     {
-        fighterUpgradeButton.onClick.AddListener(delegate
-        {
-            if (GoodPlayer.MinionStatistics[SpawnType.Fighter].Level < 10)
-            {
-                string previousCost = GoodPlayer.MinionStatistics[SpawnType.Fighter].Cost.ToString();
-                GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter);
-                Text textBox = fighterUpgradeButton.GetComponentInChildren<Text>();
-                Text spawnTextbox = fighterButton.GetComponentInChildren<Text>();
-                UpdateTextByLevel(textBox, SpawnType.Fighter, GoodPlayer);
-                UpdateCostText(spawnTextbox,SpawnType.Fighter,GoodPlayer,previousCost);
-            }
-        });
+		fighterUpgradeButton.onClick.AddListener(delegate
+		{
+			if (GoodPlayer.MinionStatistics[SpawnType.Fighter].Level < 10)
+			{
+				string previousCost = GoodPlayer.MinionStatistics[SpawnType.Fighter].Cost.ToString();
+				GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter);
+				Text textBox = fighterUpgradeButton.GetComponentInChildren<Text>();
+				Text spawnTextbox = fighterButton.GetComponentInChildren<Text>();
+				UpdateTextByLevel(textBox, SpawnType.Fighter, GoodPlayer);
+				UpdateCostText(spawnTextbox,SpawnType.Fighter,GoodPlayer,previousCost);
+			}
+		});
+        
         archerUpgradeButton.onClick.AddListener(delegate
         {
             if (GoodPlayer.MinionStatistics[SpawnType.Archer].Level < 10)
