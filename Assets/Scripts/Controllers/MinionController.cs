@@ -23,6 +23,8 @@ public class MinionController : MonoBehaviour
     private NavMeshAgent agent;
     [SerializeField] private GameEntity targetEntity;
 
+    public bool Moving => !agent.isStopped;
+
     private bool lightningAvailable = true;
 
     public Minion Minion;
@@ -188,10 +190,10 @@ public class MinionController : MonoBehaviour
                     dummyarrows.gameObject.SetActive(false);
                 }
             }
-            Destroy(gameObject);
+
+            Destroy(gameObject, 2f);
             bool removed = Minion.Player.RemoveMinion(Minion);
-            if (StateChanged != null)
-                StateChanged.Invoke(this, new MinionStateEventArgs(Minion));
+            StateChanged?.Invoke(this, new MinionStateEventArgs(Minion));
         }
     }
 
