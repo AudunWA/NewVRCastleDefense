@@ -1,16 +1,27 @@
 ﻿using System.Collections.Generic;
 using System;
-public class GameAI {
+using System.Linq;
+
+public class GameAI
+{
+    public enum AIAction
+    {
+        Wait, Spawn, Upgrade, Shoot
+    }
     private Dictionary<SpawnType, bool> availableAction = new Dictionary<SpawnType, bool>();
     private Dictionary<SpawnType, int> minionCounts;
     private Dictionary<SpawnType, int> otherMinionCounts;
-    public SpawnType CurrentAction { get; private set; }
+    public int SaveMoneyGoal { get; set; }
+    public AIAction CurrentAction { get; private set; }
+    public SpawnType CurrentSpawnType { get; private set; }
+    public SpawnType CurrentUpgradeType { get; private set; }
     private Player player;
     private Player otherPlayer;
     public GameAI()
     {
         InitAvailableActions();
         InitCounts();
+        CurrentAction = AIAction.Upgrade;
     }
     private void InitAvailableActions()
     {
@@ -33,6 +44,7 @@ public class GameAI {
         otherMinionCounts.Add(SpawnType.Mage, 0);
         otherMinionCounts.Add(SpawnType.Archer, 0);
     }
+
     public Player Player
     {
         get
@@ -76,53 +88,93 @@ public class GameAI {
      * Finds the biggest difference in type of unit. 
      * Ex: If the evil has many more archers than me, balance by deploying more archers 
      */
-    private SpawnType FindBiggestDifference(Dictionary<SpawnType,int> otherCount, Dictionary<SpawnType,int> count)
+    private SpawnType FindBiggestDifference(Dictionary<SpawnType, int> otherCount, Dictionary<SpawnType, int> count)
     {
-        SpawnType[] spawnTypes = { SpawnType.Fighter, SpawnType.Tank, SpawnType.Mage, SpawnType.Archer};
-        SpawnType maxDiffAction = SpawnType.Fighter;
+        List<SpawnType> spawnTypes = player.MinionStatistics.Keys.ToList();
+        SpawnType maxDiffType = SpawnType.Fighter;
         int maxDiff = Int32.MinValue;
-        for (int i = 0; i < spawnTypes.Length; i++)
+        foreach (SpawnType s in spawnTypes)
         {
-            SpawnType curr = spawnTypes[i];
-            if (!availableAction[curr]) continue;
-            int diff = otherCount[curr] - count[curr];
+            if (!availableAction[s]) continue;
+            int diff = otherCount[s] - count[s];
             if (diff > maxDiff)
             {
                 maxDiff = diff;
-                maxDiffAction = curr;
+                maxDiffType = s;
             }
         }
-        return maxDiffAction;
+        return maxDiffType;
     }
 
-    private void CountOtherMinions(Dictionary<SpawnType,int> evilMinionsCounts)
+    private void CountOtherMinions(Dictionary<SpawnType, int> evilMinionsCounts)
     {
         foreach (Minion m in OtherPlayer.Minions)
         {
             otherMinionCounts[m.SpawnType]++;
         }
     }
-    private void CountMinions(Dictionary<SpawnType,int> minionsCounts)
+    private void CountMinions(Dictionary<SpawnType, int> minionCounts)
     {
         foreach (Minion m in Player.Minions)
         {
-            minionsCounts[m.SpawnType]++;
+            minionCounts[m.SpawnType]++;
         }
     }
-    /*
-     * Get the action the AI wants to do 
-     */
-    private SpawnType GetIdealAction()
+    /// <summary>
+    /// Compare total levels of different minion types. In the case of an imbalance,
+    ///  ie. the enemy has upgraded something, then upgrade something
+    /// </summary>
+    private void CompareMinionLevels()
+    {
+        int sum = 0, otherSum = 0;
+        foreach (SpawnType s in otherPlayer.MinionStatistics.Keys.ToList())
+        {
+            otherSum += otherPlayer.MinionStatistics[s].Level;
+            sum += player.MinionStatistics[s].Level;
+        }
+        CountOtherMinions(otherMinionCounts);
+        CountMinions(minionCounts);
+        if (sum <= otherSum && otherPlayer.Minions.Count < player.Minions.Count*2) CurrentAction = AIAction.Upgrade;
+    }
+    // Finds the type which has the lowest cost to upgrade
+    private void FindIdealUpgradeType()
+    {
+        int minCost = 10000000;
+        foreach (SpawnType s in Player.MinionStatistics.Keys.ToList())
+        {
+            int cost = Player.MinionStatistics[s].LevelUpgradeCost;
+            if (minCost > cost)
+            {
+                minCost = cost;
+                CurrentUpgradeType = s;
+            }
+        }
+        if (minCost == 10000000) minCost = 0;
+        SaveMoneyGoal = minCost;
+    }
+      /// <summary>
+      /// Finds the type of unit to spawn next
+      /// </summary>
+    private void FindIdealSpawnType()
     {
         CountOtherMinions(otherMinionCounts);
         CountMinions(minionCounts);
         SpawnType biggestDiff = FindBiggestDifference(otherMinionCounts, minionCounts);
         InitCounts();
-        return biggestDiff;
+        CurrentSpawnType = biggestDiff;
     }
     public void FindNextAction()
     {
-        //Default
-        CurrentAction = GetIdealAction();
+        FindIdealSpawnType();
+        FindIdealUpgradeType();
+        CompareMinionLevels();
+        if (CurrentAction == AIAction.Upgrade)
+        {
+            // If more than sufficient amount of money, or enemy has more than twice as many minions, spawn instead of saving money
+            if (player.Money >= SaveMoneyGoal || otherPlayer.Minions.Count >= player.Minions.Count*2)
+            {
+                CurrentAction = AIAction.Spawn;
+            }
+        }
     }
 }

@@ -58,35 +58,39 @@ public class SpawnController
     }
 
 
-    public void Spawn(SpawnType spawnType)
+    public void Spawn(SpawnType spawnType, Vector3? position = null)
     {
         bool isAvailableSpawnType = timer.IsAvailableSpawnType(spawnType);
-        if (!isAvailableSpawnType) return;
+        if (!isAvailableSpawnType && position == null) return;
         MinionStat stat = player.MinionStatistics[spawnType];
         int cost = stat.Cost;
         if (!player.WithdrawMoney(cost))
         {
             return;
         }
+
         Minion minion;
+        Vector3 spawnPosition = position ?? player.SpawnLocation;
         switch (spawnType)
         {
-        case SpawnType.Tank:
-            minion = new Tank(player, stat, player.SpawnLocation);
-            break;
-        case SpawnType.Mage:
-            minion= new Mage(player, stat, player.SpawnLocation);
-            break;
-        case SpawnType.Archer:
-            minion = new Archer(player, stat, player.SpawnLocation);
-            break;
-        default:
-            minion = new Fighter(player, stat, player.SpawnLocation);
-            break;
+            case SpawnType.Tank:
+                minion = new Tank(player, stat, spawnPosition);
+                break;
+            case SpawnType.Mage:
+                minion = new Mage(player, stat, spawnPosition);
+                break;
+            case SpawnType.Archer:
+                minion = new Archer(player, stat, spawnPosition);
+                break;
+            default:
+                minion = new Fighter(player, stat, spawnPosition);
+                break;
         }
         timer.StartTimer(spawnType);
         GenerateSingleMinion(minion);
     }
+
+
     public class Timer
     {
         private Dictionary<SpawnType, float> timers;
