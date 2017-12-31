@@ -8,17 +8,21 @@ public class EnemyPlayerController : MonoBehaviour
     public float range = 150.0f;
     private Minion target;
     public ObjectPooling arrowPool;
-    public float Damage = 1f;
+    public float damage = 1f;
     private float attackTimer = 0.0f;
     private float coolDown = 3.0f;
 
+	private GameObject go;
+
     // Use this for initialization
-    void Start () {
+    void Start () 
+    {
+	    go = arrowPool.GetPooledObject();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        findTarget();
+        FindTarget();
 	    if (target != null)
 	    {
 	        if (attackTimer >= coolDown)
@@ -39,8 +43,6 @@ public class EnemyPlayerController : MonoBehaviour
 
     private void ShootProjectile() //Archer only for now
     {
-        GameObject go = arrowPool.GetPooledObject();
-
         go.GetComponent<EnemyPlayerProjectileController>().targetMinion = target;
         go.GetComponent<EnemyPlayerProjectileController>().parentGameObject = gameObject;
         go.GetComponent<EnemyPlayerProjectileController>().enemyPlayer = this;
@@ -59,13 +61,13 @@ public class EnemyPlayerController : MonoBehaviour
         go.SetActive(true);
     }
 
-    private void findTarget()
+    private void FindTarget()
     {
         Collider[] inRange = Physics.OverlapSphere(gameObject.transform.position, range);
         foreach (Collider collision in inRange)
         {
             MinionController otherMinionController = collision.gameObject.GetComponent<MinionController>();
-            if (otherMinionController == null || otherMinionController.Minion.Player == null ||
+            if (otherMinionController?.Minion.Player == null ||
                 otherMinionController.Minion.Player.PlayerType == PlayerType.Evil)
             {
           

@@ -43,7 +43,7 @@ public class EnemyPlayerProjectileController : MonoBehaviour
         //float random = Random.Range(0.98f, 1.01f);
         if (enemyPlayer?.gameObject != null)
         {
-            arrowDamage = enemyPlayer.Damage;
+            arrowDamage = enemyPlayer.damage;
             if (targetMinion != null)
             {
                 distance = FindDistanceToTarget();
@@ -100,7 +100,7 @@ public class EnemyPlayerProjectileController : MonoBehaviour
         {
             CastleController controller = collision.gameObject.GetComponent<CastleController>();
 
-            controller.Castle.TakeDamage(enemyPlayer.Damage);
+            controller.Castle.TakeDamage(enemyPlayer.damage);
 
 
         }
