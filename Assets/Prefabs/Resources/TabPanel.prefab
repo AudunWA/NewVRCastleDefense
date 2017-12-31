@@ -4258,7 +4258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eba9cddda1384aecaea27cc1333082a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTab: {r: 0.5019608, g: 0.8784314, b: 0.9843137, a: 1}
 --- !u!114 &114878385367917132
 MonoBehaviour:
   m_ObjectHideFlags: 1

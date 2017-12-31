@@ -1,20 +1,40 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;
+using System.Collections.Generic;
 
 public class UpgradeUIController : MonoBehaviour {
 
-	public Color activeTab;
-	private Button btn;
-	private RectTransform rectTransform;
-
-	void Awake () {
-		rectTransform = transform.parent.GetComponent<RectTransform>();
+	private string tabName;
+	private Button tab;
+	private List<Button> upgradeBtns;
+	private RectTransform panel;
+	public enum UpgradeType
+	{
+		ATTACK_DAMAGE,
+		ATTACK_RANGE,
+		ATTACK_SPEED,
+		HEALTH,
+		SPEED,
+		ARMOR
 	}
+		
 
 	void Start() {
-		btn = gameObject.GetComponent<Button> ();
-		btn.onClick.AddListener (OnTabClick);
+		tab = gameObject.GetComponent<Button> ();
+		tabName = tab.GetComponentInChildren<Text> ().text;
+		tab.onClick.AddListener (OnTabClick);
+
+		panel = transform.parent.GetComponent<RectTransform>();
+		Transform t = panel.Find ("Panel").transform;
+		upgradeBtns = new List<Button> ();
+		foreach(Transform btnObject in t) {
+			Button upgrade = btnObject.GetComponentInChildren<Button> ();
+		}
+		foreach(Button b in upgradeBtns) {
+			Debug.Log (b);
+		}
 	}
 
 	public void OnTabClick () {
@@ -24,9 +44,13 @@ public class UpgradeUIController : MonoBehaviour {
 			tab.interactable = true;
 			tab.GetComponentInChildren<Text> ().color = new Color32 (150, 222, 248, 255);
 		}
-			
-		btn.interactable = false;
-		btn.GetComponentInChildren<Text> ().color = new Color32 (47, 78, 91, 255);
-		rectTransform.SetAsLastSibling ();
+		tab.interactable = false;
+		tab.GetComponentInChildren<Text> ().color = new Color32 (47, 78, 91, 255);
+		panel.SetAsLastSibling (); // Renders last, aka. on top.
 	}
+
+	public void OnUpgradeClick() {
+
+	}
+
 }
