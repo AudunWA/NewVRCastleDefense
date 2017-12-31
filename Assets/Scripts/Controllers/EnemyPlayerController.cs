@@ -8,7 +8,7 @@ public class EnemyPlayerController : MonoBehaviour
     public float range = 150.0f;
     private Minion target;
     public ObjectPooling arrowPool;
-    public float damage = 1f;
+    public float damage = 25f;
     private float attackTimer = 0.0f;
     private float coolDown = 3.0f;
 
