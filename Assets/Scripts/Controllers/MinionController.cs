@@ -23,12 +23,12 @@ public class MinionController : MonoBehaviour
     private NavMeshAgent agent;
     [SerializeField] private GameEntity targetEntity;
 
-    public bool Moving => !agent.isStopped;
-
     private bool lightningAvailable = true;
 
     public Minion Minion;
     public Player Owner { get; set; }
+
+    public NavMeshAgent Agent => agent;
 
     private Castle GetEnemyCastle()
     {
@@ -44,7 +44,7 @@ public class MinionController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         spellPool = GameObject.FindGameObjectWithTag("spellPool").GetComponent<ObjectPooling>();
         arrowPool = GameObject.FindGameObjectWithTag("arrowPool").GetComponent<ObjectPooling>();
-        agent.speed = Minion.Movementspeed;
+        Agent.speed = Minion.Movementspeed;
 
         StartCoroutine(UpdateTarget());
     }
@@ -60,7 +60,7 @@ public class MinionController : MonoBehaviour
             switch (Minion.State)
             {
                 case Minion.minionState.Moving:
-                    agent.isStopped = false;
+                    Agent.isStopped = false;
                     FindNewTargetEntity();
 
                     if (Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) <=
@@ -70,7 +70,7 @@ public class MinionController : MonoBehaviour
                         break;
                     }
 
-                    agent.destination = targetEntity.GetAttackPosition(transform.position);
+                    Agent.destination = targetEntity.GetAttackPosition(transform.position);
                     break;
 
                 case Minion.minionState.Fighting:
@@ -95,14 +95,14 @@ public class MinionController : MonoBehaviour
     {
         // Draw calculated path
         Gizmos.color = GetStateColor();
-        Vector3[] path = agent.path.corners;
+        Vector3[] path = Agent.path.corners;
         Vector3 lastCorner = transform.position;
         foreach (Vector3 corner in path)
         {
             Gizmos.DrawLine(lastCorner, corner);
             lastCorner = corner;
         }
-        Gizmos.DrawLine(lastCorner, agent.destination);
+        Gizmos.DrawLine(lastCorner, Agent.destination);
 
         // Draw AI state as sphere above
         Gizmos.color = GetStateColor();
@@ -206,7 +206,7 @@ public class MinionController : MonoBehaviour
 
     private void HandleAttack()
     {
-        agent.isStopped = true;
+        Agent.isStopped = true;
 
         if (attackTimer >= Minion.AttackCooldownTime)
         {
@@ -274,12 +274,18 @@ public class MinionController : MonoBehaviour
 
     private void ShootSpell()
     {
-        GameObject go = spellPool.GetPooledObject();
+        GetComponentInChildren<Animator>().SetTrigger("throw");
+        Invoke("ActuallyShootSpell", 0.5f);
 
+    }
+
+    private void ActuallyShootSpell()
+    {
+        GameObject go = spellPool.GetPooledObject();
         go.GetComponent<SpellController>().minion = targetEntity;
         go.GetComponent<SpellController>().parentMinion = Minion;
-
         go.SetActive(true);
+
     }
 
     //THIS IS FOR SPELLS

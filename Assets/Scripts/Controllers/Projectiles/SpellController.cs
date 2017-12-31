@@ -12,7 +12,7 @@ public class SpellController : MonoBehaviour {
         float random = Random.Range(0.3f, 2.5f);
         if (parentMinion != null)
         {
-            Vector3 spellPosition = new Vector3(0, 10.0f, 0);
+            Vector3 spellPosition = new Vector3(0, 1.0f, 0);
             spellPosition = spellPosition + parentMinion.Position;
             transform.position = spellPosition;
         }
