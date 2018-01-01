@@ -18,6 +18,11 @@ public class SpellController : MonoBehaviour {
         }
     }
 
+    private void OnDisable()
+    {
+        CancelInvoke("Destroy");
+    }
+
     private void Destroy()
     {
         gameObject.SetActive(false);
