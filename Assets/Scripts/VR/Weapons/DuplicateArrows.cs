@@ -10,7 +10,7 @@ public class DuplicateArrows : MonoBehaviour
 {
 	public GameObject copy;
 	public int copyAmount;
-	private float spaceBetweenArrows = 0.3f;
+	private float spaceBetweenArrows = 0.4f;
 	public bool collision = false;
 	
 	

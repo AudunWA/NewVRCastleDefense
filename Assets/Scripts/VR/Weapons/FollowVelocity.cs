@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowVelocity : MonoBehaviour
 {
 	public GameObject followObGameObject;
-	private float tolerance = 5.0f;
+	private float tolerance = 100.0f;
 	private bool collision = false;
 	public GameObject dummy;
 	
@@ -15,7 +15,10 @@ public class FollowVelocity : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	
+	
+	//THIS HAS TO BE NORMAL UPDATE, NOT FIXED
+	private void Update()
 	{
 		if (followObGameObject.GetComponent<Rigidbody>().velocity.magnitude + tolerance >
 		    gameObject.GetComponent<Rigidbody>().velocity.magnitude || followObGameObject.GetComponent<Rigidbody>().velocity.magnitude - tolerance <
@@ -26,13 +29,14 @@ public class FollowVelocity : MonoBehaviour
 		}
 	}
 
+
 	private void OnCollisionEnter(Collision other)
 	{
 		collision = true;
 		gameObject.SetActive(false);
 		if (other.gameObject?.GetComponent<MinionController>())
 		{
-			other.gameObject?.GetComponent<MinionController>().Minion.TakeDamage(50);
+			other.gameObject?.GetComponent<MinionController>().Minion.TakeDamage(20);
 			GameObject dummygo = Instantiate(dummy, gameObject.transform.position, gameObject.transform.rotation);
 			FixedJoint joint = dummygo.AddComponent<FixedJoint>();
 			joint.connectedBody = other.gameObject.GetComponent<Rigidbody>();

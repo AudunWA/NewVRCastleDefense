@@ -8,7 +8,7 @@ public class DestroyScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		float random = Random.Range(1, 30);
+		float random = Random.Range(0, 20);
 		Invoke(nameof(Destroy),random);
 	}
 	
@@ -19,6 +19,6 @@ public class DestroyScript : MonoBehaviour
 
 	void Destroy()
 	{
-		gameObject.SetActive(false);
+		Destroy(gameObject);
 	}
 }
