@@ -28,12 +28,6 @@ public class SpellController : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
-    private void Update()
-    {
-        audioSource.PlayOneShot(spellAudio, 1f);
-
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {

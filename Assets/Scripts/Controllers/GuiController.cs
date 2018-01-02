@@ -48,10 +48,10 @@ public class GuiController : MonoBehaviour
     public Button evilCastleUpgradeButton;
 
 
-
-
     // Game mode toggle
-    public Toggle singlePlayerToggle;
+    public Toggle AIToggle;
+
+    public Toggle MusicToggle;
 
     private void AddButtonsToLists()
     {
@@ -285,10 +285,17 @@ public class GuiController : MonoBehaviour
         InitEvilUpgradeButtons();
         InitGoodUpgradeButtons();
 
-        singlePlayerToggle.onValueChanged.AddListener(delegate
+        AIToggle.onValueChanged.AddListener(delegate
         {
-            worldController.SinglePlayer = singlePlayerToggle.isOn;
+            worldController.AiActive = AIToggle.isOn;
         });
+
+        MusicToggle.onValueChanged.AddListener(delegate
+        {
+            if(MusicToggle.isOn)worldController.PlayMusic();
+            else worldController.StopMusic();
+        });
+        
     }
 
     private void Update()
