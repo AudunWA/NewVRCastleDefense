@@ -22,25 +22,34 @@ public class TankAnimationController : MonoBehaviour
 
     // Update is called once per frame
 	void Update () {
-	    animator.SetBool("IsWalking", controller.Agent.velocity.sqrMagnitude > 0 && controller.Minion.State != Minion.minionState.Fighting);
-	    animator.SetFloat("SpeedMultiply", controller.Agent.velocity.sqrMagnitude * 0.5f);
+	    float velocityMagnitude = controller.Agent.velocity.sqrMagnitude;
+	    animator.SetBool("IsWalking", velocityMagnitude > 0 && controller.Minion.State != Minion.minionState.Fighting);
+
+	    if (controller.Minion.State == Minion.minionState.Fighting)
+	        velocityMagnitude = 1;
 
         switch (controller.Minion.SpawnType)
 	    {
-	        case SpawnType.Fighter:
-	            break;
+	        case SpawnType.Archer:
+            case SpawnType.Fighter:
+	            animator.SetBool("IsAttacking", controller.Minion.State == Minion.minionState.Fighting);
+	            animator.SetFloat("SpeedMultiply", velocityMagnitude / 8f);
+	            animator.SetBool("IsDead", controller.Minion.State == Minion.minionState.Dead);
+
+                break;
 	        case SpawnType.Tank:
 	            animator.SetBool("StandAttack", controller.Minion.State == Minion.minionState.Fighting);
 	            animator.SetBool("Death", controller.Minion.State == Minion.minionState.Dead);
-	            break;
+	            animator.SetFloat("SpeedMultiply", velocityMagnitude * 0.5f);
+
+                break;
 	        case SpawnType.Mage:
-	            //if (controller.Minion.State == Minion.minionState.Fighting)
-	            //    animator.SetTrigger("throw");
-	            if (controller.Minion.State == Minion.minionState.Dead)
+	            animator.SetFloat("SpeedMultiply", velocityMagnitude * 0.5f);
+                //if (controller.Minion.State == Minion.minionState.Fighting)
+                //    animator.SetTrigger("throw");
+                if (controller.Minion.State == Minion.minionState.Dead)
 	                animator.SetTrigger("die");
 
-	            break;
-	        case SpawnType.Archer:
 	            break;
 	        default:
 	            throw new ArgumentOutOfRangeException();
