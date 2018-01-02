@@ -32,9 +32,14 @@ public class AIController
     {
         SetAvailableAIActions();
         if (gameAI.CurrentAction == GameAI.AIAction.Spawn)
+        {
             gameAI.Player.SpawnController.Spawn(gameAI.CurrentSpawnType);
+        }
         else if (gameAI.CurrentAction == GameAI.AIAction.Upgrade)
-            gameAI.Player.SpawnController.UpgradeMinionType(gameAI.CurrentUpgradeType);
+        {
+            MinionAttribute attr = MinionAttribute.Damage;
+            gameAI.Player.SpawnController.UpgradeMinionType(gameAI.CurrentUpgradeType, attr);
+        }
 
         gameAI.FindNextAction();
     }

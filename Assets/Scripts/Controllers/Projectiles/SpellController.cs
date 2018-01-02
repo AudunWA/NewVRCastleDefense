@@ -16,11 +16,16 @@ public class SpellController : MonoBehaviour {
         float random = Random.Range(0.3f, 2.5f);
         if (parentMinion != null)
         {
-            Vector3 spellPosition = new Vector3(0, 10.0f, 0);
+            Vector3 spellPosition = new Vector3(0, 1.0f, 0);
             spellPosition = spellPosition + parentMinion.Position;
             transform.position = spellPosition;
         }
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke("Destroy");
     }
 
     private void Destroy()
@@ -36,7 +41,7 @@ public class SpellController : MonoBehaviour {
         if (minion != null)
         {
             Minion min = minion as Minion;
-            if (min != null && min.State == Minion.minionState.Dead)
+            if (min != null && min.State == Minion.MinionState.Dead)
             {
                 gameObject.SetActive(false);
             }

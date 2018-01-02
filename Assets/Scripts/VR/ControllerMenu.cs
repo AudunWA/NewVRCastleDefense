@@ -147,19 +147,23 @@ public class ControllerMenu : MonoBehaviour {
         {
             if (selected.gameObject.name.Contains("Archer"))
             {
-                player.SpawnController.UpgradeMinionType(SpawnType.Archer);
+                MinionAttribute attr = MinionAttribute.Damage;
+                player.SpawnController.UpgradeMinionType(SpawnType.Archer, attr);
             }
             else if (selected.gameObject.name.Contains("Fighter"))
             {
-                player.SpawnController.UpgradeMinionType(SpawnType.Fighter);
+                MinionAttribute attr = MinionAttribute.Damage;
+                player.SpawnController.UpgradeMinionType(SpawnType.Fighter, attr);
             }
             else if (selected.gameObject.name.Contains("Mage"))
             {
-                player.SpawnController.UpgradeMinionType(SpawnType.Mage);
+                MinionAttribute attr = MinionAttribute.Damage;
+                player.SpawnController.UpgradeMinionType(SpawnType.Mage, attr);
             }
             else if (selected.gameObject.name.Contains("Tank"))
             {
-                player.SpawnController.UpgradeMinionType(SpawnType.Tank);
+                MinionAttribute attr = MinionAttribute.Damage;
+                player.SpawnController.UpgradeMinionType(SpawnType.Tank, attr);
             }
         }
     }

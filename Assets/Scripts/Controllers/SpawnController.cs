@@ -15,9 +15,9 @@ public class SpawnController
         timer = new Timer(cooldownLimits);
     }
 
-    public void UpgradeMinionType(SpawnType spawnType)
+    public void UpgradeMinionType(SpawnType spawnType, MinionAttribute attr)
     {
-        gameflowController.UpgradeMinionStat(spawnType,player);
+        gameflowController.UpgradeMinionStat(spawnType, player, attr);
     }
 
     public Player Player

@@ -1,19 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
 public class Minion : GameEntity{
 
-    public enum minionState { Moving, Fighting, Dead, Waiting, EnemyFound };
+    public enum MinionState { Moving, Fighting, Dead, Waiting, EnemyFound };
     [SerializeField] protected float armor;
     [SerializeField] protected int level;
+    [SerializeField] private Dictionary<MinionAttribute, int> levels; // Levels on different abilities
     [SerializeField] protected float range;
     [SerializeField] protected float damage;
     [SerializeField] protected float movementspeed;
     [SerializeField] protected float attackCooldownTime;
     [SerializeField] private int bounty;
     [SerializeField] private int cost;
-    [SerializeField] private minionState state;
+    [SerializeField] private MinionState state;
     [SerializeField] private SpawnType spawnType;
 
     public Minion( SpawnType spawnType,Player player, int level, float armor, float range, float damage, float movementspeed, float attackCooldownTime, float health, Vector3 position):base(player,health,position)
@@ -27,19 +30,20 @@ public class Minion : GameEntity{
         this.attackCooldownTime = attackCooldownTime;
     }
 
-    public Minion(Player player, MinionStat stat, Vector3 position) : base(player, stat.Health, position)
+    public Minion(Player player, MinionStat stat, Vector3 position) : base(player, stat.Abilities[MinionAttribute.Health], position)
     {
         spawnType = stat.SpawnType;
-        level = stat.Level;
-        armor = stat.Armor;
-        range = stat.Range;
-        damage = stat.Damage;
-        movementspeed = stat.Movementspeed;
-        attackCooldownTime = stat.AttackCooldownTime;
+        level = stat.GetLevel();
+        armor = stat.Abilities[MinionAttribute.Armor];
+        range = stat.Abilities[MinionAttribute.Range];
+        damage = stat.Abilities[MinionAttribute.Damage];
+        movementspeed = stat.Abilities[MinionAttribute.Movementspeed];
+        attackCooldownTime = stat.Abilities[MinionAttribute.AttackCooldownTime];
         cost = stat.Cost;
+        levels = stat.Levels;
         bounty = stat.Bounty;
     }
-    public minionState State
+    public MinionState State
     {
         get { return state; }
         set { state = value; }
@@ -64,6 +68,11 @@ public class Minion : GameEntity{
         SpawnType = spawnType;
     }
 
+    public Dictionary<MinionAttribute, int> Levels
+    {
+        get { return levels; }
+        set { levels = value; }
+    }
 
     public int Bounty
     {
