@@ -3316,7 +3316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74554cfddfbc64b4c837571de22f676f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 173732, guid: 81fc1450441aca64e8cc1a0e14b1aa77, type: 2}
+  arrowPrefab: {fileID: 1751707187703722, guid: 699a25e1a923da246839317ff91da83c,
+    type: 2}
 --- !u!114 &114323857419292116
 MonoBehaviour:
   m_ObjectHideFlags: 1
