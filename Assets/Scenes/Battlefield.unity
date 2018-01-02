@@ -2531,6 +2531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c234e0d4b6fc5604699ce40a93694f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundEffectsActive: 0
   backgroundMusic: {fileID: 8300000, guid: 1f1b3b8808e89c74fb97601d435abcfd, type: 3}
 --- !u!4 &808032864
 Transform:
