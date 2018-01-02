@@ -48,7 +48,7 @@ public class EnemyPlayerController : MonoBehaviour
         go.GetComponent<EnemyPlayerProjectileController>().enemyPlayer = this;
 
 
-        if (target.State == Minion.minionState.Moving || target.State == Minion.minionState.EnemyFound)
+        if (target.State == Minion.MinionState.Moving || target.State == Minion.MinionState.EnemyFound)
         {
             go.GetComponent<EnemyPlayerProjectileController>().moving = true;
             go.GetComponent<EnemyPlayerProjectileController>().enemyMovementspeed = target.Movementspeed;

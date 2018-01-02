@@ -57,26 +57,26 @@ public class MinionController : MonoBehaviour
             }
             switch (Minion.State)
             {
-                case Minion.minionState.Moving:
+                case Minion.MinionState.Moving:
                     agent.isStopped = false;
                     FindNewTargetEntity();
 
                     if (Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) <=
                         Minion.Range)
                     {
-                        Minion.State = Minion.minionState.Fighting;
+                        Minion.State = Minion.MinionState.Fighting;
                         break;
                     }
 
                     agent.destination = targetEntity.GetAttackPosition(transform.position);
                     break;
 
-                case Minion.minionState.Fighting:
+                case Minion.MinionState.Fighting:
                     if (targetEntity == null ||
                         Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) >
                         Minion.Range)
                     {
-                        Minion.State = Minion.minionState.Moving;
+                        Minion.State = Minion.MinionState.Moving;
                         break;
                     }
                     break;
@@ -119,15 +119,15 @@ public class MinionController : MonoBehaviour
     {
         switch (Minion.State)
         {
-            case Minion.minionState.Moving:
+            case Minion.MinionState.Moving:
                 return Color.green;
-            case Minion.minionState.Fighting:
+            case Minion.MinionState.Fighting:
                 return Color.red;
-            case Minion.minionState.Dead:
+            case Minion.MinionState.Dead:
                 return Color.black;
-            case Minion.minionState.Waiting:
+            case Minion.MinionState.Waiting:
                 return Color.yellow;
-            case Minion.minionState.EnemyFound:
+            case Minion.MinionState.EnemyFound:
                 return new Color(1, 0.54902f, 0); // Dark orange
             default:
                 throw new ArgumentOutOfRangeException();
@@ -137,7 +137,7 @@ public class MinionController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Minion.State == Minion.minionState.Fighting)
+        if (Minion.State == Minion.MinionState.Fighting)
             HandleAttack();
         UpdateVariables();
     }
@@ -178,7 +178,7 @@ public class MinionController : MonoBehaviour
         Minion.Position = GetComponent<Rigidbody>().position;
         if (!Minion.IsAlive)
         {
-            Minion.State = Minion.minionState.Dead;
+            Minion.State = Minion.MinionState.Dead;
             if (gameObject.GetComponentInChildren<DummyArrowController>() != null)
             {
                 while (gameObject.GetComponentInChildren<DummyArrowController>())
@@ -241,7 +241,7 @@ public class MinionController : MonoBehaviour
         if (targetEntity is Minion)
         {
             Minion target = (Minion) targetEntity;
-            if (target.State == Minion.minionState.Moving || target.State == Minion.minionState.EnemyFound)
+            if (target.State == Minion.MinionState.Moving || target.State == Minion.MinionState.EnemyFound)
             {
                 go.GetComponent<ArrowController>().moving = true;
                 go.GetComponent<ArrowController>().enemyMovementspeed = target.Movementspeed;

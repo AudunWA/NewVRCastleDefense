@@ -12,7 +12,7 @@ namespace UnityEngine.PostProcessing
         }
 
         // Most settings aren't exposed to the user anymore, presets are enough. Still, I'm leaving
-        // the tooltip attributes in case an user wants to customize each preset.
+        // the tooltip Levels in case an user wants to customize each preset.
 
         #region FXAA Settings
         public enum FxaaPreset

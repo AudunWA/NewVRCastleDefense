@@ -40,7 +40,7 @@ public class SpellController : MonoBehaviour {
         if (minion != null)
         {
             Minion min = minion as Minion;
-            if (min != null && min.State == Minion.minionState.Dead)
+            if (min != null && min.State == Minion.MinionState.Dead)
             {
                 gameObject.SetActive(false);
             }
