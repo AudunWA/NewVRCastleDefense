@@ -24,13 +24,15 @@ public class UpgradeUIController : MonoBehaviour {
 	void Start() {
 		tab = gameObject.GetComponent<Button> ();
 		tabName = tab.GetComponentInChildren<Text> ().text;
-		//tab.onClick.AddListener (OnTabClick);
+		tab.onClick.AddListener (OnTabClick);
 
 		panel = transform.parent.GetComponent<RectTransform>();
 		Transform t = panel.Find ("Panel").transform;
 		upgradeBtns = new List<Button> ();
 		foreach(Transform btnObject in t) {
+			Debug.Log (btnObject);
 			Button upgrade = btnObject.GetComponentInChildren<Button> ();
+			upgradeBtns.Add (upgrade);
 		}
 		foreach(Button b in upgradeBtns) {
 			Debug.Log (b);
