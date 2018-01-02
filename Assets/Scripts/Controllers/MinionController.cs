@@ -64,16 +64,16 @@ public class MinionController : MonoBehaviour
                     GameEntity oldEntity = targetEntity;
                     FindNewTargetEntity();
 
-                    // Hack to fix castle targeting 'jumping' in some cases
-                    if(targetEntity == oldEntity && targetEntity is Castle)
-                        break;
-
                     if (Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) <=
                         Minion.Range)
                     {
                         Minion.State = Minion.minionState.Fighting;
                         break;
                     }
+
+                    // Hack to fix castle targeting 'jumping' in some cases
+                    if (targetEntity == oldEntity && targetEntity is Castle)
+                        break;
 
                     Vector3 destination = targetEntity.GetAttackPosition(transform.position);
                     Agent.destination = new Vector3(destination.x, 0, destination.z);
