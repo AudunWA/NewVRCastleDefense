@@ -232,7 +232,7 @@ namespace UnityEditor.PostProcessing
                 EditorGUILayout.PropertyField(m_Tonemapping.neutralWhiteIn, EditorGUIHelper.GetContent("White In"));
                 EditorGUILayout.PropertyField(m_Tonemapping.neutralBlackOut, EditorGUIHelper.GetContent("Black Out"));
                 EditorGUILayout.PropertyField(m_Tonemapping.neutralWhiteOut, EditorGUIHelper.GetContent("White Out"));
-                EditorGUILayout.PropertyField(m_Tonemapping.neutralWhiteLevel, EditorGUIHelper.GetContent("White Level"));
+                EditorGUILayout.PropertyField(m_Tonemapping.neutralWhiteLevel, EditorGUIHelper.GetContent("White Levels"));
                 EditorGUILayout.PropertyField(m_Tonemapping.neutralWhiteClip, EditorGUIHelper.GetContent("White Clip"));
             }
 

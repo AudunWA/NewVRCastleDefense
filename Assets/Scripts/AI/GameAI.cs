@@ -159,7 +159,7 @@ public class GameAI
         foreach (KeyValuePair<SpawnType, MinionStat> stat in Player.MinionStatistics)
         {
             // Here the AI seeks to level up the minions evenly distributed
-            min = stat.Value.Level.Aggregate((l, r) => l.Value < r.Value ? l : r).Key; // Get key, in other words attr of the minimun element. 
+            min = stat.Value.Levels.Aggregate((l, r) => l.Value < r.Value ? l : r).Key; // Get key, in other words attr of the minimun element. 
 
         }
 

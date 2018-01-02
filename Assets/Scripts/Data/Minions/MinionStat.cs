@@ -9,9 +9,9 @@ using UnityEngine;
 public struct MinionStat
 {
     public SpawnType SpawnType { get; }
-    public Dictionary<MinionAttribute, int> Level { get; }
+    public Dictionary<MinionAttribute, int> Levels { get; }
     public int Bounty { get; }
-    public Dictionary<MinionAttribute, float> Attributes { get; }
+    public Dictionary<MinionAttribute, float> Abilities { get; }
     public int Cost { get; }
     public Dictionary<MinionAttribute, int> LevelUpgradeCost { get; }
     /// <summary>
@@ -19,7 +19,7 @@ public struct MinionStat
     /// </summary>
     /// <param name="spawnType"></param>
     /// <param name="armor"></param>
-    /// <param name="level"></param>
+    /// <param name="levels"></param>
     /// <param name="range"></param>
     /// <param name="bounty"></param>
     /// <param name="damage"></param>
@@ -27,14 +27,14 @@ public struct MinionStat
     /// <param name="attackCooldownTime"></param>
     /// <param name="cost"></param>
     /// <param name="health"></param>
-    public MinionStat(SpawnType spawnType, float armor, Dictionary<MinionAttribute, int> level, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, Dictionary<MinionAttribute, int> levelUpgradeCost)
+    public MinionStat(SpawnType spawnType, float armor, Dictionary<MinionAttribute, int> levels, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, Dictionary<MinionAttribute, int> levelUpgradeCost)
     {
         SpawnType = spawnType;
-        Level = level;
+        Levels = levels;
         Bounty = bounty;
         Cost = cost;
         LevelUpgradeCost = levelUpgradeCost;
-        Attributes = new Dictionary<MinionAttribute, float>
+        Abilities = new Dictionary<MinionAttribute, float>
         {
             { MinionAttribute.Armor, armor},
             { MinionAttribute.Range, range},
@@ -48,7 +48,7 @@ public struct MinionStat
     /// </summary>
     /// <param name="spawnType"></param>
     /// <param name="armor"></param>
-    /// <param name="level"></param>
+    /// <param name="levels"></param>
     /// <param name="range"></param>
     /// <param name="bounty"></param>
     /// <param name="damage"></param>
@@ -56,21 +56,21 @@ public struct MinionStat
     /// <param name="attackCooldownTime"></param>
     /// <param name="cost"></param>
     /// <param name="health"></param>
-    public MinionStat(SpawnType spawnType, Dictionary<MinionAttribute, int> level, int bounty, int cost,  Dictionary<MinionAttribute, int> levelUpgradeCost, Dictionary<MinionAttribute, float> attributes)
+    public MinionStat(SpawnType spawnType, Dictionary<MinionAttribute, int> levels, int bounty, int cost,  Dictionary<MinionAttribute, int> levelUpgradeCost, Dictionary<MinionAttribute, float> abilities)
     {
         SpawnType = spawnType;
-        Level = level;
+        Levels = levels;
         Bounty = bounty;
         Cost = cost;
         LevelUpgradeCost = levelUpgradeCost;
-        Attributes = attributes;
+        Abilities = abilities;
     }
 
     // Initial
     public MinionStat(SpawnType spawnType, float armor, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, Dictionary<MinionAttribute, int> levelUpgradeCost)
     {
         SpawnType = spawnType;
-        Level = new Dictionary<MinionAttribute, int>
+        Levels = new Dictionary<MinionAttribute, int>
         {
             {MinionAttribute.Armor, 1},
             {MinionAttribute.Range,1},
@@ -79,7 +79,7 @@ public struct MinionStat
             {MinionAttribute.AttackCooldownTime,1},
             {MinionAttribute.Health,1}
         };
-        Attributes = new Dictionary<MinionAttribute, float>
+        Abilities = new Dictionary<MinionAttribute, float>
         {
             { MinionAttribute.Armor, armor},
             { MinionAttribute.Range, range},
@@ -95,21 +95,21 @@ public struct MinionStat
 
     public int GetLevel()
     {
-        return Level.Sum(x => x.Value)-Level.Count() +1;
+        return Levels.Sum(x => x.Value)-Levels.Count() +1;
     }
 
     public static MinionStat Upgrade(MinionStat minionstat, MinionStat additionStat, MinionAttribute attr)
     {
-        minionstat.Level[attr]++;
+        minionstat.Levels[attr]++;
         minionstat.LevelUpgradeCost[attr] += additionStat.LevelUpgradeCost[attr];
-        minionstat.Attributes[attr] += additionStat.Attributes[attr];
+        minionstat.Abilities[attr] += additionStat.Abilities[attr];
         return new MinionStat(
            minionstat.SpawnType,
-           minionstat.Level,
+           minionstat.Levels,
            minionstat.Bounty,
            minionstat.Cost,
            minionstat.LevelUpgradeCost,
-           minionstat.Attributes
+           minionstat.Abilities
            );
     }
    

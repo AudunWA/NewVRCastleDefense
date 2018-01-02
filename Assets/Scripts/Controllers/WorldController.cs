@@ -74,7 +74,7 @@ public class WorldController : MonoBehaviour
                 new MinionStat(
                     spawnType: SpawnType.Fighter,
                     armor: 2,
-                    level: new Dictionary<MinionAttribute, int>
+                    levels: new Dictionary<MinionAttribute, int>
                     {
                         {MinionAttribute.Armor, 1},
                         {MinionAttribute.Range, 1},
@@ -98,7 +98,7 @@ public class WorldController : MonoBehaviour
                 new MinionStat(
                     spawnType: SpawnType.Tank,
                     armor: 8,
-                    level: new Dictionary<MinionAttribute, int>
+                    levels: new Dictionary<MinionAttribute, int>
                     {
                         {MinionAttribute.Armor, 1},
                         {MinionAttribute.Range,1},
@@ -122,7 +122,7 @@ public class WorldController : MonoBehaviour
                 new MinionStat(
                     spawnType: SpawnType.Mage,
                     armor: 0,
-                    level: new Dictionary<MinionAttribute, int>
+                    levels: new Dictionary<MinionAttribute, int>
                     {
                         {MinionAttribute.Armor, 1},
                         {MinionAttribute.Range,1},
@@ -146,7 +146,7 @@ public class WorldController : MonoBehaviour
                 new MinionStat(
                     spawnType: SpawnType.Archer,
                     armor: 0,
-                    level: new Dictionary<MinionAttribute, int>
+                    levels: new Dictionary<MinionAttribute, int>
                     {
                         {MinionAttribute.Armor, 1},
                         {MinionAttribute.Range,1},
@@ -166,7 +166,7 @@ public class WorldController : MonoBehaviour
                 )
             }
         };
-        // Stats to add for each added level
+        // Stats to add for each added levels
         minionStatAdditions = new Dictionary<SpawnType, MinionStat>
         {
             {
