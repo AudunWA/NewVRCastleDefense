@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Valve.VR.InteractionSystem;
 
 public class UIController : MonoBehaviour {
 
@@ -79,6 +80,7 @@ public class UIController : MonoBehaviour {
 		// TODO: Update button text with new price.
 		if (levelController.level >= 10) {
 			btn.interactable = false;
+			btn.GetComponent<Interactable>().enabled = false;
 		}
 	}
 

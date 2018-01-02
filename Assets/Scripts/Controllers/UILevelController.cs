@@ -23,7 +23,7 @@ public class UILevelController : MonoBehaviour {
 				if (i < level) {
 					bar.color = new Color32 (128, 224, 251, 255);
 				} else {
-					bar.color = new Color32 (128, 224, 251, 100);
+					bar.color = new Color32(128, 224, 251, 25);
 				}
 				i++;
 			}
