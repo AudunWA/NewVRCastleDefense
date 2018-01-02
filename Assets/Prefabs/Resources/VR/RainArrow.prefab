@@ -1049,7 +1049,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   copy: {fileID: 1065578983792964, guid: 8a79ccf93133d3b49b33f04c66825cab, type: 2}
-  copyAmount: 50
+  copyAmount: 200
+  collision: 0
 --- !u!114 &114333698028761694
 MonoBehaviour:
   m_ObjectHideFlags: 1

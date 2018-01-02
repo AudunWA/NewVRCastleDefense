@@ -30,6 +30,16 @@ public class FollowVelocity : MonoBehaviour
 	{
 		collision = true;
 		gameObject.SetActive(false);
-		Instantiate(dummy, gameObject.transform.position, gameObject.transform.rotation);
+		if (other.gameObject?.GetComponent<MinionController>())
+		{
+			other.gameObject?.GetComponent<MinionController>().Minion.TakeDamage(50);
+			GameObject dummygo = Instantiate(dummy, gameObject.transform.position, gameObject.transform.rotation);
+			FixedJoint joint = dummygo.AddComponent<FixedJoint>();
+			joint.connectedBody = other.gameObject.GetComponent<Rigidbody>();
+		}
+		else
+		{
+			Instantiate(dummy, gameObject.transform.position, gameObject.transform.rotation);
+		}
 	}
 }
