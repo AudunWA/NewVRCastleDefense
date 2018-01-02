@@ -1,16 +1,17 @@
 ﻿using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 // TODO: FIXME: Use stuct for stat instead of class?
 public struct MinionStat
 {
-    private const double MONEY_INDEX = 1.1;
     public SpawnType SpawnType { get; }
     public float Armor { get; } 
-    public int Level { get; }
+    public Dictionary<MinionAttribute, int> Level { get; }
     public float Range { get; }
     public int Bounty { get; }
     public float Damage { get; }
@@ -18,7 +19,7 @@ public struct MinionStat
     public float AttackCooldownTime { get; }
     public int Cost { get; }
     public float Health { get; }
-    public int LevelUpgradeCost { get; }
+    public Dictionary<MinionAttribute, int> LevelUpgradeCost { get; }
     /// <summary>
     /// 
     /// </summary>
@@ -32,7 +33,7 @@ public struct MinionStat
     /// <param name="attackCooldownTime"></param>
     /// <param name="cost"></param>
     /// <param name="health"></param>
-    public MinionStat(SpawnType spawnType, float armor, int level, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, int levelUpgradeCost)
+    public MinionStat(SpawnType spawnType, float armor, Dictionary<MinionAttribute, int> level, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, Dictionary<MinionAttribute, int> levelUpgradeCost)
     {
         SpawnType = spawnType;
         Armor = armor;
@@ -47,17 +48,20 @@ public struct MinionStat
         LevelUpgradeCost = levelUpgradeCost;
     }
 
-    private static int MoneyIndex(int val)
-    {
-        return (int) (val * MONEY_INDEX);
-    }
-
     // Initial
-    public MinionStat(SpawnType spawnType, float armor, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, int levelUpgradeCost)
+    public MinionStat(SpawnType spawnType, float armor, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, Dictionary<MinionAttribute, int> levelUpgradeCost)
     {
         SpawnType = spawnType;
         Armor = armor;
-        Level = 1;
+        Level = new Dictionary<MinionAttribute, int>
+        {
+            {MinionAttribute.Armor, 1},
+            {MinionAttribute.Range,1},
+            {MinionAttribute.Damage,1},
+            {MinionAttribute.Movementspeed,1},
+            {MinionAttribute.AttackCooldownTime,1},
+            {MinionAttribute.Health,1}
+        };
         Range = range;
         Bounty = bounty;
         Damage = damage;
@@ -68,28 +72,19 @@ public struct MinionStat
         LevelUpgradeCost = levelUpgradeCost;
     }
 
-    public static MinionStat operator +(MinionStat left, MinionStat right)
+    public int GetLevel()
     {
-        return new MinionStat(
-            left.SpawnType, 
-            left.Armor + right.Armor, 
-            left.Level + 1,
-            left.Range + right.Range, 
-            left.Bounty + right.Bounty, 
-            left.Damage + right.Damage,
-            left.Movementspeed + right.Movementspeed, 
-            left.AttackCooldownTime + right.AttackCooldownTime, 
-            left.Cost + right.Cost, 
-            left.Health + right.Health, 
-            left.LevelUpgradeCost+right.LevelUpgradeCost);
+        return Level.Sum(x => x.Value)-Level.Count() +1;
     }
 
     public static MinionStat Upgrade(MinionStat minionstat, MinionStat additionStat, MinionAttribute attr)
     {
+        minionstat.Level[attr]++;
+        minionstat.LevelUpgradeCost[attr]+= additionStat.LevelUpgradeCost[attr];
         return new MinionStat(
             minionstat.SpawnType,
             minionstat.Armor + (attr==MinionAttribute.Armor?additionStat.Armor:0),
-            minionstat.Level + 1,
+            minionstat.Level,
             minionstat.Range + (attr==MinionAttribute.Range?additionStat.Range:0),
             minionstat.Bounty + additionStat.Bounty,
             minionstat.Damage + (attr==MinionAttribute.Damage?additionStat.Damage:0),
@@ -97,7 +92,7 @@ public struct MinionStat
             minionstat.AttackCooldownTime + (attr==MinionAttribute.AttackCooldownTime?additionStat.AttackCooldownTime:0),
             minionstat.Cost + additionStat.Cost,
             minionstat.Health + (attr==MinionAttribute.Health?additionStat.Health:0),
-            minionstat.LevelUpgradeCost + additionStat.LevelUpgradeCost);
+            minionstat.LevelUpgradeCost);
     }
    
 }

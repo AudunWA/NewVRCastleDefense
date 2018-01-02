@@ -45,7 +45,7 @@ public class GameflowController
     public void UpgradeMinionStat(SpawnType spawnType, Player player, MinionAttribute attr)
     {
         if (player == null) return;
-        int cost = player.MinionStatistics[spawnType].LevelUpgradeCost;
+        int cost = player.MinionStatistics[spawnType].LevelUpgradeCost[attr];
         if (!player.WithdrawMoney(cost)) return;
         MinionStat stat = player.MinionStatistics[spawnType];
         MinionStat addition = MinionStatAdditions[spawnType];

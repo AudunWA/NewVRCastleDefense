@@ -129,20 +129,20 @@ public class GameAI
         int sum = 0, otherSum = 0;
         foreach (SpawnType s in otherPlayer.MinionStatistics.Keys.ToList())
         {
-            otherSum += otherPlayer.MinionStatistics[s].Level;
-            sum += player.MinionStatistics[s].Level;
+            otherSum += otherPlayer.MinionStatistics[s].GetLevel();
+            sum += player.MinionStatistics[s].GetLevel();
         }
         CountOtherMinions(otherMinionCounts);
         CountMinions(minionCounts);
         if (sum <= otherSum && otherPlayer.Minions.Count < player.Minions.Count*2) CurrentAction = AIAction.Upgrade;
     }
     // Finds the type which has the lowest cost to upgrade
-    private void FindIdealUpgradeType()
+    private void FindIdealUpgradeType(MinionAttribute attr)
     {
         int minCost = 10000000;
         foreach (SpawnType s in Player.MinionStatistics.Keys.ToList())
         {
-            int cost = Player.MinionStatistics[s].LevelUpgradeCost;
+            int cost = Player.MinionStatistics[s].LevelUpgradeCost[attr];
             if (minCost > cost)
             {
                 minCost = cost;
@@ -152,7 +152,21 @@ public class GameAI
         if (minCost == 10000000) minCost = 0;
         SaveMoneyGoal = minCost;
     }
-      /// <summary>
+
+    private MinionAttribute FindIdealUpgradeAttr()
+    {
+        var min = MinionAttribute.Armor;
+        foreach (KeyValuePair<SpawnType, MinionStat> stat in Player.MinionStatistics)
+        {
+            // Here the AI seeks to level up the minions evenly distributed
+            min = stat.Value.Level.Aggregate((l, r) => l.Value < r.Value ? l : r).Key; // Get key, in other words attr of the minimun element. 
+
+        }
+
+        return min;
+    }
+
+    /// <summary>
       /// Finds the type of unit to spawn next
       /// </summary>
     private void FindIdealSpawnType()
@@ -165,8 +179,10 @@ public class GameAI
     }
     public void FindNextAction()
     {
+        MinionAttribute attr = MinionAttribute.Armor;
         FindIdealSpawnType();
-        FindIdealUpgradeType();
+        attr = FindIdealUpgradeAttr();
+        FindIdealUpgradeType(attr);
         CompareMinionLevels();
         if (CurrentAction == AIAction.Upgrade)
         {

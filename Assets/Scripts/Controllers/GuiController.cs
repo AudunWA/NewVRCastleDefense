@@ -79,7 +79,7 @@ public class GuiController : MonoBehaviour
     private void UpdateTextByLevel(Text textField, SpawnType spawnType, Player player)
     {
         string text = textField.text;
-        string level = player.MinionStatistics[spawnType].Level.ToString();
+        string level = player.MinionStatistics[spawnType].GetLevel().ToString();
         textField.text = text.Remove(text.Length - 1) + level;
     }
 
@@ -167,7 +167,7 @@ public class GuiController : MonoBehaviour
         MinionAttribute attr = MinionAttribute.Damage;
         fighterUpgradeButton.onClick.AddListener(delegate
         {
-            if (GoodPlayer.MinionStatistics[SpawnType.Fighter].Level < 10)
+            if (GoodPlayer.MinionStatistics[SpawnType.Fighter].GetLevel() < 25)
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Fighter].Cost.ToString();
                 GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter, attr);
@@ -179,7 +179,7 @@ public class GuiController : MonoBehaviour
         });
         archerUpgradeButton.onClick.AddListener(delegate
         {
-            if (GoodPlayer.MinionStatistics[SpawnType.Archer].Level < 10)
+            if (GoodPlayer.MinionStatistics[SpawnType.Archer].GetLevel() < 25)
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Archer].Cost.ToString();
                 GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Archer, attr);
@@ -191,7 +191,7 @@ public class GuiController : MonoBehaviour
         });
         mageUpgradeButton.onClick.AddListener(delegate
         {
-            if (GoodPlayer.MinionStatistics[SpawnType.Mage].Level < 10)
+            if (GoodPlayer.MinionStatistics[SpawnType.Mage].GetLevel() < 25)
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Mage].Cost.ToString();
                 GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Mage, attr);
@@ -205,7 +205,7 @@ public class GuiController : MonoBehaviour
         });
         tankUpgradeButton.onClick.AddListener(delegate
         {
-            if (GoodPlayer.MinionStatistics[SpawnType.Tank].Level < 10)
+            if (GoodPlayer.MinionStatistics[SpawnType.Tank].GetLevel() < 25)
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Tank].Cost.ToString();
                 GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Tank, attr);
@@ -227,7 +227,7 @@ public class GuiController : MonoBehaviour
 
         evilFighterUpgradeButton.onClick.AddListener(delegate
         {
-            if (EvilPlayer.MinionStatistics[SpawnType.Fighter].Level < 10)
+            if (EvilPlayer.MinionStatistics[SpawnType.Fighter].GetLevel() < 25)
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Fighter].Cost.ToString();
                 EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter, attr);
@@ -239,7 +239,7 @@ public class GuiController : MonoBehaviour
         });
         evilArcherUpgradeButton.onClick.AddListener(delegate
         {
-            if (EvilPlayer.MinionStatistics[SpawnType.Archer].Level < 10)
+            if (EvilPlayer.MinionStatistics[SpawnType.Archer].GetLevel() < 25)
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Archer].Cost.ToString();
                 EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Archer, attr);
@@ -251,7 +251,7 @@ public class GuiController : MonoBehaviour
         });
         evilMageUpgradeButton.onClick.AddListener(delegate
         {
-            if (EvilPlayer.MinionStatistics[SpawnType.Mage].Level < 10)
+            if (EvilPlayer.MinionStatistics[SpawnType.Mage].GetLevel() < 25)
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Mage].Cost.ToString();
                 EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Mage, attr);
@@ -263,7 +263,7 @@ public class GuiController : MonoBehaviour
         });
         evilTankUpgradeButton.onClick.AddListener(delegate
         {
-            if (EvilPlayer.MinionStatistics[SpawnType.Tank].Level < 10)
+            if (EvilPlayer.MinionStatistics[SpawnType.Tank].GetLevel() < 25)
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Tank].Cost.ToString();
                 EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Tank, attr);

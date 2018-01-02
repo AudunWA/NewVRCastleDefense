@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -30,7 +31,7 @@ public class Minion : GameEntity{
     public Minion(Player player, MinionStat stat, Vector3 position) : base(player, stat.Health, position)
     {
         spawnType = stat.SpawnType;
-        level = stat.Level;
+        level = stat.GetLevel();
         armor = stat.Armor;
         range = stat.Range;
         damage = stat.Damage;
