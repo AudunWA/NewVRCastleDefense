@@ -11,11 +11,6 @@ public class WorldController : MonoBehaviour
     private bool aiActive = false;
     private bool gameFinished = false;
     public bool SoundEffectsActive = false;
-
-    public AudioClip backgroundMusic;
-    private AudioSource audioSource;
-    public float VolLowRange { get; set; }
-    public float VolHighRange { get; set; }
     // Controllers
     public CastleController GoodCastleController { get; set; }
     public CastleController EvilCastleController { get; set; }
@@ -295,7 +290,6 @@ public class WorldController : MonoBehaviour
         InitTimers();
         InitControllers();
         InitPlayers();
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -326,16 +320,6 @@ public class WorldController : MonoBehaviour
             Time.timeScale = 0.1f;
             gameFinished = true;
         }
-    }
-
-    public void PlayMusic()
-    {
-        audioSource.PlayOneShot(backgroundMusic, 1f);
-    }
-
-    public void StopMusic()
-    {
-        audioSource.Stop();
     }
 }
 

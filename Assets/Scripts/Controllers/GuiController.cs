@@ -12,6 +12,8 @@ public class GuiController : MonoBehaviour
     public PlayerMoneyController EvilMoneyController { get; set; }
     public PlayerMoneyController GoodMoneyController { get; set; }
     private WorldController worldController;
+
+    private MusicController musicController;
     // Spawn buttons
     public Button fighterButton;
     public Button archerButton;
@@ -95,19 +97,15 @@ public class GuiController : MonoBehaviour
     {
         GOEvilPlayer = GameObject.FindGameObjectWithTag("EvilPlayer");
         GOGoodPlayer = GameObject.FindGameObjectWithTag("GoodPlayer");
-        GameObject goWorld = GameObject.FindGameObjectWithTag("World");
-        worldController = goWorld.GetComponent<WorldController>();
         EvilMoneyController = GOEvilPlayer.GetComponent<PlayerMoneyController>();
         GoodMoneyController = GOGoodPlayer.GetComponent<PlayerMoneyController>();
-        EvilPlayer = worldController.EvilPlayer;
-        GoodPlayer = worldController.GoodPlayer;
         EvilMoneyController.Player = EvilPlayer;
         GoodMoneyController.Player = GoodPlayer;
         archerButton.GetComponentInChildren<Text>().text += " " + GoodPlayer.MinionStatistics[SpawnType.Archer].Cost;
         fighterButton.GetComponentInChildren<Text>().text += " " + GoodPlayer.MinionStatistics[SpawnType.Fighter].Cost;
         tankButton.GetComponentInChildren<Text>().text += " " + GoodPlayer.MinionStatistics[SpawnType.Tank].Cost;
         mageButton.GetComponentInChildren<Text>().text += " " + GoodPlayer.MinionStatistics[SpawnType.Mage].Cost;
-
+      
         evilArcherButton.GetComponentInChildren<Text>().text += " " + EvilPlayer.MinionStatistics[SpawnType.Archer].Cost;
         evilFighterButton.GetComponentInChildren<Text>().text += " " + EvilPlayer.MinionStatistics[SpawnType.Fighter].Cost;
         evilTankButton.GetComponentInChildren<Text>().text += " " + EvilPlayer.MinionStatistics[SpawnType.Tank].Cost;
@@ -278,6 +276,11 @@ public class GuiController : MonoBehaviour
 
     private void Start()
     {
+        GameObject goWorld = GameObject.FindGameObjectWithTag("World");
+        worldController = goWorld.GetComponent<WorldController>();
+        musicController = goWorld.GetComponent<MusicController>();
+        EvilPlayer = worldController.EvilPlayer;
+        GoodPlayer = worldController.GoodPlayer;
         AddButtonsToLists();
         InitPlayerMoneyGui();
         InitGoodButtons();
@@ -292,8 +295,8 @@ public class GuiController : MonoBehaviour
 
         MusicToggle.onValueChanged.AddListener(delegate
         {
-            if(MusicToggle.isOn)worldController.PlayMusic();
-            else worldController.StopMusic();
+            if(MusicToggle.isOn){musicController.PlayMusic();}
+            else musicController.StopMusic();
         });
         
     }
