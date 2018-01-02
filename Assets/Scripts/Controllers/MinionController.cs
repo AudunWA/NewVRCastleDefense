@@ -61,7 +61,12 @@ public class MinionController : MonoBehaviour
             {
                 case Minion.minionState.Moving:
                     Agent.isStopped = false;
+                    GameEntity oldEntity = targetEntity;
                     FindNewTargetEntity();
+
+                    // Hack to fix castle targeting 'jumping' in some cases
+                    if(targetEntity == oldEntity && targetEntity is Castle)
+                        break;
 
                     if (Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) <=
                         Minion.Range)
@@ -70,7 +75,8 @@ public class MinionController : MonoBehaviour
                         break;
                     }
 
-                    Agent.destination = targetEntity.GetAttackPosition(transform.position);
+                    Vector3 destination = targetEntity.GetAttackPosition(transform.position);
+                    Agent.destination = new Vector3(destination.x, 0, destination.z);
                     break;
 
                 case Minion.minionState.Fighting:
@@ -146,6 +152,7 @@ public class MinionController : MonoBehaviour
 
     private void FindNewTargetEntity()
     {
+        GameEntity newTarget = targetEntity;
         Collider[] inRange = Physics.OverlapSphere(Minion.Position, Minion.Range + 30.0f);
         foreach (Collider collision in inRange)
         {
@@ -154,21 +161,25 @@ public class MinionController : MonoBehaviour
                 otherMinionController.Minion.Player == Minion.Player)
                 continue;
 
-            if (targetEntity == null)
+            if(!otherMinionController.Minion.IsAlive)
+                continue;
+
+            if (newTarget == null)
             {
-                targetEntity = otherMinionController.Minion;
+                newTarget = otherMinionController.Minion;
             }
-            else if (Vector3.Distance(transform.position, b: targetEntity.GetAttackPosition(transform.position)) >
+            else if (Vector3.Distance(transform.position, b: newTarget.GetAttackPosition(transform.position)) >
                      Vector3.Distance(transform.position,
                          otherMinionController.Minion.GetAttackPosition(transform.position)))
             {
-                targetEntity = otherMinionController.Minion;
+                newTarget = otherMinionController.Minion;
             }
         }
 
         // Select evil castle if no minions has been found
-        if (targetEntity == null)
-            targetEntity = GetEnemyCastle();
+        if (newTarget == null)
+            newTarget = GetEnemyCastle();
+        targetEntity = newTarget;
     }
 
     private void UpdateVariables()
@@ -178,7 +189,7 @@ public class MinionController : MonoBehaviour
 
         // Update position for data class
         Minion.Position = GetComponent<Rigidbody>().position;
-        if (!Minion.IsAlive)
+        if (!Minion.IsAlive && Minion.State != Minion.minionState.Dead)
         {
             Minion.State = Minion.minionState.Dead;
             if (gameObject.GetComponentInChildren<DummyArrowController>() != null)
@@ -206,6 +217,13 @@ public class MinionController : MonoBehaviour
 
     private void HandleAttack()
     {
+        if (targetEntity == null || !targetEntity.IsAlive)
+        {
+            lightningAvailable = true;
+            targetEntity = null;
+            return;
+        }
+
         Agent.isStopped = true;
 
         if (attackTimer >= Minion.AttackCooldownTime)
@@ -225,12 +243,6 @@ public class MinionController : MonoBehaviour
             }
         }
         attackTimer += Time.deltaTime;
-
-        if (targetEntity == null || !targetEntity.IsAlive)
-        {
-            lightningAvailable = true;
-            targetEntity = null;
-        }
     }
 
     private void ShootProjectile() //Archer only for now
