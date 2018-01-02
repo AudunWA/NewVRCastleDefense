@@ -382,7 +382,6 @@ public class WorldController : MonoBehaviour
         SetBounties();
         SetCosts();
         InitMinionStats();
-        InitCastles();
         InitTimers();
         InitControllers();
         InitPlayers();
@@ -393,6 +392,10 @@ public class WorldController : MonoBehaviour
     {
         if (gameFinished) return;
 
+        if (GoEvilCastle != null && GoGoodCastle != null && GoodCastleController == null)
+        {
+            InitCastles();
+        }
         GoodPlayer.SpawnController.GetTimer.UpdateTimers();
         EvilPlayer.SpawnController.GetTimer.UpdateTimers();
         gameflowController.UpdatePlayerMoney(GoodPlayer);
