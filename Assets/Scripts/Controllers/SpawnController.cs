@@ -58,19 +58,16 @@ public class SpawnController
     }
 
 
-    public void Spawn(SpawnType spawnType, Vector3? position = null)
+    public void Spawn(SpawnType spawnType)
     {
         bool isAvailableSpawnType = timer.IsAvailableSpawnType(spawnType);
-        if (!isAvailableSpawnType && position == null) return;
+        if (!isAvailableSpawnType) return;
         MinionStat stat = player.MinionStatistics[spawnType];
         int cost = stat.Cost;
-        if (!player.WithdrawMoney(cost))
-        {
-            return;
-        }
+        if (!player.WithdrawMoney(cost)) return;
 
         Minion minion;
-        Vector3 spawnPosition = position ?? player.SpawnLocation;
+        Vector3 spawnPosition = player.SpawnLocation;
         switch (spawnType)
         {
             case SpawnType.Tank:
