@@ -1049,7 +1049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   copy: {fileID: 1065578983792964, guid: 8a79ccf93133d3b49b33f04c66825cab, type: 2}
-  copyAmount: 200
+  copyAmount: 100
   collision: 0
   arrowRainParticleEffect: {fileID: 1363620111295572, guid: 1ecd3d6f21ea1574e85507bcafcfd473,
     type: 2}

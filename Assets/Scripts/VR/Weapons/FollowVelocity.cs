@@ -9,6 +9,7 @@ public class FollowVelocity : MonoBehaviour
 	private bool collision = false;
 	public GameObject dummy;
 	private ObjectPooling pool;
+	private float damage = 50;
 	
 	// Use this for initialization
 	void Start ()
@@ -48,7 +49,7 @@ public class FollowVelocity : MonoBehaviour
 		gameObject.SetActive(false);
 		if (other.gameObject?.GetComponent<MinionController>())
 		{
-			other.gameObject?.GetComponent<MinionController>().Minion.TakeDamage(20);
+			other.gameObject?.GetComponent<MinionController>().Minion.TakeDamage(damage);
 			dummygo.transform.position = gameObject.transform.position;
 			dummygo.transform.rotation = gameObject.transform.rotation;
 			FixedJoint joint = dummygo.AddComponent<FixedJoint>();
