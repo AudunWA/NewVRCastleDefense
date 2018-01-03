@@ -30,7 +30,7 @@ public class UIController : MonoBehaviour {
 		foreach(TypedButton b in upgradeBtns) {
 			b.button.GetComponent<Button>().onClick.AddListener(delegate{OnUpgradeClick(b.attr);});
 			SpawnType spawnType = GetSpawnType(tabName);
-			int price = Player.SpawnController.GetUpgradeCost(spawnType, b.attr); // ERROR!
+			int price = Player.SpawnController.GetUpgradeCost(spawnType, b.attr);
 			b.button.GetComponentInChildren<Text>().text = "$" + price;
 		}
 
