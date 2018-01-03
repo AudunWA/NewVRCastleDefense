@@ -1270,6 +1270,8 @@ MonoBehaviour:
   damageRadius: 20
   explosionParticles: {fileID: 1317119857779190, guid: 55c8070696af58441811b8885f5b9241,
     type: 2}
+  explosionSound: {fileID: 0}
+  bombAudio: {fileID: 8300000, guid: b6390d8bba2f4a14bb64000376994738, type: 3}
 --- !u!114 &114990150277437302
 MonoBehaviour:
   m_ObjectHideFlags: 1

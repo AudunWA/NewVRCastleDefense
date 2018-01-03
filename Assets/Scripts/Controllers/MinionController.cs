@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 public class MinionController : MonoBehaviour
 {
+
     public event EventHandler<MinionStateEventArgs> StateChanged;
 
     private new Rigidbody rigidbody;
@@ -15,7 +16,7 @@ public class MinionController : MonoBehaviour
     public Image HealthBar;
     private float attackTimer = 0.0f;
     private bool moving = true;
-
+    private FightSoundController fightSoundController;
     private WorldController worldController;
     private ObjectPooling spellPool;
     private ObjectPooling arrowPool;
@@ -38,7 +39,9 @@ public class MinionController : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        worldController = GameObject.FindWithTag("World").GetComponent<WorldController>();
+        GameObject goWorld = GameObject.FindWithTag("World");
+        worldController = goWorld.GetComponent<WorldController>();
+        fightSoundController = GetComponent<FightSoundController>();
         maxHealth = Minion.Health;
         rigidbody = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -239,6 +242,7 @@ public class MinionController : MonoBehaviour
             }
             else
             {
+                fightSoundController.PlayRandomFightSound();
                 targetEntity.TakeDamage(Minion.Damage);
             }
         }
