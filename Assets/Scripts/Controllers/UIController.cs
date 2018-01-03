@@ -74,7 +74,6 @@ public class UIController : MonoBehaviour {
 		{
 			levelController.level++;
 		}
-		// TODO: Update button text with new price.
 		int price = Player.SpawnController.GetUpgradeCost(spawnType, attr);
 		btn.GetComponentInChildren<Text>().text = "$" + price;
 		if (levelController.level >= 10) {
