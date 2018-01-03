@@ -9,7 +9,8 @@ using Valve.VR.InteractionSystem;
 public class UIController : MonoBehaviour {
 
 	[Serializable]
-	public class TypedButton {
+	public class TypedButton
+	{
 		public GameObject button;
 		public MinionAttribute attr;
 	}
