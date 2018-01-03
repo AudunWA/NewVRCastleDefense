@@ -5,9 +5,9 @@ public class WorldController : MonoBehaviour
 {
     // Players
     private Player evilPlayer = new Player("PlayerEvil", PlayerType.Evil, new List<Minion>(),
-        new Castle(5000, new Vector3(0.0f, 15.0f, -200.0f)), 1, 100, new Vector3(0.0f, 0.0f, -150.0f));
+        new Castle(5000, new Vector3(0.0f, 15.0f, -200.0f)), 1, new Vector3(0.0f, 0.0f, -150.0f));
     private Player goodPlayer = new Player("PlayerGood", PlayerType.Good, new List<Minion>(),
-        new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, 100, new Vector3(0.0f, 0.0f, 150.0f));
+        new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, new Vector3(0.0f, 0.0f, 150.0f));
     private bool aiActive = false;
     private bool gameFinished = false;
     public bool SoundEffectsActive = false;
