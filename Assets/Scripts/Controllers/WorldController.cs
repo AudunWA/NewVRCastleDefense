@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
-
+[Serializable]
 public class WorldController : MonoBehaviour
 {
     // Players
-    private Player evilPlayer = new Player("PlayerEvil", PlayerType.Evil, new List<Minion>(),
-        new Castle(5000, new Vector3(0.0f, 15.0f, -200.0f)), 1, new Vector3(0.0f, 0.0f, -150.0f));
-    private Player goodPlayer = new Player("PlayerGood", PlayerType.Good, new List<Minion>(),
-        new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, new Vector3(0.0f, 0.0f, 150.0f));
+    public Player evilPlayer = new Player("PlayerEvil", PlayerType.Evil, new List<Minion>(),
+    new Castle(5000, new Vector3(0.0f, 15.0f, -200.0f)), 1, new Vector3(0.0f, 0.0f, -150.0f));
+    public Player goodPlayer = new Player("PlayerGood", PlayerType.Good, new List<Minion>(),
+    new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, new Vector3(0.0f, 0.0f, 150.0f));
     private bool aiActive = false;
     private bool gameFinished = false;
     public bool SoundEffectsActive = false;
@@ -40,14 +41,14 @@ public class WorldController : MonoBehaviour
         set { cooldownLimits = value; }
     }
 
-    public Player EvilPlayer
+    [SerializeField]public Player EvilPlayer
     {
         get { return evilPlayer; }
 
         set { evilPlayer = value; }
     }
 
-    public Player GoodPlayer
+   [SerializeField] public Player GoodPlayer
     {
         get { return goodPlayer; }
 
@@ -379,6 +380,7 @@ public class WorldController : MonoBehaviour
     //Use this for initialization
     private void Start()
     {
+        
         SetBounties();
         SetCosts();
         InitMinionStats();
@@ -397,6 +399,7 @@ public class WorldController : MonoBehaviour
         {
             InitCastles();
         }
+
         GoodPlayer.SpawnController.GetTimer.UpdateTimers();
         EvilPlayer.SpawnController.GetTimer.UpdateTimers();
         gameflowController.UpdatePlayerMoney(GoodPlayer);

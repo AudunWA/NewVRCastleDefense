@@ -99,7 +99,7 @@ public struct MinionStat
         return Levels.Sum(x => x.Value)-Levels.Count() +1;
     }
 
-    public static MinionStat Upgrade(MinionStat minionstat, MinionStat additionStat, MinionAttribute attr)
+    public MinionStat Upgrade(MinionStat minionstat, MinionStat additionStat, MinionAttribute attr)
     {
         minionstat.Levels[attr]++;
         minionstat.LevelUpgradeCost[attr] += additionStat.LevelUpgradeCost[attr];
@@ -107,8 +107,8 @@ public struct MinionStat
         return new MinionStat(
            minionstat.SpawnType,
            minionstat.Levels,
-           minionstat.Bounty,
-           minionstat.Cost,
+           minionstat.Bounty + additionStat.Bounty,
+           minionstat.Cost + additionStat.Cost,
            minionstat.LevelUpgradeCost,
            minionstat.Abilities
            );

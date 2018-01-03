@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
-
+[Serializable]
 public class Player{
     string name;
     PlayerType playerType;
-    List<Minion> minions;
+    [SerializeField] List<Minion> minions;
     private int money;
     Castle castle;
     int level;

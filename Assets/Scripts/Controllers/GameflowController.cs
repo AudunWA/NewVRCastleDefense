@@ -46,10 +46,10 @@ public class GameflowController
     {
         int cost = player.MinionStatistics[spawnType].LevelUpgradeCost[attr];
         if (!player.WithdrawMoney(cost)) return false;
-        if(player.PlayerType == PlayerType.Evil)Debug.Log("AI upgrades: "+ attr);
+        Debug.Log(player.PlayerType+" upgrades: "+ attr + " on " + spawnType);
         MinionStat stat = player.MinionStatistics[spawnType];
         MinionStat addition = MinionStatAdditions[spawnType];
-        player.MinionStatistics[spawnType] = MinionStat.Upgrade(stat, addition, attr);
+        player.MinionStatistics[spawnType] = stat.Upgrade(stat, addition, attr);
         return true;
     }
 }
