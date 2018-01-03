@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour {
 		public UpgradeType upgradeType;
 	}
 
+	private Player Player;
 	private string tabName;
 	private Button tab;
 	private RectTransform panel;
@@ -31,6 +32,7 @@ public class UIController : MonoBehaviour {
 		
 
 	void Start() {
+		Player = Player = GameObject.FindGameObjectWithTag("World").GetComponent<WorldController>().GoodPlayer;
 		tab = gameObject.GetComponent<Button> ();
 		tabName = tab.GetComponentInChildren<Text> ().text;
 		panel = transform.parent.GetComponent<RectTransform>();
