@@ -1587,23 +1587,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!95 &95783015038926996
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1656985537237370}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 90dac3abf1179b342b84e3c83039fa77, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6c3ef9a160dfd444e9f5b5b86f3884e3, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!82 &82882694867521672
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1684,6 +1667,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95783015038926996
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1656985537237370}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 90dac3abf1179b342b84e3c83039fa77, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6c3ef9a160dfd444e9f5b5b86f3884e3, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114441915321032876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1722,9 +1722,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d314bbee62af29d4a9d9bd7f24273adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  punchSound: {fileID: 8300000, guid: b92ffa546b78f8a4b8f16ddca36185b0, type: 3}
   swooshSound: {fileID: 8300000, guid: 15ff5228706468b419f3e11c266c2ac5, type: 3}
   fistpunchSound: {fileID: 8300000, guid: cfde6e59f0dd9564b89af3595d78601d, type: 3}
+  stabSound: {fileID: 8300000, guid: ed7456c270ac20042888addd3a75ea9a, type: 3}
+  clashSound: {fileID: 8300000, guid: 2e5b168177f75094181b095ad475b9b8, type: 3}
+  drawSound: {fileID: 8300000, guid: d9bab2b1ef4609842a31d98affe00bda, type: 3}
 --- !u!114 &114573077259983076
 MonoBehaviour:
   m_ObjectHideFlags: 1
