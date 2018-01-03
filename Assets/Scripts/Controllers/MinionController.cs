@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 public class MinionController : MonoBehaviour
 {
+
     public event EventHandler<MinionStateEventArgs> StateChanged;
 
     private new Rigidbody rigidbody;
@@ -59,7 +60,7 @@ public class MinionController : MonoBehaviour
             }
             switch (Minion.State)
             {
-                case Minion.minionState.Moving:
+                case Minion.MinionState.Moving:
                     Agent.isStopped = false;
                     GameEntity oldEntity = targetEntity;
                     FindNewTargetEntity();
@@ -189,7 +190,7 @@ public class MinionController : MonoBehaviour
 
         // Update position for data class
         Minion.Position = GetComponent<Rigidbody>().position;
-        if (!Minion.IsAlive && Minion.State != Minion.minionState.Dead)
+        if (!Minion.IsAlive && Minion.State != Minion.MinionState.Dead)
         {
             Minion.State = Minion.MinionState.Dead;
             if (gameObject.GetComponentInChildren<DummyArrowController>() != null)

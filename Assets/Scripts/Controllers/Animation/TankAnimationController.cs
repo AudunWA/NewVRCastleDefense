@@ -23,31 +23,31 @@ public class TankAnimationController : MonoBehaviour
     // Update is called once per frame
 	void Update () {
 	    float velocityMagnitude = controller.Agent.velocity.sqrMagnitude;
-	    animator.SetBool("IsWalking", velocityMagnitude > 0 && controller.Minion.State != Minion.minionState.Fighting);
+	    animator.SetBool("IsWalking", velocityMagnitude > 0 && controller.Minion.State != Minion.MinionState.Fighting);
 
-	    if (controller.Minion.State == Minion.minionState.Fighting)
+	    if (controller.Minion.State == Minion.MinionState.Fighting)
 	        velocityMagnitude = 1;
 
         switch (controller.Minion.SpawnType)
 	    {
 	        case SpawnType.Archer:
             case SpawnType.Fighter:
-	            animator.SetBool("IsAttacking", controller.Minion.State == Minion.minionState.Fighting);
+	            animator.SetBool("IsAttacking", controller.Minion.State == Minion.MinionState.Fighting);
 	            animator.SetFloat("SpeedMultiply", velocityMagnitude / 8f);
-	            animator.SetBool("IsDead", controller.Minion.State == Minion.minionState.Dead);
+	            animator.SetBool("IsDead", controller.Minion.State == Minion.MinionState.Dead);
 
                 break;
 	        case SpawnType.Tank:
-	            animator.SetBool("StandAttack", controller.Minion.State == Minion.minionState.Fighting);
-	            animator.SetBool("Death", controller.Minion.State == Minion.minionState.Dead);
+	            animator.SetBool("StandAttack", controller.Minion.State == Minion.MinionState.Fighting);
+	            animator.SetBool("Death", controller.Minion.State == Minion.MinionState.Dead);
 	            animator.SetFloat("SpeedMultiply", velocityMagnitude * 0.5f);
 
                 break;
 	        case SpawnType.Mage:
 	            animator.SetFloat("SpeedMultiply", velocityMagnitude * 0.5f);
-                //if (controller.Minion.State == Minion.minionState.Fighting)
+                //if (controller.Minion.State == Minion.MinionState.Fighting)
                 //    animator.SetTrigger("throw");
-                if (controller.Minion.State == Minion.minionState.Dead)
+                if (controller.Minion.State == Minion.MinionState.Dead)
 	                animator.SetTrigger("die");
 
 	            break;
