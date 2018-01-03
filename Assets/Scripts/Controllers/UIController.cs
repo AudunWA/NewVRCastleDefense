@@ -11,7 +11,7 @@ public class UIController : MonoBehaviour {
 	[Serializable]
 	public class TypedButton {
 		public GameObject button;
-		public UpgradeType upgradeType;
+		public MinionAttribute attr;
 	}
 
 	private Player Player;
@@ -19,17 +19,6 @@ public class UIController : MonoBehaviour {
 	private Button tab;
 	private RectTransform panel;
 	public TypedButton[] upgradeBtns;
-
-	public enum UpgradeType
-	{
-		ATTACK_DAMAGE,
-		ATTACK_RANGE,
-		ATTACK_SPEED,
-		HEALTH,
-		SPEED,
-		ARMOR
-	}
-		
 
 	void Start() {
 		Player = Player = GameObject.FindGameObjectWithTag("World").GetComponent<WorldController>().GoodPlayer;
@@ -39,7 +28,10 @@ public class UIController : MonoBehaviour {
 		tab.onClick.AddListener (OnTabClick);
 
 		foreach(TypedButton b in upgradeBtns) {
-			b.button.GetComponent<Button>().onClick.AddListener(delegate{OnUpgradeClick(b.upgradeType);});
+			b.button.GetComponent<Button>().onClick.AddListener(delegate{OnUpgradeClick(b.attr);});
+			SpawnType spawnType = GetSpawnType(tabName);
+			int price = Player.SpawnController.GetUpgradeCost(spawnType, b.attr); // ERROR!
+			b.button.GetComponentInChildren<Text>().text = "$" + price;
 		}
 
 		if (gameObject.transform.parent.name == "Fighter") {
@@ -73,17 +65,26 @@ public class UIController : MonoBehaviour {
 		panel.SetAsLastSibling (); // Renders last, aka. on top.
 	}
 
-	public void OnUpgradeClick(UpgradeType type) {
+	public void OnUpgradeClick(MinionAttribute attr) {
 		GameObject go = EventSystem.current.currentSelectedGameObject;
 		Button btn = go.GetComponent<Button>();
 		UILevelController levelController = go.transform.parent.Find("Level").GetComponent<UILevelController>();
-		// TODO: Call the actual upgrade function here.
-		levelController.level++;
+		SpawnType spawnType = GetSpawnType(tabName);
+		if (Player.SpawnController.UpgradeMinionType(spawnType, attr))
+		{
+			levelController.level++;
+		}
 		// TODO: Update button text with new price.
+		int price = Player.SpawnController.GetUpgradeCost(spawnType, attr);
+		btn.GetComponentInChildren<Text>().text = "$" + price;
 		if (levelController.level >= 10) {
 			btn.interactable = false;
 			btn.GetComponent<Interactable>().enabled = false;
 		}
+	}
+
+	private SpawnType GetSpawnType(string name) {
+		return (SpawnType) Enum.Parse(typeof(SpawnType), name);
 	}
 
 }
