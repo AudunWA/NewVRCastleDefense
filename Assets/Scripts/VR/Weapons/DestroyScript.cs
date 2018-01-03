@@ -19,6 +19,6 @@ public class DestroyScript : MonoBehaviour
 
 	void Destroy()
 	{
-		Destroy(gameObject);
+		gameObject.SetActive(false);
 	}
 }

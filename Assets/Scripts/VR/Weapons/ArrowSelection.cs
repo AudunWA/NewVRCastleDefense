@@ -34,8 +34,12 @@ public class ArrowSelection : MonoBehaviour
 
 			GameObject selectedArrow = hand.hoveringInteractable?.GetComponent<ArrowType>()?.ArrowPrefab;
 			if (selectedArrow != null)
+			{
+				Destroy(GetComponent<ArrowHand>().currentArrow);
+				GetComponent<ArrowHand>().FireArrow();
 				GetComponent<ArrowHand>().arrowPrefab = selectedArrow;
-			
+			}
+
 			hand.hoveringInteractable = null;
 		}
 	}
