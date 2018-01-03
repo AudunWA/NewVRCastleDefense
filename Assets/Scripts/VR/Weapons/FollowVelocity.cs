@@ -8,10 +8,12 @@ public class FollowVelocity : MonoBehaviour
 	private float tolerance = 100.0f;
 	private bool collision = false;
 	public GameObject dummy;
+	private ObjectPooling pool;
 	
 	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+	{
+		pool = GameObject.Find("DummyArrowRainPool").GetComponent<ObjectPooling>();
 	}
 	
 	// Update is called once per frame
@@ -41,19 +43,24 @@ public class FollowVelocity : MonoBehaviour
 			Destroy(gameObject);
 			return;
 		}
+		GameObject dummygo = pool.GetPooledObject();
 		collision = true;
 		gameObject.SetActive(false);
 		if (other.gameObject?.GetComponent<MinionController>())
 		{
 			other.gameObject?.GetComponent<MinionController>().Minion.TakeDamage(20);
-			GameObject dummygo = Instantiate(dummy, gameObject.transform.position, gameObject.transform.rotation);
+			dummygo.transform.position = gameObject.transform.position;
+			dummygo.transform.rotation = gameObject.transform.rotation;
 			FixedJoint joint = dummygo.AddComponent<FixedJoint>();
 			joint.connectedBody = other.gameObject.GetComponent<Rigidbody>();
 		}
 		else
 		{
-			Instantiate(dummy, gameObject.transform.position, gameObject.transform.rotation);
+			dummygo.transform.position = gameObject.transform.position;
+			dummygo.transform.rotation = gameObject.transform.rotation;
 		}
+
+		dummygo.SetActive(true);
 		Destroy(gameObject, 3.0f);
 	}
 }

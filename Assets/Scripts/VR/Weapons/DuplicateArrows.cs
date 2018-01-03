@@ -41,7 +41,7 @@ public class DuplicateArrows : MonoBehaviour
 
     void Duplicate()
     {
-	    Instantiate(arrowRainParticleEffect, gameObject.transform.position, gameObject.transform.rotation);
+	    GameObject effect = Instantiate(arrowRainParticleEffect, gameObject.transform.position, gameObject.transform.rotation);
 	    for (int i = 0; i < copyAmount; i++)
 	    {
 		    float randomX = Random.Range(-25, 25);
@@ -53,6 +53,8 @@ public class DuplicateArrows : MonoBehaviour
 				    gameObject.transform.position.z + (spaceBetweenArrows * randomZ)), gameObject.transform.rotation);
 		    go.GetComponent<FollowVelocity>().followObGameObject = gameObject;
 	    }
+
+	    Destroy(effect, 2.0f);
     }
 
 	private void OnCollisionEnter(Collision other)
