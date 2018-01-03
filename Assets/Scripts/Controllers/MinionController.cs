@@ -15,7 +15,7 @@ public class MinionController : MonoBehaviour
     public Image HealthBar;
     private float attackTimer = 0.0f;
     private bool moving = true;
-
+    private FightSoundController fightSoundController;
     private WorldController worldController;
     private ObjectPooling spellPool;
     private ObjectPooling arrowPool;
@@ -38,7 +38,9 @@ public class MinionController : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        worldController = GameObject.FindWithTag("World").GetComponent<WorldController>();
+        GameObject goWorld = GameObject.FindWithTag("World");
+        worldController = goWorld.GetComponent<WorldController>();
+        fightSoundController = GetComponent<FightSoundController>();
         maxHealth = Minion.Health;
         rigidbody = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -59,7 +61,7 @@ public class MinionController : MonoBehaviour
             }
             switch (Minion.State)
             {
-                case Minion.minionState.Moving:
+                case Minion.MinionState.Moving:
                     Agent.isStopped = false;
                     GameEntity oldEntity = targetEntity;
                     FindNewTargetEntity();
@@ -189,7 +191,7 @@ public class MinionController : MonoBehaviour
 
         // Update position for data class
         Minion.Position = GetComponent<Rigidbody>().position;
-        if (!Minion.IsAlive && Minion.State != Minion.minionState.Dead)
+        if (!Minion.IsAlive && Minion.State != Minion.MinionState.Dead)
         {
             Minion.State = Minion.MinionState.Dead;
             if (gameObject.GetComponentInChildren<DummyArrowController>() != null)
@@ -239,6 +241,7 @@ public class MinionController : MonoBehaviour
             }
             else
             {
+                fightSoundController.PlayRandomFightSound();
                 targetEntity.TakeDamage(Minion.Damage);
             }
         }

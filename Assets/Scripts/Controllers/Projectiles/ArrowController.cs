@@ -15,6 +15,7 @@ public class ArrowController : MonoBehaviour
     public GameObject parentGameObject;
     public Minion parentMinion;
     private Vector3 targetPosition;
+    private ArrowSoundController arrowSoundController;
     private float arrowDamage;
 
     public bool moving;
@@ -48,6 +49,7 @@ public class ArrowController : MonoBehaviour
                 ShootArrow();
             }
         }
+        arrowSoundController = GetComponent<ArrowSoundController>();
     }
 
     private void Destroy()
@@ -85,6 +87,7 @@ public class ArrowController : MonoBehaviour
         if (collision.gameObject.tag == "minion")
         {
             // DO damage
+            dummyArrow.GetComponent<ArrowSoundController>().PlayImpactSound();
             MinionController controller = collision.gameObject.GetComponent<MinionController>();
             if (parentMinion.Player != controller.Minion.Player)
             {
@@ -97,19 +100,23 @@ public class ArrowController : MonoBehaviour
         }
         else if (collision.gameObject.tag.Contains("Castle"))
         {
+            dummyArrow.GetComponent<ArrowSoundController>().PlayImpactSound();
             CastleController controller = collision.gameObject.GetComponent<CastleController>();
             if (parentMinion.Player != controller.Castle.Player)
             {
                 controller.Castle.TakeDamage(parentMinion.Damage);
             }
-
+        }
+        else
+        {
+           dummyArrow.GetComponent<ArrowSoundController>().PlayMissSound();
         }
     }
 
     private void ShootArrow()
     {
         float angle = -TrajectoryCalculations();
-
+        arrowSoundController.PlayReleaseSound();
         Vector3 arrowposition = new Vector3(0, yValueAboveMinion, 0);
         targetPosition = targetMinion.Position;
         arrowposition = arrowposition + parentMinion.Position;

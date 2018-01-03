@@ -94,6 +94,7 @@ public struct MinionStat
     }
 
     public int GetLevel()
+
     {
         return Levels.Sum(x => x.Value)-Levels.Count() +1;
     }

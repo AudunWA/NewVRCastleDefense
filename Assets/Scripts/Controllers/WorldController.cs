@@ -8,9 +8,9 @@ public class WorldController : MonoBehaviour
         new Castle(5000, new Vector3(0.0f, 15.0f, -200.0f)), 1, 100, new Vector3(0.0f, 0.0f, -150.0f));
     private Player goodPlayer = new Player("PlayerGood", PlayerType.Good, new List<Minion>(),
         new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, 100, new Vector3(0.0f, 0.0f, 150.0f));
-    private bool singlePlayer = false;
+    private bool aiActive = false;
     private bool gameFinished = false;
-
+    public bool SoundEffectsActive = false;
     // Controllers
     public CastleController GoodCastleController { get; set; }
     public CastleController EvilCastleController { get; set; }
@@ -22,7 +22,7 @@ public class WorldController : MonoBehaviour
 
     // Handlers
     public SpawnController spawnController;
-    private AIController _aiController;
+    private AIController aiController;
     private GameflowController gameflowController;
     private Vector3 castleSize = new Vector3(50, 50, 50); // FIXME: Change to actually getting the GO and use its size
 
@@ -54,10 +54,10 @@ public class WorldController : MonoBehaviour
         set { goodPlayer = value; }
     }
 
-    public bool SinglePlayer
+    public bool AiActive
     {
-        get { return singlePlayer; }
-        set { singlePlayer = value; }
+        get { return aiActive; }
+        set { aiActive = value; }
     }
     public Player GetOtherPlayer(Player player)
     {
@@ -272,10 +272,6 @@ public class WorldController : MonoBehaviour
             { SpawnType.Mage, 0.8f },
             { SpawnType.Archer, 0.8f },
         };
-        gameflowController = new GameflowController(EvilPlayer, GoodPlayer);
-        gameflowController.MinionStatAdditions = minionStatAdditions;
-        gameflowController.WorldController = this;
-        _aiController = new AIController(EvilPlayer, GoodPlayer);
     }
 
     private void SetBounties()
@@ -361,12 +357,16 @@ public class WorldController : MonoBehaviour
         GuiController = GetComponent<GuiController>();
         GuiController.EvilPlayer = EvilPlayer;
         GuiController.GoodPlayer = GoodPlayer;
+        gameflowController = new GameflowController(EvilPlayer, GoodPlayer);
+        gameflowController.MinionStatAdditions = minionStatAdditions;
+        gameflowController.WorldController = this;
+        aiController = new AIController(EvilPlayer, GoodPlayer);
     }
 
     private void InitPlayers()
     {
-        goodPlayer.SpawnLocation = GameObject.Find("LeftCastle/Spawnspot").transform.position;
-        evilPlayer.SpawnLocation = GameObject.Find("RightCastle/Spawnspot").transform.position;
+        goodPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, goodPlayer.Castle.Position.z - castleSize.z);
+        evilPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, evilPlayer.Castle.Position.z + castleSize.z);
         goodPlayer.Money = 1000;
         evilPlayer.Money = 1000;
         goodPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(minionStats);
@@ -390,6 +390,7 @@ public class WorldController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
         if (gameFinished) return;
 
         if (GoEvilCastle != null && GoGoodCastle != null && GoodCastleController == null)
@@ -400,9 +401,9 @@ public class WorldController : MonoBehaviour
         EvilPlayer.SpawnController.GetTimer.UpdateTimers();
         gameflowController.UpdatePlayerMoney(GoodPlayer);
         gameflowController.UpdatePlayerMoney(EvilPlayer);
-        if (singlePlayer)
+        if (aiActive)
         {
-            _aiController.PlayAI();
+            aiController.PlayAI();
         }
         if (goodPlayer.Castle.Health <= 0)
         {
