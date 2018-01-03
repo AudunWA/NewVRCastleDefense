@@ -17,7 +17,7 @@ namespace Valve.VR.InteractionSystem
 		private Hand hand;
 		private Longbow bow;
 
-		private GameObject currentArrow;
+		public GameObject currentArrow;
 		public GameObject arrowPrefab;
 
 		public Transform arrowNockTransform;
@@ -219,7 +219,7 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		private void FireArrow()
+		public void FireArrow()
 		{
 			currentArrow.transform.parent = null;
 
