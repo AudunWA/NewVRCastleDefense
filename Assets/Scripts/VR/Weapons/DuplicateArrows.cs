@@ -12,6 +12,7 @@ public class DuplicateArrows : MonoBehaviour
 	public int copyAmount;
 	private float spaceBetweenArrows = 0.4f;
 	public bool collision = false;
+	[SerializeField] private GameObject arrowRainParticleEffect;
 	private float startDistance;
 	private bool split = false;
 	
@@ -40,7 +41,7 @@ public class DuplicateArrows : MonoBehaviour
 
     void Duplicate()
     {
-	    
+	    Instantiate(arrowRainParticleEffect, gameObject.transform.position, gameObject.transform.rotation);
 	    for (int i = 0; i < copyAmount; i++)
 	    {
 		    float randomX = Random.Range(-25, 25);
@@ -51,7 +52,6 @@ public class DuplicateArrows : MonoBehaviour
 			    new Vector3(gameObject.transform.position.x + (spaceBetweenArrows * randomX), gameObject.transform.position.y + (spaceBetweenArrows * randomY),
 				    gameObject.transform.position.z + (spaceBetweenArrows * randomZ)), gameObject.transform.rotation);
 		    go.GetComponent<FollowVelocity>().followObGameObject = gameObject;
-		    
 	    }
     }
 

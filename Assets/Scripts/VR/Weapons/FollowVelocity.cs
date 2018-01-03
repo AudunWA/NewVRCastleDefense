@@ -27,6 +27,10 @@ public class FollowVelocity : MonoBehaviour
 			gameObject.transform.rotation = followObGameObject.transform.rotation;
 			gameObject.GetComponent<Rigidbody>().velocity = followObGameObject.GetComponent<Rigidbody>().velocity;
 		}
+		if (followObGameObject.GetComponent<DuplicateArrows>().collision)
+		{
+			gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.rotation * Vector3.forward * 30;
+		}
 	}
 
 

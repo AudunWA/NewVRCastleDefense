@@ -232,7 +232,7 @@ namespace Valve.VR.InteractionSystem
 			arrow.arrowHeadRB.useGravity = true;
 			arrow.arrowHeadRB.transform.GetComponent<BoxCollider>().enabled = true;
 
-			arrow.arrowHeadRB.AddForce( currentArrow.transform.forward * bow.GetArrowVelocity(), ForceMode.VelocityChange );
+			arrow.arrowHeadRB.AddForce( currentArrow.transform.forward * bow.GetArrowVelocity() * 0.65f, ForceMode.VelocityChange );
 			arrow.arrowHeadRB.AddTorque( currentArrow.transform.forward * 10 );
 
 			nocked = false;

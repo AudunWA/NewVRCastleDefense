@@ -28,7 +28,7 @@ public class ExplodeOnCollision : MonoBehaviour
         GameObject effect = Instantiate(explosionParticles, transform.position, explosionParticles.transform.rotation);
         GameObject sound = Instantiate(explosionSound);
         Destroy(gameObject);
-        Destroy(effect, 5.0f);
+        Destroy(effect, 2.0f);
         Destroy(sound, 5.0f);
     }
 
