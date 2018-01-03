@@ -45,7 +45,7 @@ public class TankAnimationController : MonoBehaviour
                 break;
 	        case SpawnType.Mage:
 	            animator.SetFloat("SpeedMultiply", velocityMagnitude * 0.5f);
-                //if (controller.Minion.State == Minion.minionState.Fighting)
+                //if (controller.Minion.State == Minion.MinionState.Fighting)
                 //    animator.SetTrigger("throw");
                 if (controller.Minion.State == Minion.MinionState.Dead)
 	                animator.SetTrigger("die");

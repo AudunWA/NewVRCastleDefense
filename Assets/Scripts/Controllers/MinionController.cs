@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 public class MinionController : MonoBehaviour
 {
+
     public event EventHandler<MinionStateEventArgs> StateChanged;
 
     private new Rigidbody rigidbody;
