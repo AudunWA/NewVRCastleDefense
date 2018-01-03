@@ -95,6 +95,7 @@ namespace Valve.VR.InteractionSystem
 			prevVelocity = GetComponent<Rigidbody>().velocity;
 
 			Destroy( gameObject, 30 );
+			SendMessage("ArrowFired", SendMessageOptions.DontRequireReceiver);
 		}
 
 

@@ -5,6 +5,10 @@ public class SpellController : MonoBehaviour {
     public GameEntity minion;
     public Minion parentMinion;
     bool moving = true;
+    public AudioClip spellAudio;
+    private AudioSource audioSource;
+    public float VolLowRange { get; set; }
+    public float VolHighRange { get; set; }
 
     private void OnEnable()
     {
@@ -12,19 +16,21 @@ public class SpellController : MonoBehaviour {
         float random = Random.Range(0.3f, 2.5f);
         if (parentMinion != null)
         {
-            Vector3 spellPosition = new Vector3(0, 10.0f, 0);
+            Vector3 spellPosition = new Vector3(0, 1.0f, 0);
             spellPosition = spellPosition + parentMinion.Position;
             transform.position = spellPosition;
         }
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke("Destroy");
     }
 
     private void Destroy()
     {
         gameObject.SetActive(false);
-    }
-
-    private void Update()
-    {
     }
 
     // Update is called once per frame
@@ -35,7 +41,7 @@ public class SpellController : MonoBehaviour {
         if (minion != null)
         {
             Minion min = minion as Minion;
-            if (min != null && min.State == Minion.minionState.Dead)
+            if (min != null && min.State == Minion.MinionState.Dead)
             {
                 gameObject.SetActive(false);
             }
@@ -47,9 +53,6 @@ public class SpellController : MonoBehaviour {
 
                 var rotation = Quaternion.LookRotation(minion.Position - transform.position);
 
-                //Debug.Log(transform.rotation.eulerAngles.x);
-
-
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 1000);
             }
         }
@@ -57,7 +60,6 @@ public class SpellController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject);
         if (collision.gameObject == parentMinion.gameObject)
         {
             return;

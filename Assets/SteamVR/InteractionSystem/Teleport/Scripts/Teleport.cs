@@ -954,7 +954,7 @@ namespace Valve.VR.InteractionSystem
 			{
 				foreach ( Hand hand in player.hands )
 				{
-					ControllerButtonHints.HideTextHint( hand, EVRButtonId.k_EButton_SteamVR_Touchpad );
+					ControllerButtonHints.HideTextHint( hand, EVRButtonId.k_EButton_Grip );
 				}
 
 				StopCoroutine( hintCoroutine );
@@ -979,12 +979,12 @@ namespace Valve.VR.InteractionSystem
 				foreach ( Hand hand in player.hands )
 				{
 					bool showHint = IsEligibleForTeleport( hand );
-					bool isShowingHint = !string.IsNullOrEmpty( ControllerButtonHints.GetActiveHintText( hand, EVRButtonId.k_EButton_SteamVR_Touchpad ) );
+					bool isShowingHint = !string.IsNullOrEmpty( ControllerButtonHints.GetActiveHintText( hand, EVRButtonId.k_EButton_Grip ) );
 					if ( showHint )
 					{
 						if ( !isShowingHint )
 						{
-							ControllerButtonHints.ShowTextHint( hand, EVRButtonId.k_EButton_SteamVR_Touchpad, "Teleport" );
+							ControllerButtonHints.ShowTextHint( hand, EVRButtonId.k_EButton_Grip, "Teleport" );
 							prevBreakTime = Time.time;
 							prevHapticPulseTime = Time.time;
 						}
@@ -999,7 +999,7 @@ namespace Valve.VR.InteractionSystem
 					}
 					else if ( !showHint && isShowingHint )
 					{
-						ControllerButtonHints.HideTextHint( hand, EVRButtonId.k_EButton_SteamVR_Touchpad );
+						ControllerButtonHints.HideTextHint( hand, EVRButtonId.k_EButton_Grip );
 					}
 				}
 
@@ -1089,7 +1089,7 @@ namespace Valve.VR.InteractionSystem
 				}
 				else
 				{
-					return hand.controller.GetPressUp( SteamVR_Controller.ButtonMask.Touchpad );
+					return hand.controller.GetPressUp( SteamVR_Controller.ButtonMask.Grip );
 				}
 			}
 
@@ -1108,7 +1108,7 @@ namespace Valve.VR.InteractionSystem
 				}
 				else
 				{
-					return hand.controller.GetPress( SteamVR_Controller.ButtonMask.Touchpad );
+					return hand.controller.GetPress( SteamVR_Controller.ButtonMask.Grip );
 				}
 			}
 
@@ -1127,7 +1127,7 @@ namespace Valve.VR.InteractionSystem
 				}
 				else
 				{
-					return hand.controller.GetPressDown( SteamVR_Controller.ButtonMask.Touchpad );
+					return hand.controller.GetPressDown( SteamVR_Controller.ButtonMask.Grip );
 				}
 			}
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -42,11 +43,13 @@ public class GameflowController
     }
 
 
-    public void UpgradeMinionStat(SpawnType spawnType, Player player)
+    public bool UpgradeMinionStat(SpawnType spawnType, Player player, MinionAttribute attr)
     {
-        if (player == null) return;
-        int cost = player.MinionStatistics[spawnType].LevelUpgradeCost;
-        if (!player.WithdrawMoney(cost)) return;
-        player.MinionStatistics[spawnType] += MinionStatAdditions[spawnType];
+        int cost = player.MinionStatistics[spawnType].LevelUpgradeCost[attr];
+        if (!player.WithdrawMoney(cost)) return false;
+        MinionStat stat = player.MinionStatistics[spawnType];
+        MinionStat addition = MinionStatAdditions[spawnType];
+        player.MinionStatistics[spawnType] = MinionStat.Upgrade(stat, addition, attr);
+        return true;
     }
 }

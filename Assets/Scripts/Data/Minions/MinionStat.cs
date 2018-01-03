@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System.CodeDom;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -7,22 +9,17 @@ using UnityEngine;
 public struct MinionStat
 {
     public SpawnType SpawnType { get; }
-    public float Armor { get; }
-    public int Level { get; }
-    public float Range { get; }
+    public Dictionary<MinionAttribute, int> Levels { get; }
     public int Bounty { get; }
-    public float Damage { get; }
-    public float Movementspeed { get; }
-    public float AttackCooldownTime { get; }
+    public Dictionary<MinionAttribute, float> Abilities { get; }
     public int Cost { get; }
-    public float Health { get; }
-    public int LevelUpgradeCost { get; }
+    public Dictionary<MinionAttribute, int> LevelUpgradeCost { get; }
     /// <summary>
     /// 
     /// </summary>
     /// <param name="spawnType"></param>
     /// <param name="armor"></param>
-    /// <param name="level"></param>
+    /// <param name="levels"></param>
     /// <param name="range"></param>
     /// <param name="bounty"></param>
     /// <param name="damage"></param>
@@ -30,49 +27,96 @@ public struct MinionStat
     /// <param name="attackCooldownTime"></param>
     /// <param name="cost"></param>
     /// <param name="health"></param>
-    public MinionStat(SpawnType spawnType, float armor, int level, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, int levelUpgradeCost)
+    public MinionStat(SpawnType spawnType, float armor, Dictionary<MinionAttribute, int> levels, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, Dictionary<MinionAttribute, int> levelUpgradeCost)
     {
         SpawnType = spawnType;
-        Armor = armor;
-        Level = level;
-        Range = range;
+        Levels = levels;
         Bounty = bounty;
-        Damage = damage;
-        Movementspeed = movementspeed;
-        AttackCooldownTime = attackCooldownTime;
         Cost = cost;
-        Health = health;
         LevelUpgradeCost = levelUpgradeCost;
+        Abilities = new Dictionary<MinionAttribute, float>
+        {
+            { MinionAttribute.Armor, armor},
+            { MinionAttribute.Range, range},
+            { MinionAttribute.Damage, damage },
+            { MinionAttribute.Movementspeed, movementspeed },
+            { MinionAttribute.AttackCooldownTime, attackCooldownTime },
+            { MinionAttribute.Health, health }
+        };
     }
-    // Initial
-    public MinionStat(SpawnType spawnType, float armor, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, int levelUpgradeCost)
+
+    /// </summary>
+    /// <param name="spawnType"></param>
+    /// <param name="armor"></param>
+    /// <param name="levels"></param>
+    /// <param name="range"></param>
+    /// <param name="bounty"></param>
+    /// <param name="damage"></param>
+    /// <param name="movementspeed"></param>
+    /// <param name="attackCooldownTime"></param>
+    /// <param name="cost"></param>
+    /// <param name="health"></param>
+    public MinionStat(SpawnType spawnType, Dictionary<MinionAttribute, int> levels, int bounty, int cost,  Dictionary<MinionAttribute, int> levelUpgradeCost, Dictionary<MinionAttribute, float> abilities)
     {
         SpawnType = spawnType;
-        Armor = armor;
-        Level = 1;
-        Range = range;
+        Levels = levels;
         Bounty = bounty;
-        Damage = damage;
-        Movementspeed = movementspeed;
-        AttackCooldownTime = attackCooldownTime;
         Cost = cost;
-        Health = health;
+        LevelUpgradeCost = levelUpgradeCost;
+        Abilities = abilities;
+    }
+
+    // Initial
+    public MinionStat(SpawnType spawnType, float armor, float range, int bounty, float damage, float movementspeed, float attackCooldownTime, int cost, float health, Dictionary<MinionAttribute, int> levelUpgradeCost)
+    {
+        SpawnType = spawnType;
+        Levels = new Dictionary<MinionAttribute, int>
+        {
+            {MinionAttribute.Armor, 1},
+            {MinionAttribute.Range,1},
+            {MinionAttribute.Damage,1},
+            {MinionAttribute.Movementspeed,1},
+            {MinionAttribute.AttackCooldownTime,1},
+            {MinionAttribute.Health,1}
+        };
+        Abilities = new Dictionary<MinionAttribute, float>
+        {
+            { MinionAttribute.Armor, armor},
+            { MinionAttribute.Range, range},
+            { MinionAttribute.Damage, damage },
+            { MinionAttribute.Movementspeed, movementspeed },
+            { MinionAttribute.AttackCooldownTime, attackCooldownTime },
+            { MinionAttribute.Health, health }
+        };
+        Bounty = bounty;
+        Cost = cost;
         LevelUpgradeCost = levelUpgradeCost;
     }
 
-    public static MinionStat operator +(MinionStat left, MinionStat right)
+    public int GetLevel()
+
     {
-        return new MinionStat(
-            left.SpawnType, 
-            left.Armor + right.Armor, 
-            left.Level + 1,
-            left.Range + right.Range, 
-            left.Bounty + right.Bounty, 
-            left.Damage + right.Damage,
-            left.Movementspeed + right.Movementspeed, 
-            left.AttackCooldownTime + right.AttackCooldownTime, 
-            left.Cost + right.Cost, 
-            left.Health + right.Health, 
-            left.LevelUpgradeCost+right.LevelUpgradeCost);
+        return Levels.Sum(x => x.Value)-Levels.Count() +1;
     }
+
+    public static MinionStat Upgrade(MinionStat minionstat, MinionStat additionStat, MinionAttribute attr)
+    {
+        minionstat.Levels[attr]++;
+        minionstat.LevelUpgradeCost[attr] += additionStat.LevelUpgradeCost[attr];
+        minionstat.Abilities[attr] += additionStat.Abilities[attr];
+        return new MinionStat(
+           minionstat.SpawnType,
+           minionstat.Levels,
+           minionstat.Bounty,
+           minionstat.Cost,
+           minionstat.LevelUpgradeCost,
+           minionstat.Abilities
+           );
+    }
+   
+}
+
+public enum MinionAttribute
+{
+    Armor, Range, Health, Damage, Movementspeed, AttackCooldownTime
 }
