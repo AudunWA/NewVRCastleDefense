@@ -15,7 +15,8 @@ public class SpawnController
         timer = new Timer(cooldownLimits);
     }
 
-    public int GetUpgradeCost(SpawnType spawnType, MinionAttribute attr) {
+    public int GetUpgradeCost(SpawnType spawnType, MinionAttribute attr)
+    {
         return gameflowController.GetUpgradeCost(spawnType, player, attr);
     }
 
