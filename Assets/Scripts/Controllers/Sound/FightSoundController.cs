@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class FightSoundController : MonoBehaviour {
 
-    public AudioClip punchSound;
     public AudioClip swooshSound;
     public AudioClip fistpunchSound;
+    public AudioClip stabSound;
+    public AudioClip clashSound;
+    public AudioClip drawSound;
     private AudioSource audioSource;
     public float VolLowRange { get; set; }
     public float VolHighRange { get; set; }
 
     private List<AudioClip> audioClips = new List<AudioClip>();
-
-    public void PlayPunchSound()
-    {
-        audioSource.PlayOneShot(punchSound, 1f);
-    }
 
     public void PlayRandomFightSound()
     {        
@@ -26,9 +23,11 @@ public class FightSoundController : MonoBehaviour {
     void Start ()
     {
         audioSource = GetComponent<AudioSource>();
-        audioClips.Add(punchSound);
         audioClips.Add(swooshSound);
         audioClips.Add(fistpunchSound);
+        audioClips.Add(stabSound);
+        audioClips.Add(clashSound);
+        audioClips.Add(drawSound);
     }
 	
 	// Update is called once per frame

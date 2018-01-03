@@ -53,8 +53,8 @@ GameObject:
   - component: {fileID: 54378807352396098}
   - component: {fileID: 65028568345200138}
   - component: {fileID: 195193750741085474}
-  - component: {fileID: 82715698503854806}
   - component: {fileID: 114219628981507340}
+  - component: {fileID: 82715698503854806}
   m_Layer: 0
   m_Name: Tank
   m_TagString: minion
@@ -823,7 +823,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1686701447190914}
-  m_LocalRotation: {x: 0.8122564, y: -0.14435707, z: 0.13652886, w: 0.54841644}
+  m_LocalRotation: {x: 0.8122563, y: -0.14435706, z: 0.13652885, w: 0.5484164}
   m_LocalPosition: {x: -0.00043169362, y: 0.00026435143, z: 0.00021364258}
   m_LocalScale: {x: 1.0000002, y: 1, z: 0.9999998}
   m_Children:
@@ -999,23 +999,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 2, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!95 &95572605438682726
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1576462163487344}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8cf94abb56f7c474f8f3c74cf32e7108, type: 3}
-  m_Controller: {fileID: 9100000, guid: d73166efa243eec4abcbc91c389ab12d, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!82 &82715698503854806
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1096,6 +1079,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95572605438682726
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576462163487344}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8cf94abb56f7c474f8f3c74cf32e7108, type: 3}
+  m_Controller: {fileID: 9100000, guid: d73166efa243eec4abcbc91c389ab12d, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114219628981507340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1107,9 +1107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d314bbee62af29d4a9d9bd7f24273adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  punchSound: {fileID: 8300000, guid: b92ffa546b78f8a4b8f16ddca36185b0, type: 3}
   swooshSound: {fileID: 8300000, guid: 15ff5228706468b419f3e11c266c2ac5, type: 3}
   fistpunchSound: {fileID: 8300000, guid: cfde6e59f0dd9564b89af3595d78601d, type: 3}
+  stabSound: {fileID: 8300000, guid: ed7456c270ac20042888addd3a75ea9a, type: 3}
+  clashSound: {fileID: 8300000, guid: 2e5b168177f75094181b095ad475b9b8, type: 3}
+  drawSound: {fileID: 8300000, guid: d9bab2b1ef4609842a31d98affe00bda, type: 3}
 --- !u!114 &114244805409763618
 MonoBehaviour:
   m_ObjectHideFlags: 1
