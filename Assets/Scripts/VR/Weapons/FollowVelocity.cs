@@ -45,5 +45,6 @@ public class FollowVelocity : MonoBehaviour
 		{
 			Instantiate(dummy, gameObject.transform.position, gameObject.transform.rotation);
 		}
+		Destroy(gameObject, 3.0f);
 	}
 }
