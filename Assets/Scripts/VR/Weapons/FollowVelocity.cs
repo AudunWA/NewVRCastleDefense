@@ -32,6 +32,11 @@ public class FollowVelocity : MonoBehaviour
 
 	private void OnCollisionEnter(Collision other)
 	{
+		if (other.gameObject?.GetComponent<CastleController>())
+		{
+			Destroy(gameObject);
+			return;
+		}
 		collision = true;
 		gameObject.SetActive(false);
 		if (other.gameObject?.GetComponent<MinionController>())
