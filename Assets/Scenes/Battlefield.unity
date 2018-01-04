@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.029494941, g: 0.042968474, b: 0.03205208, a: 1}
+  m_IndirectSpecularColor: {r: 0.0294961, g: 0.042945962, b: 0.032044604, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -7088,7 +7088,7 @@ ParticleSystem:
   m_GameObject: {fileID: 745465195}
   serializedVersion: 5
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 0.2
   stopAction: 0
   looping: 1
   prewarm: 1
@@ -7188,7 +7188,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
