@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-// TODO: FIXME: Use stuct for stat instead of class?
 public struct MinionStat
 {
     public SpawnType SpawnType { get; }
@@ -59,11 +58,11 @@ public struct MinionStat
     public MinionStat(SpawnType spawnType, Dictionary<MinionAttribute, int> levels, int bounty, int cost,  Dictionary<MinionAttribute, int> levelUpgradeCost, Dictionary<MinionAttribute, float> abilities)
     {
         SpawnType = spawnType;
-        Levels = levels;
+        Levels = new Dictionary<MinionAttribute, int>(levels);
         Bounty = bounty;
         Cost = cost;
-        LevelUpgradeCost = levelUpgradeCost;
-        Abilities = abilities;
+        LevelUpgradeCost = new Dictionary<MinionAttribute, int>(levelUpgradeCost);
+        Abilities = new Dictionary<MinionAttribute, float>(abilities);
     }
 
     // Initial
@@ -79,6 +78,7 @@ public struct MinionStat
             {MinionAttribute.AttackCooldownTime,1},
             {MinionAttribute.Health,1}
         };
+      
         Abilities = new Dictionary<MinionAttribute, float>
         {
             { MinionAttribute.Armor, armor},
@@ -90,7 +90,7 @@ public struct MinionStat
         };
         Bounty = bounty;
         Cost = cost;
-        LevelUpgradeCost = levelUpgradeCost;
+        LevelUpgradeCost = new Dictionary<MinionAttribute, int>(levelUpgradeCost);
     }
 
     public int GetLevel()
@@ -99,7 +99,7 @@ public struct MinionStat
         return Levels.Sum(x => x.Value)-Levels.Count() +1;
     }
 
-    public static MinionStat Upgrade(MinionStat minionstat, MinionStat additionStat, MinionAttribute attr)
+    public MinionStat Upgrade(MinionStat minionstat, MinionStat additionStat, MinionAttribute attr)
     {
         minionstat.Levels[attr]++;
         minionstat.LevelUpgradeCost[attr] += additionStat.LevelUpgradeCost[attr];
@@ -107,8 +107,8 @@ public struct MinionStat
         return new MinionStat(
            minionstat.SpawnType,
            minionstat.Levels,
-           minionstat.Bounty,
-           minionstat.Cost,
+           minionstat.Bounty + additionStat.Bounty,
+           minionstat.Cost + additionStat.Cost,
            minionstat.LevelUpgradeCost,
            minionstat.Abilities
            );

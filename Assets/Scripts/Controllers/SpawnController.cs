@@ -70,7 +70,6 @@ public class SpawnController
         MinionStat stat = player.MinionStatistics[spawnType];
         int cost = stat.Cost;
         if (!player.WithdrawMoney(cost)) return false;
-
         Minion minion;
         Vector3 spawnPosition = position ?? player.SpawnLocation;
         switch (spawnType)
