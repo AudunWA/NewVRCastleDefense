@@ -11,15 +11,11 @@ public class ExplosionSound : MonoBehaviour {
     // Use this for initialization
     void Start () {
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(bombAudio, 1f);
+        audioSource.PlayOneShot(bombAudio, 0.4f);
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if (timer < 2f)
-            timer += Time.deltaTime;
-        else
-        Destroy(gameObject);
     }
 }
