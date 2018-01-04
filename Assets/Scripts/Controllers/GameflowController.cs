@@ -42,10 +42,15 @@ public class GameflowController
         player.SpawnController.GetTimer.moneyTimerLim += 0.3f; // Make update slightly less frequent
     }
 
+    public int GetUpgradeCost(SpawnType spawnType, Player player, MinionAttribute attr)
+    {
+        return player.MinionStatistics[spawnType].LevelUpgradeCost[attr];
+    }
+
 
     public bool UpgradeMinionStat(SpawnType spawnType, Player player, MinionAttribute attr)
     {
-        int cost = player.MinionStatistics[spawnType].LevelUpgradeCost[attr];
+        int cost = GetUpgradeCost(spawnType, player, attr);
         if (!player.WithdrawMoney(cost)) return false;
         MinionStat stat = player.MinionStatistics[spawnType];
         MinionStat addition = MinionStatAdditions[spawnType];

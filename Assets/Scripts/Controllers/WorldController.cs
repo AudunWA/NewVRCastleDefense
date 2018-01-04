@@ -377,7 +377,7 @@ public class WorldController : MonoBehaviour
         EvilPlayer.SpawnController.Player = EvilPlayer;
     }
     //Use this for initialization
-    private void Start()
+    private void Awake()
     {
         SetBounties();
         SetCosts();
