@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0294961, g: 0.042945962, b: 0.032044604, a: 1}
+  m_IndirectSpecularColor: {r: 0.029494941, g: 0.042968474, b: 0.03205208, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4756,7 +4756,7 @@ GameObject:
   - component: {fileID: 238710888}
   - component: {fileID: 238710887}
   m_Layer: 5
-  m_Name: EnemyCastleHealth
+  m_Name: MyCastleHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5732,7 +5732,7 @@ Prefab:
         type: 2}
       propertyPath: HealthBars.Array.data[1]
       value: 
-      objectReference: {fileID: 1812679278}
+      objectReference: {fileID: 201396130}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 539543d00e070457aa1c87312864a755, type: 2}
   m_IsPrefabParent: 0
@@ -10569,13 +10569,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 759750413}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 808032864}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 90}
 --- !u!20 &759750417
 Camera:
   m_ObjectHideFlags: 0
@@ -15724,7 +15724,7 @@ Prefab:
         type: 2}
       propertyPath: HealthBars.Array.data[1]
       value: 
-      objectReference: {fileID: 201396130}
+      objectReference: {fileID: 1812679278}
     - target: {fileID: 1280710544746144, guid: 539543d00e070457aa1c87312864a755, type: 2}
       propertyPath: m_Name
       value: LeftCastle
@@ -21625,7 +21625,7 @@ GameObject:
   - component: {fileID: 1991590793}
   - component: {fileID: 1991590792}
   m_Layer: 5
-  m_Name: MyCastleHealth
+  m_Name: EnemyCastleHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
