@@ -51,7 +51,6 @@ public class GameflowController
     {
         int cost = GetUpgradeCost(spawnType, player, attr);
         if (!player.WithdrawMoney(cost)) return false;
-        Debug.Log(player.PlayerType+" upgrades: "+ attr + " on " + spawnType);
         MinionStat stat = player.MinionStatistics[spawnType];
         MinionStat addition = MinionStatAdditions[spawnType];
         player.MinionStatistics[spawnType] = stat.Upgrade(stat, addition, attr);

@@ -78,20 +78,15 @@ public struct MinionStat
             {MinionAttribute.AttackCooldownTime,1},
             {MinionAttribute.Health,1}
         };
-        float _armor = armor,
-            _range = range,
-            _damage = damage,
-            _movementspeed = movementspeed,
-            _attackCooldownTime = attackCooldownTime,
-            _health = health;
+      
         Abilities = new Dictionary<MinionAttribute, float>
         {
-            { MinionAttribute.Armor, _armor},
-            { MinionAttribute.Range, _range},
-            { MinionAttribute.Damage, _damage },
-            { MinionAttribute.Movementspeed, _movementspeed },
-            { MinionAttribute.AttackCooldownTime, _attackCooldownTime },
-            { MinionAttribute.Health, _health }
+            { MinionAttribute.Armor, armor},
+            { MinionAttribute.Range, range},
+            { MinionAttribute.Damage, damage },
+            { MinionAttribute.Movementspeed, movementspeed },
+            { MinionAttribute.AttackCooldownTime, attackCooldownTime },
+            { MinionAttribute.Health, health }
         };
         Bounty = bounty;
         Cost = cost;

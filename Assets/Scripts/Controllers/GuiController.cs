@@ -173,21 +173,6 @@ public class GuiController : MonoBehaviour
                 Text spawntextbox = fighterButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textbox, SpawnType.Fighter, GoodPlayer);
                 UpdateCostText(spawntextbox, SpawnType.Fighter, GoodPlayer, previousCost);
-                Debug.Log("Evilplayer stats");
-                MinionStat stat = EvilPlayer.MinionStatistics[SpawnType.Fighter];
-                
-                    foreach (KeyValuePair<MinionAttribute, float> v in stat.Abilities)
-                    {
-                        Debug.Log("Value of " + stat + " " + v.Key + " : " + v.Value);
-                    }
-
-                    Debug.Log("Goodplayer stats");
-                stat = GoodPlayer.MinionStatistics[SpawnType.Fighter];
-                
-                    foreach (KeyValuePair<MinionAttribute, float> v in stat.Abilities)
-                    {
-                        Debug.Log("Value of " + stat + " " + v.Key + " : " + v.Value);
-                    }
             }
         });
         archerUpgradeButton.onClick.AddListener(delegate
@@ -248,21 +233,6 @@ public class GuiController : MonoBehaviour
                 Text spawntextbox = evilFighterButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textbox, SpawnType.Fighter, EvilPlayer);
                 UpdateCostText(spawntextbox, SpawnType.Fighter, EvilPlayer, previousCost);
-                Debug.Log("Evilplayer stats");
-                MinionStat stat = EvilPlayer.MinionStatistics[SpawnType.Fighter];
-
-                foreach (KeyValuePair<MinionAttribute, float> v in stat.Abilities)
-                {
-                    Debug.Log("Value of " + stat + " " + v.Key + " : " + v.Value);
-                }
-
-                Debug.Log("Goodplayer stats");
-                stat = GoodPlayer.MinionStatistics[SpawnType.Fighter];
-
-                foreach (KeyValuePair<MinionAttribute, float> v in stat.Abilities)
-                {
-                    Debug.Log("Value of " + stat + " " + v.Key + " : " + v.Value);
-                }
             }
         });
         evilArcherUpgradeButton.onClick.AddListener(delegate
