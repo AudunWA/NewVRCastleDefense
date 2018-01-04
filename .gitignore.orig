@@ -63,6 +63,9 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+<<<<<<< HEAD
+=======
 
 # Exclude rider idea data
 .idea
+>>>>>>> master

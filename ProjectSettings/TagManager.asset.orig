@@ -44,9 +44,14 @@ TagManager:
   - 
   - 
   - Projectile
+<<<<<<< HEAD
+  - MiniMap
+  - 
+=======
   - EnemyCastle
   - EnemyProjectile
-  - MiniMap
+>>>>>>> master
+  - 
   - 
   - 
   - 
