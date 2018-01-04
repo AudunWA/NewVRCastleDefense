@@ -8,6 +8,7 @@ public class GameAI
     {
         Wait, Spawn, Upgrade, Shoot
     }
+    public int Level { get; set; }
     private Dictionary<SpawnType, bool> availableAction = new Dictionary<SpawnType, bool>();
     private Dictionary<SpawnType, int> minionCounts;
     private Dictionary<SpawnType, int> otherMinionCounts;
@@ -15,6 +16,7 @@ public class GameAI
     public AIAction CurrentAction { get; private set; }
     public SpawnType CurrentSpawnType { get; private set; }
     public SpawnType CurrentUpgradeType { get; private set; }
+    public MinionAttribute CurrentAttribute { get; private set; }
     private Player player;
     private Player otherPlayer;
     public GameAI()
@@ -179,10 +181,14 @@ public class GameAI
     }
     public void FindNextAction()
     {
-        MinionAttribute attr = MinionAttribute.Armor;
         FindIdealSpawnType();
-        attr = FindIdealUpgradeAttr();
-        FindIdealUpgradeType(attr);
+        if (Level < 2)
+        {
+            CurrentAction = AIAction.Spawn;
+            return;
+        }
+        CurrentAttribute = FindIdealUpgradeAttr();
+        FindIdealUpgradeType(CurrentAttribute);
         CompareMinionLevels();
         if (CurrentAction == AIAction.Upgrade)
         {

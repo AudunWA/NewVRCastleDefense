@@ -12,6 +12,7 @@ public class AIController
         gameAI = new GameAI();
         gameAI.Player = aiPlayer;
         gameAI.OtherPlayer = player;
+        gameAI.Level = 3;
         spawnTypes = new List<SpawnType>
         {
             SpawnType.Archer,
@@ -37,7 +38,7 @@ public class AIController
         }
         else if (gameAI.CurrentAction == GameAI.AIAction.Upgrade)
         {
-            MinionAttribute attr = MinionAttribute.Damage;
+            MinionAttribute attr = gameAI.CurrentAttribute;
             gameAI.Player.SpawnController.UpgradeMinionType(gameAI.CurrentUpgradeType, attr);
         }
 

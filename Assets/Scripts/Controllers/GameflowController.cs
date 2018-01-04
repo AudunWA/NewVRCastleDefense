@@ -9,7 +9,6 @@ public class GameflowController
     public Player GoodPlayer { get; set; }
     public Player Winner { get; set; }
     public Dictionary<SpawnType, MinionStat> MinionStatAdditions { get; set; }    
-    private const float COST_UPGRADE_LEVEL_FACTOR = 1.2f;
     public WorldController WorldController { get; set; }
     public GameflowController(Player evilPlayer, Player goodPlayer)
     {
@@ -54,7 +53,7 @@ public class GameflowController
         if (!player.WithdrawMoney(cost)) return false;
         MinionStat stat = player.MinionStatistics[spawnType];
         MinionStat addition = MinionStatAdditions[spawnType];
-        player.MinionStatistics[spawnType] = MinionStat.Upgrade(stat, addition, attr);
+        player.MinionStatistics[spawnType] = stat.Upgrade(stat, addition, attr);
         return true;
     }
 }
