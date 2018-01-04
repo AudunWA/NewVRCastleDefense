@@ -58,11 +58,11 @@ public struct MinionStat
     public MinionStat(SpawnType spawnType, Dictionary<MinionAttribute, int> levels, int bounty, int cost,  Dictionary<MinionAttribute, int> levelUpgradeCost, Dictionary<MinionAttribute, float> abilities)
     {
         SpawnType = spawnType;
-        Levels = levels;
+        Levels = new Dictionary<MinionAttribute, int>(levels);
         Bounty = bounty;
         Cost = cost;
-        LevelUpgradeCost = levelUpgradeCost;
-        Abilities = abilities;
+        LevelUpgradeCost = new Dictionary<MinionAttribute, int>(levelUpgradeCost);
+        Abilities = new Dictionary<MinionAttribute, float>(abilities);
     }
 
     // Initial
@@ -78,18 +78,24 @@ public struct MinionStat
             {MinionAttribute.AttackCooldownTime,1},
             {MinionAttribute.Health,1}
         };
+        float _armor = armor,
+            _range = range,
+            _damage = damage,
+            _movementspeed = movementspeed,
+            _attackCooldownTime = attackCooldownTime,
+            _health = health;
         Abilities = new Dictionary<MinionAttribute, float>
         {
-            { MinionAttribute.Armor, armor},
-            { MinionAttribute.Range, range},
-            { MinionAttribute.Damage, damage },
-            { MinionAttribute.Movementspeed, movementspeed },
-            { MinionAttribute.AttackCooldownTime, attackCooldownTime },
-            { MinionAttribute.Health, health }
+            { MinionAttribute.Armor, _armor},
+            { MinionAttribute.Range, _range},
+            { MinionAttribute.Damage, _damage },
+            { MinionAttribute.Movementspeed, _movementspeed },
+            { MinionAttribute.AttackCooldownTime, _attackCooldownTime },
+            { MinionAttribute.Health, _health }
         };
         Bounty = bounty;
         Cost = cost;
-        LevelUpgradeCost = levelUpgradeCost;
+        LevelUpgradeCost = new Dictionary<MinionAttribute, int>(levelUpgradeCost);
     }
 
     public int GetLevel()
