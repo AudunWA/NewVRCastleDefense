@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 [Serializable]
 public class WorldController : MonoBehaviour
@@ -9,6 +10,7 @@ public class WorldController : MonoBehaviour
     new Castle(5000, new Vector3(0.0f, 15.0f, -200.0f)), 1, new Vector3(0.0f, 0.0f, -150.0f));
     public Player goodPlayer = new Player("PlayerGood", PlayerType.Good, new List<Minion>(),
     new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, new Vector3(0.0f, 0.0f, 150.0f));
+
     private bool aiActive = false;
     private bool gameFinished = false;
     public bool SoundEffectsActive = false;

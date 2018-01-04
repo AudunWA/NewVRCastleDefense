@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-// TODO: FIXME: Use stuct for stat instead of class?
 public struct MinionStat
 {
     public SpawnType SpawnType { get; }
