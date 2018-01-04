@@ -68,24 +68,20 @@ public class WorldController : MonoBehaviour
         return EvilPlayer;
     }
 
-    private Dictionary<SpawnType, MinionStat> CopyMinionStats(Dictionary<SpawnType, MinionStat> stats)
+    private Dictionary<SpawnType, MinionStat> DeepCopyMinionStats(Dictionary<SpawnType, MinionStat> stats)
     {
         Dictionary<SpawnType, MinionStat> copy = new Dictionary<SpawnType, MinionStat>();
         foreach (KeyValuePair<SpawnType, MinionStat> s in stats)
         {
             MinionStat m = s.Value;
-            MinionStat newM = new MinionStat(m.SpawnType, 
-                m.Abilities[MinionAttribute.Armor],
-                m.Abilities[MinionAttribute.Range],
-                m.Bounty,
-                m.Abilities[MinionAttribute.Damage],
-                m.Abilities[MinionAttribute.Movementspeed],
-                m.Abilities[MinionAttribute.AttackCooldownTime],
-                m.Cost,
-                m.Abilities[MinionAttribute.Health],
-                m.LevelUpgradeCost
-                );
-            copy.Add(s.Key,newM);
+            MinionStat newMinionstat = new MinionStat(
+                m.SpawnType, 
+                m.Levels, 
+                m.Bounty, 
+                m.Cost, 
+                m.LevelUpgradeCost, 
+                m.Abilities);
+            copy.Add(s.Key, newMinionstat);
         }
         return copy;
     }
@@ -394,8 +390,8 @@ public class WorldController : MonoBehaviour
         evilPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, evilPlayer.Castle.Position.z + castleSize.z);
         goodPlayer.Money = 1000;
         evilPlayer.Money = 1000;
-        goodPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(CopyMinionStats(minionStats));
-        evilPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(CopyMinionStats(minionStats));
+        goodPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
+        evilPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
         GoodPlayer.SpawnController = new SpawnController(gameflowController, CooldownLimits);
         EvilPlayer.SpawnController = new SpawnController(gameflowController, CooldownLimits);
         GoodPlayer.SpawnController.Player = GoodPlayer;
