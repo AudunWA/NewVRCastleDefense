@@ -32,7 +32,6 @@ public class GuiController : MonoBehaviour
     public Button archerUpgradeButton;
     public Button mageUpgradeButton;
     public Button tankUpgradeButton;
-    public Button castleUpgradeButton;
 
     // Evil spawn buttons
     public Button evilFighterButton;
@@ -47,7 +46,6 @@ public class GuiController : MonoBehaviour
     public Button evilArcherUpgradeButton;
     public Button evilMageUpgradeButton;
     public Button evilTankUpgradeButton;
-    public Button evilCastleUpgradeButton;
 
 
     // Game mode toggle
@@ -213,10 +211,6 @@ public class GuiController : MonoBehaviour
                 UpdateCostText(spawntextbox, SpawnType.Tank, GoodPlayer, previousCost);
             }
         });
-        castleUpgradeButton.onClick.AddListener(delegate
-        {
-            // TODO: castle upgrade
-        });
     }
 
     private void InitEvilUpgradeButtons()
@@ -270,10 +264,6 @@ public class GuiController : MonoBehaviour
                 UpdateTextByLevel(textbox, SpawnType.Tank, EvilPlayer);
                 UpdateCostText(spawntextbox, SpawnType.Tank, EvilPlayer, previousCost);
             }
-        });
-        evilCastleUpgradeButton.onClick.AddListener(delegate
-        {
-            // TODO: castle upgrade
         });
     }
 
