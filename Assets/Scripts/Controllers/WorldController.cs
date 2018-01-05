@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
+[Serializable]
 public class WorldController : MonoBehaviour
 {
     // Players
-    private Player evilPlayer = new Player("PlayerEvil", PlayerType.Evil, new List<Minion>(),
-        new Castle(5000, new Vector3(0.0f, 15.0f, -200.0f)), 1, 100, new Vector3(0.0f, 0.0f, -150.0f));
-    private Player goodPlayer = new Player("PlayerGood", PlayerType.Good, new List<Minion>(),
-        new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, 100, new Vector3(0.0f, 0.0f, 150.0f));
+    public Player evilPlayer = new Player("PlayerEvil", PlayerType.Evil, new List<Minion>(),
+    new Castle(5000, new Vector3(0.0f, 15.0f, -200.0f)), 1, new Vector3(0.0f, 0.0f, -150.0f));
+    public Player goodPlayer = new Player("PlayerGood", PlayerType.Good, new List<Minion>(),
+    new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, new Vector3(0.0f, 0.0f, 150.0f));
+
     private bool aiActive = false;
     private bool gameFinished = false;
     public bool SoundEffectsActive = false;
@@ -40,14 +43,14 @@ public class WorldController : MonoBehaviour
         set { cooldownLimits = value; }
     }
 
-    public Player EvilPlayer
+    [SerializeField]public Player EvilPlayer
     {
         get { return evilPlayer; }
 
         set { evilPlayer = value; }
     }
 
-    public Player GoodPlayer
+   [SerializeField] public Player GoodPlayer
     {
         get { return goodPlayer; }
 
@@ -63,6 +66,24 @@ public class WorldController : MonoBehaviour
     {
         if (player.PlayerType == PlayerType.Evil) return GoodPlayer;
         return EvilPlayer;
+    }
+
+    private Dictionary<SpawnType, MinionStat> DeepCopyMinionStats(Dictionary<SpawnType, MinionStat> stats)
+    {
+        Dictionary<SpawnType, MinionStat> copy = new Dictionary<SpawnType, MinionStat>();
+        foreach (KeyValuePair<SpawnType, MinionStat> s in stats)
+        {
+            MinionStat m = s.Value;
+            MinionStat newMinionstat = new MinionStat(
+                m.SpawnType, 
+                m.Levels, 
+                m.Bounty, 
+                m.Cost, 
+                m.LevelUpgradeCost, 
+                m.Abilities);
+            copy.Add(s.Key, newMinionstat);
+        }
+        return copy;
     }
     // Initializations
     private void InitMinionStats()
@@ -369,16 +390,17 @@ public class WorldController : MonoBehaviour
         evilPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, evilPlayer.Castle.Position.z + castleSize.z);
         goodPlayer.Money = 1000;
         evilPlayer.Money = 1000;
-        goodPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(minionStats);
-        evilPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(minionStats);
+        goodPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
+        evilPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
         GoodPlayer.SpawnController = new SpawnController(gameflowController, CooldownLimits);
         EvilPlayer.SpawnController = new SpawnController(gameflowController, CooldownLimits);
         GoodPlayer.SpawnController.Player = GoodPlayer;
         EvilPlayer.SpawnController.Player = EvilPlayer;
     }
     //Use this for initialization
-    private void Start()
+    private void Awake()
     {
+        
         SetBounties();
         SetCosts();
         InitMinionStats();
@@ -397,6 +419,7 @@ public class WorldController : MonoBehaviour
         {
             InitCastles();
         }
+
         GoodPlayer.SpawnController.GetTimer.UpdateTimers();
         EvilPlayer.SpawnController.GetTimer.UpdateTimers();
         gameflowController.UpdatePlayerMoney(GoodPlayer);

@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 33444681716133678}
   - component: {fileID: 65629968848103328}
   - component: {fileID: 23426884075758050}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: ModelMiniMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1622,7 +1622,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3843a486ff38cbb4888289c846815f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBar: {fileID: 0}
+  HealthBars:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114842745792075836
 MonoBehaviour:
   m_ObjectHideFlags: 1

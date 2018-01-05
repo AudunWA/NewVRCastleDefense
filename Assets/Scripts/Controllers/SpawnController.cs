@@ -15,9 +15,14 @@ public class SpawnController
         timer = new Timer(cooldownLimits);
     }
 
-    public void UpgradeMinionType(SpawnType spawnType, MinionAttribute attr)
+    public int GetUpgradeCost(SpawnType spawnType, MinionAttribute attr)
     {
-        gameflowController.UpgradeMinionStat(spawnType, player, attr);
+        return gameflowController.GetUpgradeCost(spawnType, player, attr);
+    }
+
+    public bool UpgradeMinionType(SpawnType spawnType, MinionAttribute attr)
+    {
+        return gameflowController.UpgradeMinionStat(spawnType, player, attr);
     }
 
     public Player Player
@@ -65,7 +70,6 @@ public class SpawnController
         MinionStat stat = player.MinionStatistics[spawnType];
         int cost = stat.Cost;
         if (!player.WithdrawMoney(cost)) return false;
-
         Minion minion;
         Vector3 spawnPosition = position ?? player.SpawnLocation;
         switch (spawnType)

@@ -21,6 +21,7 @@ public class SpellController : MonoBehaviour {
             transform.position = spellPosition;
         }
         audioSource = GetComponent<AudioSource>();
+
     }
 
     private void OnDisable()
