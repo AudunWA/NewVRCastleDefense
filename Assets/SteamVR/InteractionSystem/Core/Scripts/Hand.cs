@@ -464,7 +464,7 @@ namespace Valve.VR.InteractionSystem
 			}
 		}
 
-		List<GameObject> highLightScriptObjects = new List<GameObject>();
+		private GameObject highLightScriptObjects;
 		//-------------------------------------------------
 		private void UpdateHovering()
 		{
@@ -526,18 +526,6 @@ namespace Valve.VR.InteractionSystem
 				if (collider.gameObject?.GetComponentInChildren<HighlightScript>())
 				{
 					collider.gameObject.GetComponentInChildren<HighlightScript>().highlight = true;
-					bool alreadyExist = false;
-					for (int i = 0; i < highLightScriptObjects.Count; i++)
-					{
-						if (collider.gameObject == highLightScriptObjects[i])
-						{
-							alreadyExist = true;
-						}
-					}
-					if (!alreadyExist)
-					{
-						highLightScriptObjects.Add(collider.gameObject);
-					}
 					highlightCount++;
 				}
 
@@ -579,23 +567,21 @@ namespace Valve.VR.InteractionSystem
 				HandDebugLog( "Found " + iActualColliderCount + " overlapping colliders." );
 			}
 
-			if (highlightCount == 0 || (counter == 0 && highLightScriptObjects.Count > 0))
+			if (highlightCount == 0 || (counter == 0 && highLightScriptObjects))
 			{
-				for (int i = 0; i < highLightScriptObjects.Count; i++)
+				if (highLightScriptObjects?.GetComponentInChildren<HighlightScript>())
 				{
-					if (highLightScriptObjects[i]?.GetComponentInChildren<HighlightScript>())
-					{
-						highLightScriptObjects[i].GetComponentInChildren<HighlightScript>().highlight = false;
-					}
-					else if (highLightScriptObjects[i]?.GetComponent<HighlightScript>())
-					{
-						highLightScriptObjects[i].GetComponent<HighlightScript>().highlight = false;
-					}
-					else if (highLightScriptObjects[i]?.GetComponentInParent<HighlightScript>())
-					{
-						highLightScriptObjects[i].GetComponentInParent<HighlightScript>().highlight = false;
-					}
+					highLightScriptObjects.GetComponentInChildren<HighlightScript>().highlight = false;
 				}
+				else if (highLightScriptObjects?.GetComponent<HighlightScript>())
+				{
+					highLightScriptObjects.GetComponent<HighlightScript>().highlight = false;
+				}
+				else if (highLightScriptObjects?.GetComponentInParent<HighlightScript>())
+				{
+					highLightScriptObjects.GetComponentInParent<HighlightScript>().highlight = false;
+				}
+			
 			}	
 		}
 

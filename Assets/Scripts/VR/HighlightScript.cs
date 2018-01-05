@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
@@ -9,6 +10,7 @@ public class HighlightScript : MonoBehaviour {
 	public Material highLightMaterial;
 	private SkinnedMeshRenderer renderer;
 	private MeshRenderer _meshRenderer;
+	private float timer = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -22,27 +24,41 @@ public class HighlightScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate ()
+	{
+		timer = Time.fixedDeltaTime;
+		
 		if (highlight && renderer)
         {
-	        gameObject.layer = gameObject.layer;
-	        gameObject.tag = gameObject.tag;
-	        renderer.material = highLightMaterial;
-	        renderer.enabled = true;
+	        HighlightWithRenderer();
+	        timer = 0;
         } else if (renderer)
 		{
 			renderer.enabled = false;
 		}
-
 		if (highlight && _meshRenderer)
 		{
-			gameObject.layer = gameObject.layer;
-			gameObject.tag = gameObject.tag;
-			_meshRenderer.material = highLightMaterial;
-			_meshRenderer.enabled = true;
+			HighlightWithMeshRenderer();
+			timer = 0;
 		} else if (_meshRenderer)
 		{
 			_meshRenderer.enabled = false;
 		}
+	}
+
+	void HighlightWithRenderer()
+	{
+		gameObject.layer = gameObject.layer;
+		gameObject.tag = gameObject.tag;
+		renderer.material = highLightMaterial;
+		renderer.enabled = true;
+	}
+
+	void HighlightWithMeshRenderer()
+	{
+		gameObject.layer = gameObject.layer;
+		gameObject.tag = gameObject.tag;
+		_meshRenderer.material = highLightMaterial;
+		_meshRenderer.enabled = true;
 	}
 }
