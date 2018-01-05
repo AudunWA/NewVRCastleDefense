@@ -212,7 +212,6 @@ public class ArrowController : MonoBehaviour
 
     public bool HitTarget()
     {
-        bool hit = false;
         List<float> rands2 = new List<float>();
         List<float> rands = new List<float>();
         int distance = (int)-Mathf.Pow(FindDistanceToTarget(), 2.0f) / 800;
@@ -220,10 +219,7 @@ public class ArrowController : MonoBehaviour
         int level = parentMinion.Level * 10 + 1;
         float random = Random.Range(distance, level);
         // Debug.Log("Archer Odds of hit: " + (float)level/(level-distance));
-        if (random > 0)
-        {
-            hit = true;
-        }
-        return hit;
+      
+        return random > 0;
     }
 }
