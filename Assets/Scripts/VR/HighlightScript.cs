@@ -1,26 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 public class HighlightScript : MonoBehaviour {
 
     public bool highlight = false;
+	public Material highLightMaterial;
+	private SkinnedMeshRenderer renderer;
+	private MeshRenderer _meshRenderer;
 
 	// Use this for initialization
 	void Start () {
-		
+		if (gameObject?.GetComponent<SkinnedMeshRenderer>())
+		{
+			renderer = gameObject.GetComponent<SkinnedMeshRenderer>();
+		} else if (gameObject?.GetComponent<MeshRenderer>())
+		{
+			_meshRenderer = gameObject.GetComponent<MeshRenderer>();
+		}
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (highlight)
+	void FixedUpdate () {
+		if (highlight && renderer)
         {
-            gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, 0.03f, 0);
-            gameObject.transform.rotation *= Quaternion.Euler(0, 1f, 0);
-        } else
-        {
-            gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, 0, 0);
-            gameObject.transform.rotation = Quaternion.identity;
-        }
+	        gameObject.layer = gameObject.layer;
+	        gameObject.tag = gameObject.tag;
+	        renderer.material = highLightMaterial;
+	        renderer.enabled = true;
+        } else if (renderer)
+		{
+			renderer.enabled = false;
+		}
+
+		if (highlight && _meshRenderer)
+		{
+			gameObject.layer = gameObject.layer;
+			gameObject.tag = gameObject.tag;
+			_meshRenderer.material = highLightMaterial;
+			_meshRenderer.enabled = true;
+		} else if (_meshRenderer)
+		{
+			_meshRenderer.enabled = false;
+		}
 	}
 }
