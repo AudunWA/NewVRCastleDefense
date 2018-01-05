@@ -236,7 +236,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4368425779012042}
   - component: {fileID: 33908706310686288}
-  - component: {fileID: 135080435233223938}
   - component: {fileID: 23746972009517986}
   m_Layer: 11
   m_Name: Sphere
@@ -718,8 +717,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373490890591472}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 4610790177566378}
   m_RootOrder: 2
@@ -855,7 +854,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1686701447190914}
-  m_LocalRotation: {x: 0.8122563, y: -0.14435706, z: 0.13652885, w: 0.5484164}
+  m_LocalRotation: {x: 0.8122564, y: -0.14435707, z: 0.13652886, w: 0.54841644}
   m_LocalPosition: {x: -0.00043169362, y: 0.00026435143, z: 0.00021364258}
   m_LocalScale: {x: 1.0000002, y: 1, z: 0.9999998}
   m_Children:
@@ -1325,18 +1324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18da7da3ba288984abee1b20be6450e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135080435233223938
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1373490890591472}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137053276736885122
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

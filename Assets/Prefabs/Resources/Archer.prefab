@@ -170,7 +170,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4744607474896002}
   - component: {fileID: 33433505867664640}
-  - component: {fileID: 135047860486082260}
   - component: {fileID: 23800905577678888}
   m_Layer: 11
   m_Name: Sphere
@@ -912,8 +911,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1292960352810876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 4678937135555402}
   m_RootOrder: 2
@@ -1286,18 +1285,6 @@ MonoBehaviour:
     state: 0
     spawnType: 0
   lightning: {fileID: 0}
---- !u!135 &135047860486082260
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1292960352810876}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137349963364544582
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
