@@ -157,7 +157,7 @@ public class Minion : GameEntity{
     /// <param name="baseDamage">The damage to apply</param>
     public override void TakeDamage(float baseDamage)
     {
-        const float armorMultiplier = 0.2f;
+        const float armorMultiplier = 0.33f;
         if (baseDamage <= armorMultiplier * armor)
         {
             base.TakeDamage(1); // Armor nullifies damage

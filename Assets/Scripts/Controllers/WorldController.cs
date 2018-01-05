@@ -130,7 +130,7 @@ public class WorldController : MonoBehaviour
                     },
                     range: 6f,
                     bounty: bounties[SpawnType.Tank],
-                    damage: 12f,
+                    damage: 8f,
                     movementspeed: 1.5f,
                     attackCooldownTime: 3f,
                     cost: costs[SpawnType.Tank],
@@ -154,7 +154,7 @@ public class WorldController : MonoBehaviour
                     },
                     range: 60f,
                     bounty: bounties[SpawnType.Mage],
-                    damage: 10f,
+                    damage: 8f,
                     movementspeed: 2.5f,
                     attackCooldownTime: 2.9f,
                     cost: costs[SpawnType.Mage],
@@ -196,12 +196,58 @@ public class WorldController : MonoBehaviour
                     spawnType: SpawnType.Fighter,
                     armor: 2,
                     range: 0,
+                    bounty: 10,
+                    damage: 2f,
+                    movementspeed: 0.03f,
+                    attackCooldownTime: -0.01f,
+                    cost: 8,
+                    health: 15,
+                    levelUpgradeCost: new Dictionary<MinionAttribute, int>
+                    {
+                        {MinionAttribute.Armor, 8},
+                        {MinionAttribute.Range, 0},
+                        {MinionAttribute.Damage, 8},
+                        {MinionAttribute.Movementspeed, 8},
+                        {MinionAttribute.AttackCooldownTime, 8},
+                        {MinionAttribute.Health, 8}
+                    }
+                )
+            },
+            {
+                SpawnType.Tank,
+                new MinionStat(
+                    spawnType: SpawnType.Tank,
+                    armor: 4,
+                    range: 0,
+                    bounty: 15,
+                    damage: 1f,
+                    movementspeed: 0.05f,
+                    attackCooldownTime: -0.01f,
+                    cost: 12,
+                    health: 30,
+                    levelUpgradeCost: new Dictionary<MinionAttribute, int>
+                    {
+                        {MinionAttribute.Armor, 12},
+                        {MinionAttribute.Range, 0},
+                        {MinionAttribute.Damage, 12},
+                        {MinionAttribute.Movementspeed, 12},
+                        {MinionAttribute.AttackCooldownTime, 12},
+                        {MinionAttribute.Health, 12}
+                    }
+                )
+            },
+            {
+                SpawnType.Mage,
+                new MinionStat(
+                    spawnType: SpawnType.Mage,
+                    armor: 1,
+                    range: 1f,
                     bounty: 20,
                     damage: 2f,
-                    movementspeed: 0.05f,
-                    attackCooldownTime: -0.02f,
+                    movementspeed: 0.03f,
+                    attackCooldownTime: -0.01f,
                     cost: 15,
-                    health: 20,
+                    health: 5,
                     levelUpgradeCost: new Dictionary<MinionAttribute, int>
                     {
                         {MinionAttribute.Armor, 15},
@@ -214,71 +260,25 @@ public class WorldController : MonoBehaviour
                 )
             },
             {
-                SpawnType.Tank,
-                new MinionStat(
-                    spawnType: SpawnType.Tank,
-                    armor: 4,
-                    range: 0,
-                    bounty: 30,
-                    damage: 2f,
-                    movementspeed: 0.05f,
-                    attackCooldownTime: -0.02f,
-                    cost: 25,
-                    health: 60,
-                    levelUpgradeCost: new Dictionary<MinionAttribute, int>
-                    {
-                        {MinionAttribute.Armor, 25},
-                        {MinionAttribute.Range, 25},
-                        {MinionAttribute.Damage, 25},
-                        {MinionAttribute.Movementspeed, 25},
-                        {MinionAttribute.AttackCooldownTime, 25},
-                        {MinionAttribute.Health, 25}
-                    }
-                )
-            },
-            {
-                SpawnType.Mage,
-                new MinionStat(
-                    spawnType: SpawnType.Mage,
-                    armor: 1,
-                    range: 1f,
-                    bounty: 40,
-                    damage: 2f,
-                    movementspeed: 0.05f,
-                    attackCooldownTime: -0.02f,
-                    cost: 30,
-                    health: 10,
-                    levelUpgradeCost: new Dictionary<MinionAttribute, int>
-                    {
-                        {MinionAttribute.Armor, 30},
-                        {MinionAttribute.Range, 30},
-                        {MinionAttribute.Damage, 30},
-                        {MinionAttribute.Movementspeed, 30},
-                        {MinionAttribute.AttackCooldownTime, 30},
-                        {MinionAttribute.Health, 30}
-                    }
-                )
-            },
-            {
                 SpawnType.Archer,
                 new MinionStat(
                     spawnType: SpawnType.Archer,
                     armor: 1,
-                    range: 2f,
-                    bounty: 40,
+                    range: 1f,
+                    bounty: 20,
                     damage: 2f,
-                    movementspeed: 0.05f,
+                    movementspeed: 0.03f,
                     attackCooldownTime: -0.01f,
-                    cost: 30,
-                    health: 10,
+                    cost: 15,
+                    health: 5,
                     levelUpgradeCost: new Dictionary<MinionAttribute, int>
                     {
-                        {MinionAttribute.Armor, 30},
-                        {MinionAttribute.Range, 30},
-                        {MinionAttribute.Damage, 30},
-                        {MinionAttribute.Movementspeed, 30},
-                        {MinionAttribute.AttackCooldownTime, 30},
-                        {MinionAttribute.Health, 30}
+                        {MinionAttribute.Armor, 15},
+                        {MinionAttribute.Range, 15},
+                        {MinionAttribute.Damage, 15},
+                        {MinionAttribute.Movementspeed, 15},
+                        {MinionAttribute.AttackCooldownTime, 15},
+                        {MinionAttribute.Health, 15}
                     }
                 )
             }
@@ -318,39 +318,39 @@ public class WorldController : MonoBehaviour
         {
             { SpawnType.Fighter,  new Dictionary<MinionAttribute, int>
             {
-                {MinionAttribute.Armor, 50},
-                {MinionAttribute.Range, 50},
-                {MinionAttribute.Damage, 50},
-                {MinionAttribute.Movementspeed, 50},
-                {MinionAttribute.AttackCooldownTime, 50},
-                {MinionAttribute.Health, 50}
+                {MinionAttribute.Armor, 25},
+                {MinionAttribute.Range, 0},
+                {MinionAttribute.Damage, 20},
+                {MinionAttribute.Movementspeed, 25},
+                {MinionAttribute.AttackCooldownTime, 25},
+                {MinionAttribute.Health, 25}
             }},
             { SpawnType.Tank,  new Dictionary<MinionAttribute, int>
             {
-                {MinionAttribute.Armor, 70},
-                {MinionAttribute.Range, 70},
-                {MinionAttribute.Damage, 70},
-                {MinionAttribute.Movementspeed, 70},
-                {MinionAttribute.AttackCooldownTime, 70},
-                {MinionAttribute.Health, 70}
+                {MinionAttribute.Armor, 30},
+                {MinionAttribute.Range, 0},
+                {MinionAttribute.Damage, 35},
+                {MinionAttribute.Movementspeed, 35},
+                {MinionAttribute.AttackCooldownTime, 35},
+                {MinionAttribute.Health, 30}
             }},
             { SpawnType.Mage,  new Dictionary<MinionAttribute, int>
             {
-                {MinionAttribute.Armor, 80},
-                {MinionAttribute.Range,80},
-                {MinionAttribute.Damage, 80},
-                {MinionAttribute.Movementspeed, 80},
-                {MinionAttribute.AttackCooldownTime, 80},
-                {MinionAttribute.Health, 80}
+                {MinionAttribute.Armor, 40},
+                {MinionAttribute.Range, 40},
+                {MinionAttribute.Damage, 30},
+                {MinionAttribute.Movementspeed, 40},
+                {MinionAttribute.AttackCooldownTime, 40},
+                {MinionAttribute.Health, 40}
             }},
             { SpawnType.Archer,  new Dictionary<MinionAttribute, int>
             {
-                {MinionAttribute.Armor, 80},
-                {MinionAttribute.Range,80},
-                {MinionAttribute.Damage, 80},
-                {MinionAttribute.Movementspeed, 80},
-                {MinionAttribute.AttackCooldownTime, 80},
-                {MinionAttribute.Health, 80}
+                {MinionAttribute.Armor, 40},
+                {MinionAttribute.Range, 40},
+                {MinionAttribute.Damage, 30},
+                {MinionAttribute.Movementspeed, 40},
+                {MinionAttribute.AttackCooldownTime, 40},
+                {MinionAttribute.Health, 40}
             }}
         };
     }
