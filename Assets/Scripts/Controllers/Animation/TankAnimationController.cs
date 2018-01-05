@@ -32,19 +32,17 @@ public class TankAnimationController : MonoBehaviour
 	    {
 	        case SpawnType.Archer:
             case SpawnType.Fighter:
-	            animator.SetBool("IsAttacking", controller.Minion.State == Minion.MinionState.Fighting);
-	            animator.SetFloat("SpeedMultiply", velocityMagnitude / 8f);
+	            animator.SetFloat("SpeedMultiply", Math.Min(1f, velocityMagnitude / 8f));
 	            animator.SetBool("IsDead", controller.Minion.State == Minion.MinionState.Dead);
 
                 break;
 	        case SpawnType.Tank:
-	            animator.SetBool("StandAttack", controller.Minion.State == Minion.MinionState.Fighting);
 	            animator.SetBool("Death", controller.Minion.State == Minion.MinionState.Dead);
-	            animator.SetFloat("SpeedMultiply", velocityMagnitude * 0.5f);
+	            animator.SetFloat("SpeedMultiply", Math.Min(3f, velocityMagnitude * 0.5f));
 
                 break;
 	        case SpawnType.Mage:
-	            animator.SetFloat("SpeedMultiply", velocityMagnitude * 0.5f);
+	            animator.SetFloat("SpeedMultiply", Math.Min(3f, velocityMagnitude * 0.5f));
                 //if (controller.Minion.State == Minion.MinionState.Fighting)
                 //    animator.SetTrigger("throw");
                 if (controller.Minion.State == Minion.MinionState.Dead)
@@ -55,4 +53,32 @@ public class TankAnimationController : MonoBehaviour
 	            throw new ArgumentOutOfRangeException();
 	    }
 	}
+
+    //private static readonly Dictionary<SpawnType, float> attackAnimationMultipliers =
+    //    new Dictionary<SpawnType, float>
+    //    {
+    //        {SpawnType.Tank, 3},
+    //        {SpawnType.Archer, 1},
+    //        {SpawnType.Fighter, 1},
+    //        {SpawnType.Mage, 1}
+    //    };
+
+    void OnAttack(float attackCooldown)
+    {
+        float attacksPerSecond = 1 / attackCooldown;
+        animator.SetFloat("AttackSpeed", Math.Max(1, attacksPerSecond) /** attackAnimationMultipliers[controller.Minion.SpawnType]*/);
+
+        switch (controller.Minion.SpawnType)
+        {
+            case SpawnType.Tank:
+            case SpawnType.Archer:
+            case SpawnType.Fighter:
+                animator.SetTrigger("Attack");
+                break;
+            case SpawnType.Mage:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
 }

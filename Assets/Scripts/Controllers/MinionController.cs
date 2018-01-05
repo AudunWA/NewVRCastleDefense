@@ -195,6 +195,7 @@ public class MinionController : MonoBehaviour
         if (!Minion.IsAlive && Minion.State != Minion.MinionState.Dead)
         {
             Minion.State = Minion.MinionState.Dead;
+            agent.isStopped = true;
             if (gameObject.GetComponentInChildren<DummyArrowController>() != null)
             {
                 while (gameObject.GetComponentInChildren<DummyArrowController>())
@@ -245,6 +246,7 @@ public class MinionController : MonoBehaviour
                 fightSoundController.PlayRandomFightSound();
                 targetEntity.TakeDamage(Minion.Damage);
             }
+            BroadcastMessage("OnAttack", Minion.AttackCooldownTime);
         }
         attackTimer += Time.deltaTime;
     }
