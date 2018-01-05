@@ -39,7 +39,7 @@ public class FollowVelocity : MonoBehaviour
 	
 	void Destroy()
 	{
-		gameObject.SetActive(false);
+		Destroy(gameObject, 10.0f);
 	}
 
 
