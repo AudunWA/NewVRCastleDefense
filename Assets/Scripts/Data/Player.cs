@@ -14,6 +14,16 @@ public class Player{
     public Dictionary<SpawnType, MinionStat> MinionStatistics { get; set; }
     public SpawnController SpawnController { get; set; }
     public int MoneyIncrementFactor { get; set; }
+    public Player(string name, PlayerType playerType, List<Minion> minions, Castle castle, int level, Vector3 position, int moneyIncrementFactor)
+    {
+        this.name = name;
+        this.playerType = playerType;
+        this.minions = minions;
+        this.castle = castle;
+        this.level = level;
+        this.position = position;
+        MoneyIncrementFactor = moneyIncrementFactor;
+    }
     public Player(string name, PlayerType playerType, List<Minion> minions, Castle castle, int level, Vector3 position)
     {
         this.name = name;
@@ -22,9 +32,7 @@ public class Player{
         this.castle = castle;
         this.level = level;
         this.position = position;
-        MoneyIncrementFactor = 2;
     }
-
     public int Money
     {
         get { return money; }
