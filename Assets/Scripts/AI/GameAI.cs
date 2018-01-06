@@ -186,7 +186,6 @@ public class GameAI
     {
         FindIdealSpawnType();
         spawnCost = player.MinionStatistics[CurrentSpawnType].Cost;
-        Debug.Log(Level);
         if (Level < 2)
         {
             CurrentAction = AIAction.Spawn;
