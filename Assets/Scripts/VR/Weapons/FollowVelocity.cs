@@ -28,14 +28,22 @@ public class FollowVelocity : MonoBehaviour
 	//THIS HAS TO BE NORMAL UPDATE, NOT FIXED
 	private void Update()
 	{
-		if (followObGameObject?.GetComponent<Rigidbody>().velocity.magnitude + tolerance >
-		    gameObject?.GetComponent<Rigidbody>().velocity.magnitude || followObGameObject?.GetComponent<Rigidbody>().velocity.magnitude - tolerance <
-		    gameObject?.GetComponent<Rigidbody>().velocity.magnitude && !followObGameObject.GetComponent<DuplicateArrows>().collision && !collision)
+		if (followObGameObject.activeInHierarchy)
 		{
-			gameObject.transform.rotation = followObGameObject.transform.rotation;
-			gameObject.GetComponent<Rigidbody>().velocity = followObGameObject.GetComponent<Rigidbody>().velocity;
-		}
-		if (followObGameObject.GetComponent<DuplicateArrows>().collision)
+			if (followObGameObject?.GetComponent<Rigidbody>().velocity.magnitude + tolerance >
+			    gameObject?.GetComponent<Rigidbody>().velocity.magnitude || followObGameObject?.GetComponent<Rigidbody>().velocity.magnitude - tolerance <
+			    gameObject?.GetComponent<Rigidbody>().velocity.magnitude && !followObGameObject.GetComponent<DuplicateArrows>().collision && !collision)
+			{
+				gameObject.transform.rotation = followObGameObject.transform.rotation;
+				gameObject.GetComponent<Rigidbody>().velocity = followObGameObject.GetComponent<Rigidbody>().velocity;
+			}
+			if (followObGameObject.GetComponent<DuplicateArrows>().collision)
+			{
+				gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.rotation * Vector3.forward * 30;
+			}
+
+		} 
+		else 
 		{
 			gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.rotation * Vector3.forward * 30;
 		}
@@ -57,19 +65,25 @@ public class FollowVelocity : MonoBehaviour
 	{
 		if (other.gameObject?.GetComponent<CastleController>())
 		{
-			Destroy(gameObject);
+			Invoke(nameof(Destroy),0.5f);
 			return;
 		}
-		GameObject dummygo = pool.GetPooledObject();
+		GameObject dummygo;
+		if (pool.GetPooledObject() != null)
+		{
+			dummygo = pool.GetPooledObject();
+		}
+		else
+		{
+			Debug.Log("DUMMY RAIN ARROW ERROR, NULL!");
+			return;
+		}
+
 		collision = true;
 		gameObject.SetActive(false);
 		if (other.gameObject?.GetComponent<MinionController>())
 		{
 			other.gameObject?.GetComponent<MinionController>().Minion.TakeDamage(damage);
-			dummygo.transform.position = gameObject.transform.position;
-			dummygo.transform.rotation = gameObject.transform.rotation;
-			FixedJoint joint = dummygo.AddComponent<FixedJoint>();
-			joint.connectedBody = other.gameObject.GetComponent<Rigidbody>();
 		}
 		else
 		{
@@ -78,6 +92,6 @@ public class FollowVelocity : MonoBehaviour
 		}
 
 		dummygo.SetActive(true);
-		Invoke(nameof(Destroy),5.0f);
+		Invoke(nameof(Destroy),10.0f);
 	}
 }

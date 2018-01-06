@@ -572,8 +572,9 @@ namespace Valve.VR.InteractionSystem
 				HandDebugLog( "Found " + iActualColliderCount + " overlapping colliders." );
 			}
 
-			if (highlightCount == 0)
+			if (highlightCount == 0 && highLightScriptObjects != null)
 			{
+				highLightScriptObjects.GetComponentInChildren<HighlightScript>().highlight = false;
 				highLightScriptObjects = null;
 			}
 
