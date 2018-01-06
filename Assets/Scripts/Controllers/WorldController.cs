@@ -434,7 +434,7 @@ public class WorldController : MonoBehaviour
         EvilPlayer.SpawnController.GetTimer.UpdateTimers();
         gameflowController.UpdatePlayerMoney(GoodPlayer);
         gameflowController.UpdatePlayerMoney(EvilPlayer);
-        if (aiActive) // Remove this line when game launches. AI is a complete part of the game
+        if (aiActive)
         {
             aiController.PlayAI();
         }
