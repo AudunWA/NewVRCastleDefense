@@ -398,7 +398,7 @@ public class WorldController : MonoBehaviour
         evilPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, evilPlayer.Castle.Position.z + castleSize.z);
         goodPlayer.Money = 1000;
         goodPlayer.MoneyIncrementFactor = 3;
-        evilPlayer.Money = gameAILevel > 2?2500:1000;
+        evilPlayer.Money = gameAILevel > 2 ? 2500 : 1000;
         evilPlayer.MoneyIncrementFactor = gameAILevel > 2 ? 6 : 3;
         goodPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
         evilPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
