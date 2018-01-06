@@ -13170,7 +13170,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1135639838}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1073459703
 MonoBehaviour:
@@ -13186,7 +13186,7 @@ MonoBehaviour:
   poolParent: {fileID: 1073459701}
   pooledObject: {fileID: 1953777797404816, guid: 4d36581e324d3bc4d918eb6ea5c4670c,
     type: 2}
-  pooledAmount: 800
+  pooledAmount: 400
   willGrow: 1
   pooledObjects: []
 --- !u!4 &1101788155 stripped
@@ -13440,6 +13440,7 @@ Transform:
   - {fileID: 609125967}
   - {fileID: 1993482906}
   - {fileID: 1524606013}
+  - {fileID: 2057755841}
   - {fileID: 1073459702}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -22775,6 +22776,52 @@ Transform:
   m_PrefabParentObject: {fileID: 4494903737699920, guid: d0d44969e683fdf4e93c4332ac377a68,
     type: 2}
   m_PrefabInternal: {fileID: 1521445268}
+--- !u!1 &2057755840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2057755841}
+  - component: {fileID: 2057755842}
+  m_Layer: 0
+  m_Name: ArrowRainPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2057755841
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2057755840}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1135639838}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2057755842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2057755840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d43a5f43141f547bb23bb7771424b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolParent: {fileID: 2057755840}
+  pooledObject: {fileID: 1065578983792964, guid: 8a79ccf93133d3b49b33f04c66825cab,
+    type: 2}
+  pooledAmount: 400
+  willGrow: 1
+  pooledObjects: []
 --- !u!1 &2071327701 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1446064327152322, guid: d0d44969e683fdf4e93c4332ac377a68,

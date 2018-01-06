@@ -572,21 +572,29 @@ namespace Valve.VR.InteractionSystem
 				HandDebugLog( "Found " + iActualColliderCount + " overlapping colliders." );
 			}
 
-			if (highlightCount == 0 || (counter == 0 && highLightScriptObjects))
+			if (highlightCount == 0)
 			{
-				if (highLightScriptObjects?.GetComponentInChildren<HighlightScript>())
+				highLightScriptObjects = null;
+			}
+
+			if (highLightScriptObjects != null)
+			{
+				if (highlightCount == 0 || (counter == 0 && highLightScriptObjects != null))
 				{
-					highLightScriptObjects.GetComponentInChildren<HighlightScript>().highlight = false;
-				}
-				else if (highLightScriptObjects?.GetComponent<HighlightScript>())
-				{
-					highLightScriptObjects.GetComponent<HighlightScript>().highlight = false;
-				}
-				else if (highLightScriptObjects?.GetComponentInParent<HighlightScript>())
-				{
-					highLightScriptObjects.GetComponentInParent<HighlightScript>().highlight = false;
-				}
+					if (highLightScriptObjects?.GetComponentInChildren<HighlightScript>())
+					{
+						highLightScriptObjects.GetComponentInChildren<HighlightScript>().highlight = false;
+					}
+					else if (highLightScriptObjects?.GetComponent<HighlightScript>())
+					{
+						highLightScriptObjects.GetComponent<HighlightScript>().highlight = false;
+					}
+					else if (highLightScriptObjects?.GetComponentInParent<HighlightScript>())
+					{
+						highLightScriptObjects.GetComponentInParent<HighlightScript>().highlight = false;
+					}
 			
+				}
 			}	
 		}
 

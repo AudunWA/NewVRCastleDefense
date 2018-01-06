@@ -19,8 +19,12 @@ public class FollowVelocity : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	
-	
+
+	private void OnEnable()
+	{
+		Invoke(nameof(Destroy),20.0f);
+	}
+
 	//THIS HAS TO BE NORMAL UPDATE, NOT FIXED
 	private void Update()
 	{
@@ -36,10 +40,16 @@ public class FollowVelocity : MonoBehaviour
 			gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.rotation * Vector3.forward * 30;
 		}
 	}
-	
+
+	private void OnDisable()
+	{
+		gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
+		gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(0,0,0);
+	}
+
 	void Destroy()
 	{
-		Destroy(gameObject, 10.0f);
+		gameObject.SetActive(false);
 	}
 
 
@@ -68,6 +78,6 @@ public class FollowVelocity : MonoBehaviour
 		}
 
 		dummygo.SetActive(true);
-		Destroy(gameObject, 3.0f);
+		Invoke(nameof(Destroy),5.0f);
 	}
 }
