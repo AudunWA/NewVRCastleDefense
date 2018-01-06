@@ -76,7 +76,7 @@ public class FollowVelocity : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("DUMMY RAIN ARROW ERROR, NULL!");
+			Debug.Log("DUMMY RAIN ARROW ERROR, NULL! (shouldnt happen, this usually means a gameobject was destroyed instead of set inactive)");
 			return;
 		}
 
