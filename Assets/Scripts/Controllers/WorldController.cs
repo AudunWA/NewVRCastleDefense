@@ -388,7 +388,7 @@ public class WorldController : MonoBehaviour
         gameflowController = new GameflowController(EvilPlayer, GoodPlayer);
         gameflowController.MinionStatAdditions = minionStatAdditions;
         gameflowController.WorldController = this;
-        GameAILevel = 3; // TODO: Remove when variable is set from lobby
+        GameAILevel = 1; // TODO: Remove when variable is set from lobby
         aiController = new AIController(EvilPlayer, GoodPlayer, gameAILevel);
     }
 
