@@ -126,7 +126,7 @@ public class GameAI
     /// Compare total levels of different minion types. In the case of an imbalance,
     ///  ie. the enemy has upgraded something, then upgrade something
     /// </summary>
-    private void CompareMinionLevels()
+    private void EvaluateMinionUpgrade()
     {
         int sum = 0, otherSum = 0;
         foreach (SpawnType s in otherPlayer.MinionStatistics.Keys.ToList())
@@ -189,7 +189,7 @@ public class GameAI
         }
         CurrentAttribute = FindIdealUpgradeAttr();
         FindIdealUpgradeType(CurrentAttribute);
-        CompareMinionLevels();
+        EvaluateMinionUpgrade();
         if (CurrentAction == AIAction.Upgrade)
         {
             // If more than sufficient amount of money, or enemy has more than twice as many minions, spawn instead of saving money

@@ -7,12 +7,12 @@ public class AIController
     private GameflowController gameflowController;
     private List<SpawnType> spawnTypes;
     private Dictionary<SpawnType, bool> availableSpawnTypes;
-    public AIController(Player aiPlayer, Player player)
+    public AIController(Player aiPlayer, Player player, int gameAiLevel)
     {
         gameAI = new GameAI();
+        gameAI.Level = gameAiLevel;
         gameAI.Player = aiPlayer;
         gameAI.OtherPlayer = player;
-        gameAI.Level = 3;
         spawnTypes = new List<SpawnType>
         {
             SpawnType.Archer,
