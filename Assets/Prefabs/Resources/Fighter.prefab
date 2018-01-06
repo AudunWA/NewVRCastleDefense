@@ -226,10 +226,10 @@ GameObject:
   - component: {fileID: 4660176508709634}
   - component: {fileID: 114668896076590902}
   - component: {fileID: 54513398286125730}
-  - component: {fileID: 135856731089416862}
   - component: {fileID: 195172373053283518}
   - component: {fileID: 114523006293875852}
   - component: {fileID: 82882694867521672}
+  - component: {fileID: 136748181741136694}
   m_Layer: 0
   m_Name: Fighter
   m_TagString: minion
@@ -1044,7 +1044,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1447220558612500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.479754, y: 0.01, z: 129.04077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224117565408019404}
@@ -1912,8 +1912,8 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!135 &135856731089416862
-SphereCollider:
+--- !u!136 &136748181741136694
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -1921,9 +1921,10 @@ SphereCollider:
   m_Material: {fileID: 13400000, guid: c509d5711dc2cc346be2763cd92383ca, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Radius: 0.9
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.3, z: 0}
 --- !u!137 &137215151557808414
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

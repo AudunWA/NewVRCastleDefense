@@ -9,6 +9,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
+using Debug = UnityEngine.Debug;
 
 namespace Valve.VR.InteractionSystem
 {
@@ -461,10 +464,13 @@ namespace Valve.VR.InteractionSystem
 			}
 		}
 
-
+		private GameObject highLightScriptObjects;
 		//-------------------------------------------------
 		private void UpdateHovering()
 		{
+			
+			int highlightCount = 0;
+			
 			if ( ( noSteamVRFallbackCamera == null ) && ( controller == null ) )
 			{
 				return;
@@ -504,6 +510,8 @@ namespace Valve.VR.InteractionSystem
 			// DebugVar
 			int iActualColliderCount = 0;
 
+			int counter = 0;
+
 			foreach ( Collider collider in overlappingColliders )
 			{
 				if ( collider == null )
@@ -514,6 +522,17 @@ namespace Valve.VR.InteractionSystem
 				// Yeah, it's null, skip
 				if ( contacting == null )
 					continue;
+
+				if (collider.gameObject?.GetComponentInChildren<HighlightScript>())
+				{
+					if (highLightScriptObjects != null)
+					{
+						highLightScriptObjects.GetComponentInChildren<HighlightScript>().highlight = false;
+					}
+					highLightScriptObjects = collider.gameObject;
+					collider.gameObject.GetComponentInChildren<HighlightScript>().highlight = true;
+					highlightCount++;
+				}
 
 				// Ignore this collider for hovering
 				IgnoreHovering ignore = collider.GetComponent<IgnoreHovering>();
@@ -541,6 +560,7 @@ namespace Valve.VR.InteractionSystem
 					closestInteractable = contacting;
 				}
 				iActualColliderCount++;
+				counter++;
 			}
 
 			// Hover on this one
@@ -551,6 +571,33 @@ namespace Valve.VR.InteractionSystem
 				prevOverlappingColliders = iActualColliderCount;
 				HandDebugLog( "Found " + iActualColliderCount + " overlapping colliders." );
 			}
+
+			if (highlightCount == 0 && highLightScriptObjects != null)
+			{
+				highLightScriptObjects.GetComponentInChildren<HighlightScript>().highlight = false;
+				highLightScriptObjects = null;
+
+			}
+
+			if (highLightScriptObjects != null)
+			{
+				if (highlightCount == 0 || (counter == 0 && highLightScriptObjects != null))
+				{
+					if (highLightScriptObjects?.GetComponentInChildren<HighlightScript>())
+					{
+						highLightScriptObjects.GetComponentInChildren<HighlightScript>().highlight = false;
+					}
+					else if (highLightScriptObjects?.GetComponent<HighlightScript>())
+					{
+						highLightScriptObjects.GetComponent<HighlightScript>().highlight = false;
+					}
+					else if (highLightScriptObjects?.GetComponentInParent<HighlightScript>())
+					{
+						highLightScriptObjects.GetComponentInParent<HighlightScript>().highlight = false;
+					}
+			
+				}
+			}	
 		}
 
 

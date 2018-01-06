@@ -14,7 +14,7 @@ public class UIMapOverlayController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Money = GameObject.Find("MyMoney");
+		Money = transform.Find("MyMoney").gameObject;
 		Player = GameObject.FindGameObjectWithTag("World").GetComponent<WorldController>().GoodPlayer;
 	}
 	
