@@ -11,6 +11,13 @@ public class WorldController : MonoBehaviour
     public Player goodPlayer = new Player("PlayerGood", PlayerType.Good, new List<Minion>(),
     new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, new Vector3(0.0f, 0.0f, 150.0f));
 
+    private int gameAILevel;
+
+    public int GameAILevel
+    {
+        get { return gameAILevel; }
+        set { gameAILevel = value; }
+    }
     private bool aiActive = false;
     private bool gameFinished = false;
     public bool SoundEffectsActive = false;
@@ -381,7 +388,8 @@ public class WorldController : MonoBehaviour
         gameflowController = new GameflowController(EvilPlayer, GoodPlayer);
         gameflowController.MinionStatAdditions = minionStatAdditions;
         gameflowController.WorldController = this;
-        aiController = new AIController(EvilPlayer, GoodPlayer);
+        GameAILevel = 1; // TODO: Remove when variable is set from lobby
+        aiController = new AIController(EvilPlayer, GoodPlayer, gameAILevel);
     }
 
     private void InitPlayers()
@@ -389,7 +397,9 @@ public class WorldController : MonoBehaviour
         goodPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, goodPlayer.Castle.Position.z - castleSize.z);
         evilPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, evilPlayer.Castle.Position.z + castleSize.z);
         goodPlayer.Money = 1000;
-        evilPlayer.Money = 1000;
+        goodPlayer.MoneyIncrementFactor = 3;
+        evilPlayer.Money = gameAILevel > 2 ? 2500 : 1000;
+        evilPlayer.MoneyIncrementFactor = gameAILevel > 2 ? 6 : 3;
         goodPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
         evilPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
         GoodPlayer.SpawnController = new SpawnController(gameflowController, CooldownLimits);

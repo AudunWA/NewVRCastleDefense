@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine;
 
 public class GameAI
 {
@@ -9,6 +10,7 @@ public class GameAI
         Wait, Spawn, Upgrade, Shoot
     }
     public int Level { get; set; }
+    private int spawnCost;
     private Dictionary<SpawnType, bool> availableAction = new Dictionary<SpawnType, bool>();
     private Dictionary<SpawnType, int> minionCounts;
     private Dictionary<SpawnType, int> otherMinionCounts;
@@ -23,7 +25,8 @@ public class GameAI
     {
         InitAvailableActions();
         InitCounts();
-        CurrentAction = AIAction.Upgrade;
+        CurrentAction = AIAction.Spawn;
+        spawnCost = 50;
     }
     private void InitAvailableActions()
     {
@@ -126,7 +129,7 @@ public class GameAI
     /// Compare total levels of different minion types. In the case of an imbalance,
     ///  ie. the enemy has upgraded something, then upgrade something
     /// </summary>
-    private void CompareMinionLevels()
+    private void EvaluateMinionUpgrade()
     {
         int sum = 0, otherSum = 0;
         foreach (SpawnType s in otherPlayer.MinionStatistics.Keys.ToList())
@@ -182,6 +185,7 @@ public class GameAI
     public void FindNextAction()
     {
         FindIdealSpawnType();
+        spawnCost = player.MinionStatistics[CurrentSpawnType].Cost;
         if (Level < 2)
         {
             CurrentAction = AIAction.Spawn;
@@ -189,11 +193,11 @@ public class GameAI
         }
         CurrentAttribute = FindIdealUpgradeAttr();
         FindIdealUpgradeType(CurrentAttribute);
-        CompareMinionLevels();
+        EvaluateMinionUpgrade();
         if (CurrentAction == AIAction.Upgrade)
         {
             // If more than sufficient amount of money, or enemy has more than twice as many minions, spawn instead of saving money
-            if (player.Money >= SaveMoneyGoal || otherPlayer.Minions.Count >= player.Minions.Count*2)
+            if (player.Money >= SaveMoneyGoal+spawnCost || otherPlayer.Minions.Count >= player.Minions.Count*2)
             {
                 CurrentAction = AIAction.Spawn;
             }

@@ -37,8 +37,6 @@ public class GameflowController
     {
         Player player = GetOtherPlayer(minion.Player);
         player.Money += minion.Bounty;
-        player.MoneyIncrementFactor += 1; // Increase amount of earn money per update, payment for kill
-        player.SpawnController.GetTimer.moneyTimerLim += 0.3f; // Make update slightly less frequent
     }
 
     public int GetUpgradeCost(SpawnType spawnType, Player player, MinionAttribute attr)
