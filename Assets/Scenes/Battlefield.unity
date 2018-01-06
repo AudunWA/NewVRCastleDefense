@@ -7636,10 +7636,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30cc9eccab2884717a86d9fa0603b8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fighterText: {fileID: 0}
-  archerText: {fileID: 0}
-  mageText: {fileID: 0}
-  tankText: {fileID: 0}
+  fighterText: {fileID: 1926998314}
+  archerText: {fileID: 1890900684}
+  mageText: {fileID: 92553117}
+  tankText: {fileID: 792077246}
 --- !u!1 &437704102
 GameObject:
   m_ObjectHideFlags: 0
@@ -8750,6 +8750,18 @@ Prefab:
     - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
       propertyPath: ShapeModule.radiusThickness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
       propertyPath: ShapeModule.radiusThickness
