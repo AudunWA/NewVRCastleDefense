@@ -411,7 +411,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4818040674409110}
   - component: {fileID: 33444681716133678}
-  - component: {fileID: 65629968848103328}
   - component: {fileID: 23426884075758050}
   m_Layer: 11
   m_Name: ModelMiniMap
@@ -727,7 +726,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1280710544746144}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 240}
+  m_LocalPosition: {x: 0, y: 0, z: 200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4366697102374310}
@@ -1587,18 +1586,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300006, guid: 950a899a61407f04692504e9f4a96075, type: 3}
---- !u!65 &65629968848103328
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1839949839500276}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65630026490545028
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1609,8 +1596,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 75, y: 40, z: 100}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 5, y: 11, z: 110}
+  m_Center: {x: 35, y: 5.5, z: 0}
 --- !u!114 &114674774168721716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1623,6 +1610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthBars:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &114842745792075836

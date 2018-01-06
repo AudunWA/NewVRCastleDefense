@@ -18,10 +18,10 @@ public class UISpawnMinionController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		fighterText.text = GetSpawnText(SpawnType.Fighter);
-		archerText.text = GetSpawnText(SpawnType.Archer);
-		mageText.text = GetSpawnText(SpawnType.Mage);
-		tankText.text = GetSpawnText(SpawnType.Tank);
+		//fighterText.text = GetSpawnText(SpawnType.Fighter);
+		//archerText.text = GetSpawnText(SpawnType.Archer);
+		//mageText.text = GetSpawnText(SpawnType.Mage);
+		//tankText.text = GetSpawnText(SpawnType.Tank);
 	}
 
 	string GetSpawnText(SpawnType type) {
