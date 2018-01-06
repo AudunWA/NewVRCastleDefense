@@ -60,6 +60,44 @@ public class SpawnController
         goMinion.transform.Translate(minion.Position);
         player.AddMinion(minion);
         minion.gameObject = goMinion;
+        
+        // Quick and dirty way to load enemy minion materials, non scalable hard coded more or less
+        Material enemyTank = Resources.Load("EnemyTank") as  Material;
+        Material enemyMage = Resources.Load("EnemyMage") as  Material;
+        Material enemyArcher = Resources.Load("EnemyArcher") as  Material;
+        Material enemyFighter = Resources.Load("EnemyFighter") as  Material;
+
+        SkinnedMeshRenderer renderer = goMinion.GetComponentInChildren<SkinnedMeshRenderer>();
+
+        if (Player.PlayerType == PlayerType.Evil)
+        {
+            if (minion.SpawnType == SpawnType.Tank)
+            {
+                renderer.material = enemyTank;
+            }
+            else if (minion.SpawnType == SpawnType.Mage)
+            {
+                renderer.material = enemyMage;
+            }
+            else if (minion.SpawnType == SpawnType.Archer)
+            {
+                renderer.material = enemyArcher;
+            }
+            else if (minion.SpawnType == SpawnType.Fighter)
+            {
+                // This one is so different due to the fact that the model is made with different renderers and lots of them
+                SkinnedMeshRenderer[] table = goMinion.GetComponentsInChildren<SkinnedMeshRenderer>();
+                foreach (var component in table)
+                {
+                    component.material = enemyFighter;
+                }
+                MeshRenderer[] meshTable = goMinion.GetComponentsInChildren<MeshRenderer>();
+                foreach (var component in meshTable)
+                {
+                    component.material = enemyFighter;
+                }
+            }
+        }
     }
 
 
