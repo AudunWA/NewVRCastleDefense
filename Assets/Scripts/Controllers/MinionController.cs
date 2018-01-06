@@ -48,6 +48,7 @@ public class MinionController : MonoBehaviour
         spellPool = GameObject.FindGameObjectWithTag("spellPool").GetComponent<ObjectPooling>();
         arrowPool = GameObject.FindGameObjectWithTag("arrowPool").GetComponent<ObjectPooling>();
         Agent.speed = Minion.Movementspeed;
+        HealthBar.color = (Owner.PlayerType == PlayerType.Evil) ? Color.red : Color.green;
 
         StartCoroutine(UpdateTarget());
     }
@@ -187,8 +188,8 @@ public class MinionController : MonoBehaviour
 
     private void UpdateVariables()
     {
-        HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, (float) (Minion.Health / maxHealth), 0.1f);
-        HealthBar.color = Color.Lerp(Color.red, Color.green, HealthBar.fillAmount);
+        HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, (float) (Minion.Health / maxHealth), 0.5f);
+        //HealthBar.color = Color.Lerp(Color.red, Color.green, HealthBar.fillAmount);
 
         // Update position for data class
         Minion.Position = GetComponent<Rigidbody>().position;
