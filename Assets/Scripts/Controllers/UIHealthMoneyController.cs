@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIMapOverlayController : MonoBehaviour {
+public class UIHealthMoneyController : MonoBehaviour {
 
 	GameObject Money;
 	Player Player;
