@@ -81,9 +81,11 @@ public class UIController : MonoBehaviour {
 		Button btn = go.GetComponent<Button>();
 		UILevelController levelController = go.transform.parent.Find("Level").GetComponent<UILevelController>();
 		SpawnType spawnType = GetSpawnType(tabName);
-		if (Player.SpawnController.UpgradeMinionType(spawnType, attr))
+	    if (attr == MinionAttribute.Range && (spawnType == SpawnType.Tank || spawnType == SpawnType.Fighter)) return;
+        if (Player.SpawnController.UpgradeMinionType(spawnType, attr))
 		{
-			levelController.level++;
+		  
+            levelController.level++;
 		}
 		int price = Player.SpawnController.GetUpgradeCost(spawnType, attr);
 		btn.GetComponentInChildren<Text>().text = "$" + price;
