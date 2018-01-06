@@ -86,12 +86,13 @@ public class SpawnController
             else if (minion.SpawnType == SpawnType.Fighter)
             {
                 // This one is so different due to the fact that the model is made with different renderers and lots of them
-                SkinnedMeshRenderer[] table = goMinion.GetComponentsInChildren<SkinnedMeshRenderer>();
+                GameObject modelBase = goMinion.transform.Find("space_man_model").gameObject;
+                SkinnedMeshRenderer[] table = modelBase.GetComponentsInChildren<SkinnedMeshRenderer>();
                 foreach (var component in table)
                 {
                     component.material = enemyFighter;
                 }
-                MeshRenderer[] meshTable = goMinion.GetComponentsInChildren<MeshRenderer>();
+                MeshRenderer[] meshTable = modelBase.GetComponentsInChildren<MeshRenderer>();
                 foreach (var component in meshTable)
                 {
                     component.material = enemyFighter;
