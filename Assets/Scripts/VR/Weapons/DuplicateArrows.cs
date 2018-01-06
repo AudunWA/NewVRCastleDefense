@@ -15,11 +15,14 @@ public class DuplicateArrows : MonoBehaviour
 	[SerializeField] private GameObject arrowRainParticleEffect;
 	private float startDistance;
 	private bool split = false;
+	private ObjectPooling pool;
 	
 	
 	
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
+		pool = GameObject.Find("ArrowRainPool").GetComponent<ObjectPooling>();
 	}
 	
 	// Update is called once per frame
@@ -48,10 +51,18 @@ public class DuplicateArrows : MonoBehaviour
 		    float randomY = Random.Range(-25, 25);
 		    float randomZ = Random.Range(-25, 25);
 		    
-		    GameObject go = Instantiate(copy,
-			    new Vector3(gameObject.transform.position.x + (spaceBetweenArrows * randomX), gameObject.transform.position.y + (spaceBetweenArrows * randomY),
-				    gameObject.transform.position.z + (spaceBetweenArrows * randomZ)), gameObject.transform.rotation);
-		    go.GetComponent<FollowVelocity>().followObGameObject = gameObject;
+		    //GameObject go = Instantiate(copy,
+			    //new Vector3(gameObject.transform.position.x + (spaceBetweenArrows * randomX), gameObject.transform.position.y + (spaceBetweenArrows * randomY),
+				    //gameObject.transform.position.z + (spaceBetweenArrows * randomZ)), gameObject.transform.rotation);
+
+		    GameObject poolGo = pool.GetPooledObject();
+		    poolGo.transform.position = new Vector3(gameObject.transform.position.x + (spaceBetweenArrows * randomX),
+			    gameObject.transform.position.y + (spaceBetweenArrows * randomY),
+			    gameObject.transform.position.z + (spaceBetweenArrows * randomZ));
+		    poolGo.transform.rotation = gameObject.transform.rotation;
+		    
+		    poolGo.GetComponent<FollowVelocity>().followObGameObject = gameObject;
+		    poolGo.SetActive(true);
 	    }
 
 	    Destroy(effect, 2.0f);

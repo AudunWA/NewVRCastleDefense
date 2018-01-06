@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class DestroyScript : MonoBehaviour
 {
-	
-	// Use this for initialization
-	void Start ()
+
+	private void OnEnable()
 	{
-		float random = Random.Range(0, 20);
+		float random = Random.Range(5, 20);
 		Invoke(nameof(Destroy),random);
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
 	}
 
 	void Destroy()
 	{
+		if (gameObject?.GetComponent<FixedJoint>())
+		{
+			Destroy(gameObject.GetComponent<FixedJoint>());
+		}
 		gameObject.SetActive(false);
 	}
 }
