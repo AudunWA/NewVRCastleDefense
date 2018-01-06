@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Diagnostics;
 using System.Linq;
+using UnityEngine;
 
 public class GameAI
 {
@@ -126,7 +128,7 @@ public class GameAI
     /// Compare total levels of different minion types. In the case of an imbalance,
     ///  ie. the enemy has upgraded something, then upgrade something
     /// </summary>
-    private void CompareMinionLevels()
+    private void EvaluateUpgrade()
     {
         int sum = 0, otherSum = 0;
         foreach (SpawnType s in otherPlayer.MinionStatistics.Keys.ToList())
@@ -187,9 +189,10 @@ public class GameAI
             CurrentAction = AIAction.Spawn;
             return;
         }
+        UnityEngine.Debug.Log("WHat" + Level);
         CurrentAttribute = FindIdealUpgradeAttr();
         FindIdealUpgradeType(CurrentAttribute);
-        CompareMinionLevels();
+        EvaluateUpgrade();
         if (CurrentAction == AIAction.Upgrade)
         {
             // If more than sufficient amount of money, or enemy has more than twice as many minions, spawn instead of saving money
