@@ -7,13 +7,14 @@ using Valve.VR.InteractionSystem;
 public class HighlightScript : MonoBehaviour {
 
     public bool highlight = false;
-	public Material highLightMaterial;
+	private Material highLightMaterial;
 	private SkinnedMeshRenderer renderer;
 	private MeshRenderer _meshRenderer;
 	private float timer = 0;
 
 	// Use this for initialization
 	void Start () {
+		highLightMaterial = Resources.Load("HoverHighlight") as Material;
 		if (gameObject?.GetComponent<SkinnedMeshRenderer>())
 		{
 			renderer = gameObject.GetComponent<SkinnedMeshRenderer>();
@@ -26,7 +27,7 @@ public class HighlightScript : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-		timer = Time.fixedDeltaTime;
+		timer += Time.fixedDeltaTime;
 		
 		if (highlight && renderer)
         {

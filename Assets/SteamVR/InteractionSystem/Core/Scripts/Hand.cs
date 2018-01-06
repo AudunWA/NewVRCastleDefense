@@ -525,6 +525,11 @@ namespace Valve.VR.InteractionSystem
 
 				if (collider.gameObject?.GetComponentInChildren<HighlightScript>())
 				{
+					if (highLightScriptObjects != null)
+					{
+						highLightScriptObjects.GetComponentInChildren<HighlightScript>().highlight = false;
+					}
+					highLightScriptObjects = collider.gameObject;
 					collider.gameObject.GetComponentInChildren<HighlightScript>().highlight = true;
 					highlightCount++;
 				}
