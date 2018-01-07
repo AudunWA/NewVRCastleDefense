@@ -101,6 +101,7 @@ public struct MinionStat
 
     public MinionStat Upgrade(MinionStat minionstat, MinionStat additionStat, MinionAttribute attr)
     {
+        if (LevelUpgradeCost[attr] < 0) return minionstat;
         minionstat.Levels[attr]++;
         minionstat.LevelUpgradeCost[attr] += additionStat.LevelUpgradeCost[attr];
         minionstat.Abilities[attr] += additionStat.Abilities[attr];

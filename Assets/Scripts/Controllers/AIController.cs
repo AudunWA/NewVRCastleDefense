@@ -47,10 +47,11 @@ public class AIController
 
     private void SetAvailableAIActions()
     {
-        Dictionary<SpawnType, bool> availableTimers = gameAI.Player.SpawnController.GetAvailableSpawnTypeTimers();
+        gameAI.AvailableTimers = gameAI.Player.SpawnController.GetAvailableSpawnTypeTimers();
         foreach (SpawnType s in spawnTypes)
         {
-            availableSpawnTypes[s] = availableTimers[s] && gameAI.Player.MinionStatistics[s].Cost <= gameAI.Player.Money;
+            availableSpawnTypes[s] = gameAI.Player.MinionStatistics[s].Cost <= gameAI.Player.Money;
+
         }
         gameAI.AvailableAction = availableSpawnTypes;
     }
