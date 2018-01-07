@@ -55,6 +55,8 @@ GameObject:
   - component: {fileID: 65387856311441488}
   - component: {fileID: 75552212166006020}
   - component: {fileID: 114140505868455012}
+  - component: {fileID: 114882711514060364}
+  - component: {fileID: 114576964728140530}
   m_Layer: 10
   m_Name: EnemyProjectile
   m_TagString: Untagged
@@ -127,7 +129,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1390695745981566}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.23875993, y: 0.11, z: -143.81145}
+  m_LocalPosition: {x: 19.330229, y: 3.683, z: -142.26749}
   m_LocalScale: {x: 0.2, y: 0.2, z: 2}
   m_Children:
   - {fileID: 4371320774255078}
@@ -148,7 +150,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3c193256be5af6b44ae6c5dbb11cd0ae, type: 2}
+  - {fileID: 2100000, guid: 61355dd94a92e5a43aae6b643325b42f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -182,7 +184,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 5ad209e41e603934cb5f50b327716f2f, type: 2}
+  - {fileID: 2100000, guid: 61355dd94a92e5a43aae6b643325b42f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -269,3 +271,37 @@ MonoBehaviour:
   enemyPlayer: {fileID: 0}
   moving: 0
   enemyMovementspeed: 0
+--- !u!114 &114576964728140530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1390695745981566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4918716e1ccfca441a4edb189302da71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  copy: {fileID: 0}
+  copyAmount: 100
+  collision: 0
+  arrowRainParticleEffect: {fileID: 1363620111295572, guid: 1ecd3d6f21ea1574e85507bcafcfd473,
+    type: 2}
+--- !u!114 &114882711514060364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1390695745981566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0767ed9a8064b9440ae6e18ce1d8d7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDamage: 75
+  damageRadius: 20
+  explosionParticles: {fileID: 1317119857779190, guid: 55c8070696af58441811b8885f5b9241,
+    type: 2}
+  explosionSound: {fileID: 1549777655075366, guid: d94b2fcb0b5b9c6468078e2009574741,
+    type: 2}
+  bombAudio: {fileID: 8300000, guid: b6390d8bba2f4a14bb64000376994738, type: 3}

@@ -9,7 +9,9 @@ public class EnemyPlayerController : MonoBehaviour
     private Minion target;
     public float damage = 25f;
     private float attackTimer = 0.0f;
+	
     public float coolDown = 3.0f;
+	public bool canShootSpecialArrows = true;
 
 	private GameObject go;
 
@@ -51,24 +53,26 @@ public class EnemyPlayerController : MonoBehaviour
 
 	    go = Instantiate(projectile);
 	    
-	    bombArrow = go.GetComponent<ExplodeOnCollision>();
-	    rainArrow = go.GetComponent<DuplicateArrows>();
+	    if (canShootSpecialArrows)
+	    {
+	    
+			bombArrow = go.GetComponent<ExplodeOnCollision>();
+			rainArrow = go.GetComponent<DuplicateArrows>();
 
-	    if (type > 98)
-	    {
-		    Destroy(go.GetComponent<ExplodeOnCollision>());
-		    rainArrow.SendMessage("ArrowFired",SendMessageOptions.DontRequireReceiver);
-		    Debug.Log("rain");
-	    } else if (type > 94)
-	    {
-		    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
-		    Debug.Log("bomb");
-	    }
-	    else
-	    {
-		    Destroy(go.GetComponent<ExplodeOnCollision>());
-		    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
-		    Debug.Log("normal");
+		    if (type > 98)
+		    {
+			    Destroy(go.GetComponent<ExplodeOnCollision>());
+			    rainArrow.SendMessage("ArrowFired", SendMessageOptions.DontRequireReceiver);
+		    }
+		    else if (type > 94)
+		    {
+			    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
+		    }
+		    else
+		    {
+			    Destroy(go.GetComponent<ExplodeOnCollision>());
+			    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
+		    }
 	    }
 
 
