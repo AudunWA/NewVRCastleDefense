@@ -12,7 +12,7 @@ public class WorldController : MonoBehaviour
     new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, new Vector3(0.0f, 0.0f, 150.0f));
 
     private int gameAILevel;
-
+    private float aiTimer = 0.0f;
     public int GameAILevel
     {
         get { return gameAILevel; }
@@ -212,7 +212,7 @@ public class WorldController : MonoBehaviour
                     levelUpgradeCost: new Dictionary<MinionAttribute, int>
                     {
                         {MinionAttribute.Armor, 8},
-                        {MinionAttribute.Range, 0},
+                        {MinionAttribute.Range, -1},
                         {MinionAttribute.Damage, 8},
                         {MinionAttribute.Movementspeed, 8},
                         {MinionAttribute.AttackCooldownTime, 8},
@@ -235,7 +235,7 @@ public class WorldController : MonoBehaviour
                     levelUpgradeCost: new Dictionary<MinionAttribute, int>
                     {
                         {MinionAttribute.Armor, 12},
-                        {MinionAttribute.Range, 0},
+                        {MinionAttribute.Range, -1},
                         {MinionAttribute.Damage, 12},
                         {MinionAttribute.Movementspeed, 12},
                         {MinionAttribute.AttackCooldownTime, 12},
@@ -388,7 +388,7 @@ public class WorldController : MonoBehaviour
         gameflowController = new GameflowController(EvilPlayer, GoodPlayer);
         gameflowController.MinionStatAdditions = minionStatAdditions;
         gameflowController.WorldController = this;
-        GameAILevel = 1; // TODO: Remove when variable is set from lobby
+        GameAILevel = 3; // TODO: Remove when variable is set from lobby
         aiController = new AIController(EvilPlayer, GoodPlayer, gameAILevel);
     }
 
@@ -436,7 +436,13 @@ public class WorldController : MonoBehaviour
         gameflowController.UpdatePlayerMoney(EvilPlayer);
         if (aiActive)
         {
-            aiController.PlayAI();
+            aiTimer += Time.deltaTime;
+            if (aiTimer > 0.33f) // Ai only needs to evaluate what's happening 3 times per sec
+            {
+                aiController.PlayAI();
+                aiTimer = 0.0f;
+            }
+           
         }
         if (goodPlayer.Castle.Health <= 0)
         {
