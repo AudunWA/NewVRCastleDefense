@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,11 @@ public class ExplodeOnCollision : MonoBehaviour
     [SerializeField] private float maxDamage;
     [SerializeField] private float damageRadius;
     [SerializeField] private GameObject explosionParticles;
-
+    [SerializeField] private GameObject explosionSound;
+    public AudioClip bombAudio;
+    private AudioSource audioSource;
+    public float VolLowRange { get; set; }
+    public float VolHighRange { get; set; }
     void OnCollisionEnter(Collision collision)
     {
         var colliders = Physics.OverlapSphere(transform.position, damageRadius);
@@ -21,7 +26,13 @@ public class ExplodeOnCollision : MonoBehaviour
             float damage = CalculateDamage(minion.Position);
             minion.TakeDamage(damage);
         }
-        Instantiate(explosionParticles, transform.position, explosionParticles.transform.rotation);
+        
+        GameObject effect = Instantiate(explosionParticles, transform.position, explosionParticles.transform.rotation);
+        GameObject sound = Instantiate(explosionSound);
+        Destroy(effect, 2.5f);
+        Destroy(sound, 5.0f);
+       
+        
         Destroy(gameObject);
     }
 

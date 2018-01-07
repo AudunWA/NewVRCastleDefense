@@ -12,32 +12,29 @@ public class GuiController : MonoBehaviour
     public PlayerMoneyController EvilMoneyController { get; set; }
     public PlayerMoneyController GoodMoneyController { get; set; }
     private WorldController worldController;
+    private MusicController musicController;
+    public Dictionary<SpawnType, Button> upgradeButtons = new Dictionary<SpawnType, Button>();
+    public Dictionary<SpawnType, Button> spawnButtons = new Dictionary<SpawnType, Button>();
+    public Dictionary<SpawnType, Button> evilUpgradeButtons = new Dictionary<SpawnType, Button>();
+    public Dictionary<SpawnType, Button> evilSpawnButtons = new Dictionary<SpawnType, Button>();
     // Spawn buttons
     public Button fighterButton;
     public Button archerButton;
     public Button mageButton;
     public Button tankButton;
-    public Button waveButton;
 
-    public Dictionary<SpawnType, Button> upgradeButtons = new Dictionary<SpawnType, Button>();
-    public Dictionary<SpawnType, Button> spawnButtons = new Dictionary<SpawnType, Button>();
-
-    public Dictionary<SpawnType, Button> evilUpgradeButtons = new Dictionary<SpawnType, Button>();
-
-    public Dictionary<SpawnType, Button> evilSpawnButtons = new Dictionary<SpawnType, Button>();
+  
     // Upgrade buttons
     public Button fighterUpgradeButton;
     public Button archerUpgradeButton;
     public Button mageUpgradeButton;
     public Button tankUpgradeButton;
-    public Button castleUpgradeButton;
 
     // Evil spawn buttons
     public Button evilFighterButton;
     public Button evilArcherButton;
     public Button evilMageButton;
     public Button evilTankButton;
-    public Button evilWaveButton;
 
     // Evil upgrade buttons
     // Upgrade buttons
@@ -45,13 +42,12 @@ public class GuiController : MonoBehaviour
     public Button evilArcherUpgradeButton;
     public Button evilMageUpgradeButton;
     public Button evilTankUpgradeButton;
-    public Button evilCastleUpgradeButton;
-
-
 
 
     // Game mode toggle
-    public Toggle singlePlayerToggle;
+    public Toggle AIToggle;
+    public Toggle MusicToggle;
+    public Toggle friendlyAIToggle;
 
     private void AddButtonsToLists()
     {
@@ -79,7 +75,7 @@ public class GuiController : MonoBehaviour
     private void UpdateTextByLevel(Text textField, SpawnType spawnType, Player player)
     {
         string text = textField.text;
-        string level = player.MinionStatistics[spawnType].Level.ToString();
+        string level = player.MinionStatistics[spawnType].GetLevel().ToString();
         textField.text = text.Remove(text.Length - 1) + level;
     }
 
@@ -95,19 +91,15 @@ public class GuiController : MonoBehaviour
     {
         GOEvilPlayer = GameObject.FindGameObjectWithTag("EvilPlayer");
         GOGoodPlayer = GameObject.FindGameObjectWithTag("GoodPlayer");
-        GameObject goWorld = GameObject.FindGameObjectWithTag("World");
-        worldController = goWorld.GetComponent<WorldController>();
         EvilMoneyController = GOEvilPlayer.GetComponent<PlayerMoneyController>();
         GoodMoneyController = GOGoodPlayer.GetComponent<PlayerMoneyController>();
-        EvilPlayer = worldController.EvilPlayer;
-        GoodPlayer = worldController.GoodPlayer;
         EvilMoneyController.Player = EvilPlayer;
         GoodMoneyController.Player = GoodPlayer;
         archerButton.GetComponentInChildren<Text>().text += " " + GoodPlayer.MinionStatistics[SpawnType.Archer].Cost;
         fighterButton.GetComponentInChildren<Text>().text += " " + GoodPlayer.MinionStatistics[SpawnType.Fighter].Cost;
         tankButton.GetComponentInChildren<Text>().text += " " + GoodPlayer.MinionStatistics[SpawnType.Tank].Cost;
         mageButton.GetComponentInChildren<Text>().text += " " + GoodPlayer.MinionStatistics[SpawnType.Mage].Cost;
-
+      
         evilArcherButton.GetComponentInChildren<Text>().text += " " + EvilPlayer.MinionStatistics[SpawnType.Archer].Cost;
         evilFighterButton.GetComponentInChildren<Text>().text += " " + EvilPlayer.MinionStatistics[SpawnType.Fighter].Cost;
         evilTankButton.GetComponentInChildren<Text>().text += " " + EvilPlayer.MinionStatistics[SpawnType.Tank].Cost;
@@ -164,12 +156,13 @@ public class GuiController : MonoBehaviour
 
     private void InitGoodUpgradeButtons()
     {
+        MinionAttribute attr = MinionAttribute.Damage;
         fighterUpgradeButton.onClick.AddListener(delegate
         {
-            if (GoodPlayer.MinionStatistics[SpawnType.Fighter].Level < 10)
+            if (GoodPlayer.MinionStatistics[SpawnType.Fighter].GetLevel() < 25)
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Fighter].Cost.ToString();
-                GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter);
+                GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter, attr);
                 Text textbox = fighterUpgradeButton.GetComponentInChildren<Text>();
                 Text spawntextbox = fighterButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textbox, SpawnType.Fighter, GoodPlayer);
@@ -178,10 +171,10 @@ public class GuiController : MonoBehaviour
         });
         archerUpgradeButton.onClick.AddListener(delegate
         {
-            if (GoodPlayer.MinionStatistics[SpawnType.Archer].Level < 10)
+            if (GoodPlayer.MinionStatistics[SpawnType.Archer].GetLevel() < 25)
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Archer].Cost.ToString();
-                GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Archer);
+                GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Archer, attr);
                 Text textbox = archerUpgradeButton.GetComponentInChildren<Text>();
                 Text spawntextbox = archerButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textbox, SpawnType.Archer, GoodPlayer);
@@ -190,10 +183,10 @@ public class GuiController : MonoBehaviour
         });
         mageUpgradeButton.onClick.AddListener(delegate
         {
-            if (GoodPlayer.MinionStatistics[SpawnType.Mage].Level < 10)
+            if (GoodPlayer.MinionStatistics[SpawnType.Mage].GetLevel() < 25)
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Mage].Cost.ToString();
-                GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Mage);
+                GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Mage, attr);
                 Text textbox = mageUpgradeButton.GetComponentInChildren<Text>();
                 Text spawntextbox = mageButton.GetComponentInChildren<Text>();
 
@@ -204,30 +197,28 @@ public class GuiController : MonoBehaviour
         });
         tankUpgradeButton.onClick.AddListener(delegate
         {
-            if (GoodPlayer.MinionStatistics[SpawnType.Tank].Level < 10)
+            if (GoodPlayer.MinionStatistics[SpawnType.Tank].GetLevel() < 25)
             {
                 string previousCost = GoodPlayer.MinionStatistics[SpawnType.Tank].Cost.ToString();
-                GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Tank);
+                GoodPlayer.SpawnController.UpgradeMinionType(SpawnType.Tank, attr);
                 Text textbox = tankUpgradeButton.GetComponentInChildren<Text>();
                 Text spawntextbox = tankButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textbox, SpawnType.Tank, GoodPlayer);
                 UpdateCostText(spawntextbox, SpawnType.Tank, GoodPlayer, previousCost);
             }
         });
-        castleUpgradeButton.onClick.AddListener(delegate
-        {
-            // TODO: castle upgrade
-        });
     }
 
     private void InitEvilUpgradeButtons()
     {
+        MinionAttribute attr = MinionAttribute.Damage;
+
         evilFighterUpgradeButton.onClick.AddListener(delegate
         {
-            if (EvilPlayer.MinionStatistics[SpawnType.Fighter].Level < 10)
+            if (EvilPlayer.MinionStatistics[SpawnType.Fighter].GetLevel() < 25)
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Fighter].Cost.ToString();
-                EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter);
+                EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Fighter, attr);
                 Text textbox = evilFighterUpgradeButton.GetComponentInChildren<Text>();
                 Text spawntextbox = evilFighterButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textbox, SpawnType.Fighter, EvilPlayer);
@@ -236,10 +227,10 @@ public class GuiController : MonoBehaviour
         });
         evilArcherUpgradeButton.onClick.AddListener(delegate
         {
-            if (EvilPlayer.MinionStatistics[SpawnType.Archer].Level < 10)
+            if (EvilPlayer.MinionStatistics[SpawnType.Archer].GetLevel() < 25)
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Archer].Cost.ToString();
-                EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Archer);
+                EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Archer, attr);
                 Text spawntextbox = evilArcherButton.GetComponentInChildren<Text>();
                 Text textbox = evilArcherUpgradeButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textbox, SpawnType.Archer, EvilPlayer);
@@ -248,10 +239,10 @@ public class GuiController : MonoBehaviour
         });
         evilMageUpgradeButton.onClick.AddListener(delegate
         {
-            if (EvilPlayer.MinionStatistics[SpawnType.Mage].Level < 10)
+            if (EvilPlayer.MinionStatistics[SpawnType.Mage].GetLevel() < 25)
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Mage].Cost.ToString();
-                EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Mage);
+                EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Mage, attr);
                 Text textbox = evilMageUpgradeButton.GetComponentInChildren<Text>();
                 Text spawntextbox = evilMageButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textbox, SpawnType.Mage, EvilPlayer);
@@ -260,24 +251,25 @@ public class GuiController : MonoBehaviour
         });
         evilTankUpgradeButton.onClick.AddListener(delegate
         {
-            if (EvilPlayer.MinionStatistics[SpawnType.Tank].Level < 10)
+            if (EvilPlayer.MinionStatistics[SpawnType.Tank].GetLevel() < 25)
             {
                 string previousCost = EvilPlayer.MinionStatistics[SpawnType.Tank].Cost.ToString();
-                EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Tank);
+                EvilPlayer.SpawnController.UpgradeMinionType(SpawnType.Tank, attr);
                 Text textbox = evilTankUpgradeButton.GetComponentInChildren<Text>();
                 Text spawntextbox = evilTankButton.GetComponentInChildren<Text>();
                 UpdateTextByLevel(textbox, SpawnType.Tank, EvilPlayer);
                 UpdateCostText(spawntextbox, SpawnType.Tank, EvilPlayer, previousCost);
             }
         });
-        evilCastleUpgradeButton.onClick.AddListener(delegate
-        {
-            // TODO: castle upgrade
-        });
     }
 
     private void Start()
     {
+        GameObject goWorld = GameObject.FindGameObjectWithTag("World");
+        worldController = goWorld.GetComponent<WorldController>();
+        musicController = goWorld.GetComponent<MusicController>();
+        EvilPlayer = worldController.EvilPlayer;
+        GoodPlayer = worldController.GoodPlayer;
         AddButtonsToLists();
         InitPlayerMoneyGui();
         InitGoodButtons();
@@ -285,9 +277,19 @@ public class GuiController : MonoBehaviour
         InitEvilUpgradeButtons();
         InitGoodUpgradeButtons();
 
-        singlePlayerToggle.onValueChanged.AddListener(delegate
+        AIToggle.onValueChanged.AddListener(delegate
         {
-            worldController.SinglePlayer = singlePlayerToggle.isOn;
+            worldController.AiActive = AIToggle.isOn;
+        });
+
+        MusicToggle.onValueChanged.AddListener(delegate
+        {
+            if(MusicToggle.isOn){musicController.PlayMusic();}
+            else musicController.StopMusic();
+        });
+        friendlyAIToggle.onValueChanged.AddListener(delegate
+        {
+            worldController.FriendlyAi = friendlyAIToggle.isOn;
         });
     }
 

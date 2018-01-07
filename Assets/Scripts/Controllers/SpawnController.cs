@@ -15,9 +15,14 @@ public class SpawnController
         timer = new Timer(cooldownLimits);
     }
 
-    public void UpgradeMinionType(SpawnType spawnType)
+    public int GetUpgradeCost(SpawnType spawnType, MinionAttribute attr)
     {
-        gameflowController.UpgradeMinionStat(spawnType,player);
+        return gameflowController.GetUpgradeCost(spawnType, player, attr);
+    }
+
+    public bool UpgradeMinionType(SpawnType spawnType, MinionAttribute attr)
+    {
+        return gameflowController.UpgradeMinionStat(spawnType, player, attr);
     }
 
     public Player Player
@@ -55,20 +60,55 @@ public class SpawnController
         goMinion.transform.Translate(minion.Position);
         player.AddMinion(minion);
         minion.gameObject = goMinion;
+        
+        // Quick and dirty way to load enemy minion materials, non scalable hard coded more or less
+        Material enemyTank = Resources.Load("EnemyTank") as  Material;
+        Material enemyMage = Resources.Load("EnemyMage") as  Material;
+        Material enemyArcher = Resources.Load("EnemyArcher") as  Material;
+        Material enemyFighter = Resources.Load("EnemyFighter") as  Material;
+
+        SkinnedMeshRenderer renderer = goMinion.GetComponentInChildren<SkinnedMeshRenderer>();
+
+        if (Player.PlayerType == PlayerType.Evil)
+        {
+            if (minion.SpawnType == SpawnType.Tank)
+            {
+                renderer.material = enemyTank;
+            }
+            else if (minion.SpawnType == SpawnType.Mage)
+            {
+                renderer.material = enemyMage;
+            }
+            else if (minion.SpawnType == SpawnType.Archer)
+            {
+                renderer.material = enemyArcher;
+            }
+            else if (minion.SpawnType == SpawnType.Fighter)
+            {
+                // This one is so different due to the fact that the model is made with different renderers and lots of them
+                GameObject modelBase = goMinion.transform.Find("space_man_model").gameObject;
+                SkinnedMeshRenderer[] table = modelBase.GetComponentsInChildren<SkinnedMeshRenderer>();
+                foreach (var component in table)
+                {
+                    component.material = enemyFighter;
+                }
+                MeshRenderer[] meshTable = modelBase.GetComponentsInChildren<MeshRenderer>();
+                foreach (var component in meshTable)
+                {
+                    component.material = enemyFighter;
+                }
+            }
+        }
     }
 
 
-    public void Spawn(SpawnType spawnType, Vector3? position = null)
+    public bool Spawn(SpawnType spawnType, Vector3? position = null)
     {
         bool isAvailableSpawnType = timer.IsAvailableSpawnType(spawnType);
-        if (!isAvailableSpawnType && position == null) return;
+        if (!isAvailableSpawnType && position == null) return false;
         MinionStat stat = player.MinionStatistics[spawnType];
         int cost = stat.Cost;
-        if (!player.WithdrawMoney(cost))
-        {
-            return;
-        }
-
+        if (!player.WithdrawMoney(cost)) return false;
         Minion minion;
         Vector3 spawnPosition = position ?? player.SpawnLocation;
         switch (spawnType)
@@ -88,6 +128,7 @@ public class SpawnController
         }
         timer.StartTimer(spawnType);
         GenerateSingleMinion(minion);
+        return true;
     }
 
 

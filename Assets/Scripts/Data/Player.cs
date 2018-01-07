@@ -1,19 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player{
     string name;
     PlayerType playerType;
-    List<Minion> minions;
+    public List<Minion> minions;
     private int money;
     Castle castle;
-    int level;
+    private int level;
     Vector3 position;
     private Vector3 spawnLocation;
     public Dictionary<SpawnType, MinionStat> MinionStatistics { get; set; }
     public SpawnController SpawnController { get; set; }
     public int MoneyIncrementFactor { get; set; }
-    public Player(string name, PlayerType playerType, List<Minion> minions, Castle castle, int level, double health, Vector3 position)
+    public Player(string name, PlayerType playerType, List<Minion> minions, Castle castle, int level, Vector3 position)
     {
         this.name = name;
         this.playerType = playerType;

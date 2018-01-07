@@ -6,7 +6,7 @@ public class CastleController : MonoBehaviour {
     private const string evilCastleTag = "EvilCastle";
     private const string goodCastleTag = "GoodCastle";
     double maxHealth;
-    public Image HealthBar;
+    public Image[] HealthBars;
 
     // Use this for initialization
     void Start () {
@@ -34,10 +34,14 @@ public class CastleController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (HealthBar != null)
+        foreach (Image healthBar in HealthBars)
         {
-            HealthBar.fillAmount = (float)(Castle.Health / maxHealth);
+            if (healthBar != null)
+            {
+                healthBar.fillAmount = (float)(Castle.Health / maxHealth);
+            }
         }
+        
         if (Castle.Health <= 0)
         {
             Destroy(gameObject);

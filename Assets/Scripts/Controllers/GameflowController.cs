@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -7,13 +8,16 @@ public class GameflowController
     public Player EvilPlayer { get; set; }
     public Player GoodPlayer { get; set; }
     public Player Winner { get; set; }
+    public int MAX_E_ATTR_LVL { get; set; }
+    public int MAX_ATTR_LVL { get; set; }
     public Dictionary<SpawnType, MinionStat> MinionStatAdditions { get; set; }    
-    private const float COST_UPGRADE_LEVEL_FACTOR = 1.2f;
     public WorldController WorldController { get; set; }
     public GameflowController(Player evilPlayer, Player goodPlayer)
     {
         EvilPlayer = evilPlayer;
         GoodPlayer = goodPlayer;
+        MAX_ATTR_LVL = 10;
+        MAX_E_ATTR_LVL = 12;
     }
 
     private Player GetOtherPlayer(Player player)
@@ -37,16 +41,24 @@ public class GameflowController
     {
         Player player = GetOtherPlayer(minion.Player);
         player.Money += minion.Bounty;
-        player.MoneyIncrementFactor += 1; // Increase amount of earn money per update, payment for kill
-        player.SpawnController.GetTimer.moneyTimerLim += 0.3f; // Make update slightly less frequent
+    }
+
+    public int GetUpgradeCost(SpawnType spawnType, Player player, MinionAttribute attr)
+    {
+        return player.MinionStatistics[spawnType].LevelUpgradeCost[attr];
     }
 
 
-    public void UpgradeMinionStat(SpawnType spawnType, Player player)
+    public bool UpgradeMinionStat(SpawnType spawnType, Player player, MinionAttribute attr)
     {
-        if (player == null) return;
-        int cost = player.MinionStatistics[spawnType].LevelUpgradeCost;
-        if (!player.WithdrawMoney(cost)) return;
-        player.MinionStatistics[spawnType] += MinionStatAdditions[spawnType];
+        int cost = GetUpgradeCost(spawnType, player, attr);
+        if (!player.WithdrawMoney(cost)) return false;
+        int level = player.MinionStatistics[spawnType].Levels[attr];
+        // Level cap of upgrading
+        if ( level >= (player.PlayerType == PlayerType.Evil ? MAX_E_ATTR_LVL : MAX_ATTR_LVL)) return false;
+        MinionStat stat = player.MinionStatistics[spawnType];
+        MinionStat addition = MinionStatAdditions[spawnType];
+        player.MinionStatistics[spawnType] = stat.Upgrade(stat, addition, attr);
+        return true;
     }
 }

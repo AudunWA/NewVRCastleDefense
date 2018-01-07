@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine;
 
 public class GameAI
 {
@@ -8,20 +9,27 @@ public class GameAI
     {
         Wait, Spawn, Upgrade, Shoot
     }
+    public int Level { get; set; }
+    private int spawnCost;
     private Dictionary<SpawnType, bool> availableAction = new Dictionary<SpawnType, bool>();
     private Dictionary<SpawnType, int> minionCounts;
     private Dictionary<SpawnType, int> otherMinionCounts;
-    public int SaveMoneyGoal { get; set; }
+    public Dictionary<SpawnType, bool> AvailableTimers { get; set; }
+    public int UpgradeMoneyGoal { get; private set; }
+    public int SpawnMoneyGoal { get; private set; }
     public AIAction CurrentAction { get; private set; }
     public SpawnType CurrentSpawnType { get; private set; }
+    private SpawnType cheapestSpawnType = SpawnType.Fighter;
     public SpawnType CurrentUpgradeType { get; private set; }
+    public MinionAttribute CurrentAttribute { get; private set; }
     private Player player;
     private Player otherPlayer;
     public GameAI()
     {
         InitAvailableActions();
-        InitCounts();
-        CurrentAction = AIAction.Upgrade;
+        ResetCounts();
+        CurrentAction = AIAction.Spawn;
+        spawnCost = 50;
     }
     private void InitAvailableActions()
     {
@@ -30,7 +38,7 @@ public class GameAI
         availableAction.Add(SpawnType.Mage, true);
         availableAction.Add(SpawnType.Archer, true);
     }
-    private void InitCounts()
+    private void ResetCounts()
     {
         minionCounts = new Dictionary<SpawnType, int>();
         otherMinionCounts = new Dictionary<SpawnType, int>();
@@ -124,54 +132,84 @@ public class GameAI
     /// Compare total levels of different minion types. In the case of an imbalance,
     ///  ie. the enemy has upgraded something, then upgrade something
     /// </summary>
-    private void CompareMinionLevels()
+    private void EvaluateMinionUpgrade()
     {
         int sum = 0, otherSum = 0;
         foreach (SpawnType s in otherPlayer.MinionStatistics.Keys.ToList())
         {
-            otherSum += otherPlayer.MinionStatistics[s].Level;
-            sum += player.MinionStatistics[s].Level;
+
+            otherSum += otherPlayer.MinionStatistics[s].GetLevel();
+            sum += player.MinionStatistics[s].GetLevel();
         }
-        CountOtherMinions(otherMinionCounts);
-        CountMinions(minionCounts);
-        if (sum <= otherSum && otherPlayer.Minions.Count < player.Minions.Count*2) CurrentAction = AIAction.Upgrade;
+        if (sum <= otherSum) CurrentAction = AIAction.Upgrade;
     }
-    // Finds the type which has the lowest cost to upgrade
+    // Finds the type an minionattribute which has the lowest cost to upgrade
     private void FindIdealUpgradeType()
     {
         int minCost = 10000000;
         foreach (SpawnType s in Player.MinionStatistics.Keys.ToList())
         {
-            int cost = Player.MinionStatistics[s].LevelUpgradeCost;
-            if (minCost > cost)
+            foreach (MinionAttribute attr in Player.MinionStatistics[s].Levels.Keys)
             {
-                minCost = cost;
-                CurrentUpgradeType = s;
+                int cost = Player.MinionStatistics[s].LevelUpgradeCost[attr];
+                if ( cost > 0 && minCost > cost)
+                {
+                    minCost = cost;
+                    CurrentUpgradeType = s;
+                    CurrentAttribute = attr;
+                }
             }
         }
         if (minCost == 10000000) minCost = 0;
-        SaveMoneyGoal = minCost;
+        UpgradeMoneyGoal = minCost;
     }
-      /// <summary>
+
+    private SpawnType StrongestSpawnType()
+    {
+        SpawnType highest = SpawnType.Fighter;
+        foreach (KeyValuePair<SpawnType, MinionStat> stat in Player.MinionStatistics)
+        {
+            if (stat.Value.GetLevel() >= Player.MinionStatistics[highest].GetLevel())
+            {
+                highest = stat.Key;
+            }
+        }
+        SpawnMoneyGoal = player.MinionStatistics[highest].Cost;
+        return highest;
+    }
+    /// <summary>
       /// Finds the type of unit to spawn next
       /// </summary>
     private void FindIdealSpawnType()
     {
         CountOtherMinions(otherMinionCounts);
         CountMinions(minionCounts);
-        SpawnType biggestDiff = FindBiggestDifference(otherMinionCounts, minionCounts);
-        InitCounts();
-        CurrentSpawnType = biggestDiff;
+        cheapestSpawnType = FindBiggestDifference(otherMinionCounts, minionCounts);
+        ResetCounts();
+        CurrentSpawnType = StrongestSpawnType();
+        int cheapestCost = player.MinionStatistics[cheapestSpawnType].Cost;
+        int rnd = UnityEngine.Random.Range(0, 2);
+        if (Player.Money > SpawnMoneyGoal + cheapestCost && rnd == 0 || otherPlayer.Minions.Count > player.minions.Count * 3)
+        {
+            CurrentSpawnType = cheapestSpawnType;
+        }
     }
     public void FindNextAction()
     {
         FindIdealSpawnType();
+        spawnCost = player.MinionStatistics[CurrentSpawnType].Cost;
+        if (Level < 2)
+        {
+            CurrentAction = AIAction.Spawn;
+            return;
+        }
         FindIdealUpgradeType();
-        CompareMinionLevels();
+        EvaluateMinionUpgrade();
+        int rnd = UnityEngine.Random.Range(0, 2);
         if (CurrentAction == AIAction.Upgrade)
         {
             // If more than sufficient amount of money, or enemy has more than twice as many minions, spawn instead of saving money
-            if (player.Money >= SaveMoneyGoal || otherPlayer.Minions.Count >= player.Minions.Count*2)
+            if (player.Money >= UpgradeMoneyGoal+spawnCost && rnd < 1 || otherPlayer.Minions.Count >= player.Minions.Count*2 )
             {
                 CurrentAction = AIAction.Spawn;
             }
