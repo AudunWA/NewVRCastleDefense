@@ -300,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDamage: 75
   damageRadius: 20
-  explosionParticles: {fileID: 1317119857779190, guid: 55c8070696af58441811b8885f5b9241,
+  explosionParticles: {fileID: 1317119857779190, guid: 3a4ae7321da025f4a8ebc4873bb63412,
     type: 2}
   explosionSound: {fileID: 1549777655075366, guid: d94b2fcb0b5b9c6468078e2009574741,
     type: 2}

@@ -73,12 +73,12 @@ public class EnemyPlayerController : MonoBehaviour
 		    else if (rainTimer > 50)
 		    {
 			    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
+			    rainTimer = 0;
 		    }
 		    else
 		    {
 			    Destroy(go.GetComponent<ExplodeOnCollision>());
 			    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
-			    rainTimer = 0;
 		    }
 	    }
 

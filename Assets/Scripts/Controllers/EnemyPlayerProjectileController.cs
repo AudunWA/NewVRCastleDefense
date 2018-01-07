@@ -33,7 +33,7 @@ public class EnemyPlayerProjectileController : MonoBehaviour
 
     public void Awake()
     {
-        dummyArrowPool = GameObject.Find("DummyArrowPool").GetComponent<ObjectPooling>();
+        dummyArrowPool = GameObject.Find("EnemyDummyArrowPool").GetComponent<ObjectPooling>();
     }
 
     // Use this for initialization
