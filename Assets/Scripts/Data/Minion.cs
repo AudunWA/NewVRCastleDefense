@@ -155,9 +155,28 @@ public class Minion : GameEntity{
     /// Applies damage to this minion. The damage gets reduced by this minion's armor
     /// </summary>
     /// <param name="baseDamage">The damage to apply</param>
+    public override void TakeDamage(float baseDamage, SpawnType attackerSpawnType)
+    {
+        float armorMultiplier;
+        if (SpawnType == SpawnType.Tank && attackerSpawnType == SpawnType.Mage) armorMultiplier = 0.0f;
+        else armorMultiplier = 0.33f;
+        if (baseDamage <= armorMultiplier * armor)
+        {
+            base.TakeDamage(1, attackerSpawnType); // Armor nullifies damage
+        }
+        else
+        {
+            base.TakeDamage(baseDamage - armorMultiplier * armor, attackerSpawnType);
+        }
+    }
+
+    /// <summary>
+    /// Applies damage to this minion. The damage gets reduced by this minion's armor
+    /// </summary>
+    /// <param name="baseDamage">The damage to apply</param>
     public override void TakeDamage(float baseDamage)
     {
-        const float armorMultiplier = 0.33f;
+        float armorMultiplier = 0.33f;
         if (baseDamage <= armorMultiplier * armor)
         {
             base.TakeDamage(1); // Armor nullifies damage
