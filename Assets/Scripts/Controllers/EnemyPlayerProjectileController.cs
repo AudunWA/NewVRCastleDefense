@@ -40,7 +40,6 @@ public class EnemyPlayerProjectileController : MonoBehaviour
     private void OnEnable()
     {
         Invoke("Destroy", 10.0f);
-        //float random = Random.Range(0.98f, 1.01f);
         if (enemyPlayer?.gameObject != null)
         {
             arrowDamage = enemyPlayer.damage;
