@@ -8,7 +8,7 @@ public class Player{
     public List<Minion> minions;
     private int money;
     Castle castle;
-    int level;
+    private int level;
     Vector3 position;
     private Vector3 spawnLocation;
     public Dictionary<SpawnType, MinionStat> MinionStatistics { get; set; }
