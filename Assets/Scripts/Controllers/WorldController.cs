@@ -62,14 +62,14 @@ public class WorldController : MonoBehaviour
         set { cooldownLimits = value; }
     }
 
-    [SerializeField]public Player EvilPlayer
+    public Player EvilPlayer
     {
         get { return evilPlayer; }
 
         set { evilPlayer = value; }
     }
 
-   [SerializeField] public Player GoodPlayer
+    public Player GoodPlayer
     {
         get { return goodPlayer; }
 
@@ -438,6 +438,7 @@ public class WorldController : MonoBehaviour
             InitCastles();
         }
 
+        aiController.FriendlyAi = friendlyAi;
         GoodPlayer.SpawnController.GetTimer.UpdateTimers();
         EvilPlayer.SpawnController.GetTimer.UpdateTimers();
         gameflowController.UpdatePlayerMoney(GoodPlayer);

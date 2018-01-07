@@ -7,6 +7,12 @@ public class AIController
     private GameAI goodGameAI;
     private GameflowController gameflowController;
     private bool friendlyAi;
+
+    public bool FriendlyAi
+    {
+        get { return friendlyAi; }
+        set { friendlyAi = value; }
+    }
     private List<SpawnType> spawnTypes;
     private Dictionary<SpawnType, bool> availableSpawnTypes;
     public AIController(Player aiPlayer, Player player, int gameAiLevel, bool friendlyAi)
@@ -16,13 +22,11 @@ public class AIController
         gameAi.Level = gameAiLevel;
         gameAi.Player = aiPlayer;
         gameAi.OtherPlayer = player;
-        if (friendlyAi)
-        {
-            goodGameAI = new GameAI();
-            goodGameAI.Level = gameAiLevel;
-            goodGameAI.Player = player;
-            goodGameAI.OtherPlayer = aiPlayer;
-        }
+       
+        goodGameAI = new GameAI();
+        goodGameAI.Level = gameAiLevel;
+        goodGameAI.Player = player;
+        goodGameAI.OtherPlayer = aiPlayer;
      
         spawnTypes = new List<SpawnType>
         {
