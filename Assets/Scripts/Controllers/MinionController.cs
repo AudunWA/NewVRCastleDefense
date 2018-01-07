@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
+using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using Valve.VR.InteractionSystem;
+using Player = Valve.VR.InteractionSystem.Player;
 using Random = UnityEngine.Random;
 
 public class MinionController : MonoBehaviour
@@ -27,7 +29,7 @@ public class MinionController : MonoBehaviour
     private bool lightningAvailable = true;
 
     public Minion Minion;
-    public Player Owner { get; set; }
+    public global::Player Owner { get; set; }
 
     public NavMeshAgent Agent => agent;
 
@@ -160,12 +162,20 @@ public class MinionController : MonoBehaviour
         Collider[] inRange = Physics.OverlapSphere(Minion.Position, Minion.Range + 30.0f);
         foreach (Collider collision in inRange)
         {
+            var targetablePlayerController = collision.gameObject.GetComponent<TargetablePlayerController>();
+            if (targetablePlayerController != null)
+            {
+                newTarget = targetablePlayerController.TargetablePlayer;
+                continue;
+            }
+
+
             MinionController otherMinionController = collision.gameObject.GetComponent<MinionController>();
             if (otherMinionController == null || otherMinionController.Minion.Player == null ||
                 otherMinionController.Minion.Player == Minion.Player)
                 continue;
 
-            if(!otherMinionController.Minion.IsAlive)
+            if (!otherMinionController.Minion.IsAlive)
                 continue;
 
             if (newTarget == null)
