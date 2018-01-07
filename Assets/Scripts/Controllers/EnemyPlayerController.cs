@@ -20,8 +20,8 @@ public class EnemyPlayerController : MonoBehaviour
 	private ExplodeOnCollision bombArrow;
 	private DuplicateArrows rainArrow;
 
-	private float bombTimer = 0.0f;
-	private float rainTimer = 0.0f;
+	public float bombTimer = 0.0f;
+	public float rainTimer = 0.0f;
 
     // Use this for initialization
     void Start ()
