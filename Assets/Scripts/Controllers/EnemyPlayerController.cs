@@ -20,8 +20,8 @@ public class EnemyPlayerController : MonoBehaviour
 	private ExplodeOnCollision bombArrow;
 	private DuplicateArrows rainArrow;
 
-	public float bombTimer = 0.0f;
-	public float rainTimer = 0.0f;
+	public float bombTimer = 30.0f;
+	public float rainTimer = 60.0f;
 
     // Use this for initialization
     void Start ()
@@ -64,7 +64,7 @@ public class EnemyPlayerController : MonoBehaviour
 			bombArrow = go.GetComponent<ExplodeOnCollision>();
 			rainArrow = go.GetComponent<DuplicateArrows>();
 
-		    if (rainTimer > 50)
+		    if (rainTimer > 60)
 		    {
 			    Destroy(go.GetComponent<ExplodeOnCollision>());
 			    rainArrow.SendMessage("ArrowFired", SendMessageOptions.DontRequireReceiver);
