@@ -40,17 +40,17 @@ public class ArrowSelection : MonoBehaviour
 			{
 
 				Quaternion rotation = Quaternion.AngleAxis(Camera.main.transform.rotation.eulerAngles.y, Vector3.up);
-
-				if (bombTimer < bombCoolDown && rainTimer > rainCoolDown)
+				
+				if (bombTimer < bombCoolDown && rainTimer < rainCoolDown)
+				{
+					arrowSelectionInstance = Instantiate(noArrowsPrefab, transform.position, rotation);
+				}
+				else if (bombTimer < bombCoolDown && rainTimer > rainCoolDown)
 				{
 					arrowSelectionInstance = Instantiate(noBombPrefab, transform.position, rotation);
-					Debug.Log("called");
 				} else if (bombTimer > bombCoolDown && rainTimer < rainCoolDown)
 				{
 					arrowSelectionInstance = Instantiate(noRainPrefab, transform.position, rotation);
-				} else if (bombTimer < bombCoolDown && rainTimer < rainCoolDown)
-				{
-					arrowSelectionInstance = Instantiate(noArrowsPrefab, transform.position, rotation);
 				}
 				else
 				{
