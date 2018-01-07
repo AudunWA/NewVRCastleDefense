@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,11 +26,14 @@ public class ExplodeOnCollision : MonoBehaviour
             float damage = CalculateDamage(minion.Position);
             minion.TakeDamage(damage);
         }
+        
         GameObject effect = Instantiate(explosionParticles, transform.position, explosionParticles.transform.rotation);
         GameObject sound = Instantiate(explosionSound);
-        Destroy(gameObject);
         Destroy(effect, 2.5f);
         Destroy(sound, 5.0f);
+       
+        
+        Destroy(gameObject);
     }
 
     private float CalculateDamage(Vector3 targetPosition)
