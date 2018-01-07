@@ -20,6 +20,9 @@ public class EnemyPlayerController : MonoBehaviour
 	private ExplodeOnCollision bombArrow;
 	private DuplicateArrows rainArrow;
 
+	private float bombTimer = 0.0f;
+	private float rainTimer = 0.0f;
+
     // Use this for initialization
     void Start ()
     {
@@ -45,6 +48,8 @@ public class EnemyPlayerController : MonoBehaviour
 	        }
 	        attackTimer += Time.deltaTime;
         }
+		bombTimer += Time.deltaTime;
+		rainTimer += Time.deltaTime;
 	}
 
     private void ShootProjectile() //Archer only for now
@@ -59,12 +64,13 @@ public class EnemyPlayerController : MonoBehaviour
 			bombArrow = go.GetComponent<ExplodeOnCollision>();
 			rainArrow = go.GetComponent<DuplicateArrows>();
 
-		    if (type > 98)
+		    if (bombTimer > 30)
 		    {
 			    Destroy(go.GetComponent<ExplodeOnCollision>());
 			    rainArrow.SendMessage("ArrowFired", SendMessageOptions.DontRequireReceiver);
+			    bombTimer = 0;
 		    }
-		    else if (type > 94)
+		    else if (rainTimer > 50)
 		    {
 			    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
 		    }
@@ -72,6 +78,7 @@ public class EnemyPlayerController : MonoBehaviour
 		    {
 			    Destroy(go.GetComponent<ExplodeOnCollision>());
 			    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
+			    rainTimer = 0;
 		    }
 	    }
 

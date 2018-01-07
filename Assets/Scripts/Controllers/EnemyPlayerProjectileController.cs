@@ -80,21 +80,20 @@ public class EnemyPlayerProjectileController : MonoBehaviour
         if (collision.gameObject.tag == "minion")
         {
             // DO damage
-            MinionController controller = collision.gameObject.GetComponent<MinionController>();
-
-            controller.Minion.TakeDamage(arrowDamage);
-            if (controller.Minion.Health > 0)
+            if (gameObject?.GetComponent<ExplodeOnCollision>() || gameObject?.GetComponent<DuplicateArrows>())
             {
-                dummyArrow.GetComponent<Transform>().SetParent(collision.gameObject.transform);
+                
             }
-            
-        }
-        else if (collision.gameObject.tag.Contains("Castle"))
-        {
-            CastleController controller = collision.gameObject.GetComponent<CastleController>();
+            else
+            {
+                MinionController controller = collision.gameObject.GetComponent<MinionController>();
 
-            controller.Castle.TakeDamage(enemyPlayer.damage);
-
+                controller.Minion.TakeDamage(arrowDamage);
+                if (controller.Minion.Health > 0)
+                {
+                    dummyArrow.GetComponent<Transform>().SetParent(collision.gameObject.transform);
+                }
+            }
 
         }
     }
