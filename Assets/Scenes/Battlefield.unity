@@ -11115,6 +11115,10 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
   m_IsPrefabParent: 0
@@ -19233,6 +19237,7 @@ MonoBehaviour:
   evilTankUpgradeButton: {fileID: 1184297059}
   AIToggle: {fileID: 2020283004}
   MusicToggle: {fileID: 1278593179}
+  friendlyAIToggle: {fileID: 1982988361}
 --- !u!114 &808032867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19855,7 +19860,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sound Effects
+  m_Text: Friendly AI
 --- !u!222 &862174843
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -36638,7 +36643,7 @@ GameObject:
   - component: {fileID: 1982988360}
   - component: {fileID: 1982988361}
   m_Layer: 5
-  m_Name: ToggleSoundEffects
+  m_Name: ToggleFriendlyAI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

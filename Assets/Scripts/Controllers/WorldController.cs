@@ -19,6 +19,18 @@ public class WorldController : MonoBehaviour
         set { gameAILevel = value; }
     }
     private bool aiActive = false;
+    public bool AiActive
+    {
+        get { return aiActive; }
+        set { aiActive = value; }
+    }
+    private bool friendlyAi = false;
+
+    public bool FriendlyAi
+    {
+        get { return friendlyAi; }
+        set { friendlyAi = value; }
+    }
     private bool gameFinished = false;
     public bool SoundEffectsActive = false;
     // Controllers
@@ -64,11 +76,7 @@ public class WorldController : MonoBehaviour
         set { goodPlayer = value; }
     }
 
-    public bool AiActive
-    {
-        get { return aiActive; }
-        set { aiActive = value; }
-    }
+ 
     public Player GetOtherPlayer(Player player)
     {
         if (player.PlayerType == PlayerType.Evil) return GoodPlayer;
@@ -389,7 +397,7 @@ public class WorldController : MonoBehaviour
         gameflowController.MinionStatAdditions = minionStatAdditions;
         gameflowController.WorldController = this;
         GameAILevel = 2; // TODO: Remove when variable is set from lobby
-        aiController = new AIController(EvilPlayer, GoodPlayer, gameAILevel);
+        aiController = new AIController(EvilPlayer, GoodPlayer, gameAILevel, friendlyAi);
     }
 
     private void InitPlayers()

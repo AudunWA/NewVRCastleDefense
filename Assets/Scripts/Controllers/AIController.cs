@@ -6,18 +6,24 @@ public class AIController
     private GameAI gameAi;
     private GameAI goodGameAI;
     private GameflowController gameflowController;
+    private bool friendlyAi;
     private List<SpawnType> spawnTypes;
     private Dictionary<SpawnType, bool> availableSpawnTypes;
-    public AIController(Player aiPlayer, Player player, int gameAiLevel)
+    public AIController(Player aiPlayer, Player player, int gameAiLevel, bool friendlyAi)
     {
+        this.friendlyAi = friendlyAi;
         gameAi = new GameAI();
-        goodGameAI = new GameAI();
         gameAi.Level = gameAiLevel;
         gameAi.Player = aiPlayer;
         gameAi.OtherPlayer = player;
-        goodGameAI.Level = gameAiLevel;
-        goodGameAI.Player = player;
-        goodGameAI.OtherPlayer = aiPlayer;
+        if (friendlyAi)
+        {
+            goodGameAI = new GameAI();
+            goodGameAI.Level = gameAiLevel;
+            goodGameAI.Player = player;
+            goodGameAI.OtherPlayer = aiPlayer;
+        }
+     
         spawnTypes = new List<SpawnType>
         {
             SpawnType.Archer,
@@ -37,9 +43,12 @@ public class AIController
     public void PlayAI()
     {
         SetAvailableAIActions(gameAi);
-        SetAvailableAIActions(goodGameAI);
         UpdateAi(gameAi);
-        UpdateAi(goodGameAI);
+        if (friendlyAi)
+        {
+            SetAvailableAIActions(goodGameAI);
+            UpdateAi(goodGameAI);
+        }
     }
 
     private void UpdateAi(GameAI gameAI)
