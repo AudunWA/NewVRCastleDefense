@@ -101,7 +101,7 @@ public class WorldController : MonoBehaviour
                 SpawnType.Fighter,
                 new MinionStat(
                     spawnType: SpawnType.Fighter,
-                    armor: 2,
+                    armor: 3,
                     levels: new Dictionary<MinionAttribute, int>
                     {
                         {MinionAttribute.Armor, 1},
@@ -113,7 +113,7 @@ public class WorldController : MonoBehaviour
                     },
                     range: 5f,
                     bounty: bounties[SpawnType.Fighter],
-                    damage: 4f,
+                    damage: 6f,
                     movementspeed: 3.0f,
                     attackCooldownTime: 1f,
                     cost: costs[SpawnType.Fighter],
@@ -204,7 +204,7 @@ public class WorldController : MonoBehaviour
                     armor: 2,
                     range: 0,
                     bounty: 10,
-                    damage: 2f,
+                    damage: 3f,
                     movementspeed: 0.03f,
                     attackCooldownTime: -0.01f,
                     cost: 8,
@@ -388,7 +388,7 @@ public class WorldController : MonoBehaviour
         gameflowController = new GameflowController(EvilPlayer, GoodPlayer);
         gameflowController.MinionStatAdditions = minionStatAdditions;
         gameflowController.WorldController = this;
-        GameAILevel = 3; // TODO: Remove when variable is set from lobby
+        GameAILevel = 2; // TODO: Remove when variable is set from lobby
         aiController = new AIController(EvilPlayer, GoodPlayer, gameAILevel);
     }
 
