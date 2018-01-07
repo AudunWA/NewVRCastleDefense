@@ -9,7 +9,7 @@ public class EnemyPlayerController : MonoBehaviour
     private Minion target;
     public float damage = 25f;
     private float attackTimer = 0.0f;
-    private float coolDown = 3.0f;
+    public float coolDown = 3.0f;
 
 	private GameObject go;
 
