@@ -68,12 +68,12 @@ public class EnemyPlayerController : MonoBehaviour
 		    {
 			    Destroy(go.GetComponent<ExplodeOnCollision>());
 			    rainArrow.SendMessage("ArrowFired", SendMessageOptions.DontRequireReceiver);
-			    bombTimer = 0;
+			    rainTimer = 0;
 		    }
 		    else if (bombTimer > 30)
 		    {
 			    Destroy(go.GetComponent<DuplicateArrows>());
-			    rainTimer = 0;
+			    bombTimer = 0;
 		    }
 		    else
 		    {
