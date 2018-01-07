@@ -26,14 +26,11 @@ public class EnemyPlayerProjectileController : MonoBehaviour
 
     private float yValueAboveMinion = 3.0f;
 
-    private ObjectPooling dummyArrowPool;
-
     private WorldController wc;
 
 
     public void Awake()
     {
-        dummyArrowPool = GameObject.Find("DummyArrowPool").GetComponent<ObjectPooling>();
     }
 
     // Use this for initialization
@@ -72,12 +69,8 @@ public class EnemyPlayerProjectileController : MonoBehaviour
         {
             return;
         }
-        GameObject dummyArrow = dummyArrowPool.GetPooledObject();
-        dummyArrow.transform.position = gameObject.transform.position;
-        dummyArrow.transform.rotation = gameObject.transform.rotation;
-        dummyArrow.SetActive(true);
         gameObject.SetActive(false);
-        if (collision.gameObject.tag == "minion")
+        if (collision.gameObject.CompareTag("minion"))
         {
             // DO damage
             if (gameObject?.GetComponent<ExplodeOnCollision>() || gameObject?.GetComponent<DuplicateArrows>())
@@ -87,12 +80,7 @@ public class EnemyPlayerProjectileController : MonoBehaviour
             else
             {
                 MinionController controller = collision.gameObject.GetComponent<MinionController>();
-
                 controller.Minion.TakeDamage(arrowDamage);
-                if (controller.Minion.Health > 0)
-                {
-                    dummyArrow.GetComponent<Transform>().SetParent(collision.gameObject.transform);
-                }
             }
         }
         Destroy(gameObject);
