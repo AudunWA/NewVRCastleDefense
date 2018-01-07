@@ -22,7 +22,7 @@ public class EnemyPlayerProjectileController : MonoBehaviour
 
     private float distance;
     // Velcoity needs to be hard coded for this, improvements possible
-    private float velocity = 70f;
+    private float velocity = 100f;
 
     private float yValueAboveMinion = 3.0f;
 
@@ -37,7 +37,7 @@ public class EnemyPlayerProjectileController : MonoBehaviour
     }
 
     // Use this for initialization
-    private void OnEnable()
+    void Start()
     {
         Invoke("Destroy", 10.0f);
         if (enemyPlayer?.gameObject != null)
@@ -53,13 +53,7 @@ public class EnemyPlayerProjectileController : MonoBehaviour
 
     private void Destroy()
     {
-        gameObject.SetActive(false);
-    }
-
-    private void OnDisable()
-    {
-
-        CancelInvoke();
+        Destroy(gameObject);
     }
 
     // Update is called once per frame

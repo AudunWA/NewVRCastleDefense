@@ -7,18 +7,22 @@ public class EnemyPlayerController : MonoBehaviour
     private WorldController wo;
     public float range = 150.0f;
     private Minion target;
-    public ObjectPooling arrowPool;
     public float damage = 25f;
     private float attackTimer = 0.0f;
     private float coolDown = 3.0f;
 
 	private GameObject go;
 
+	public GameObject projectile;
+
+	private ExplodeOnCollision bombArrow;
+	private DuplicateArrows rainArrow;
+
     // Use this for initialization
-    void Start () 
+    void Start ()
     {
-	    go = arrowPool.GetPooledObject();
-	}
+	    
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -43,7 +47,33 @@ public class EnemyPlayerController : MonoBehaviour
 
     private void ShootProjectile() //Archer only for now
     {
-        go.GetComponent<EnemyPlayerProjectileController>().targetMinion = target;
+	    float type = Random.Range(0, 100);
+
+	    go = Instantiate(projectile);
+	    
+	    bombArrow = go.GetComponent<ExplodeOnCollision>();
+	    rainArrow = go.GetComponent<DuplicateArrows>();
+
+	    if (type > 98)
+	    {
+		    Destroy(go.GetComponent<ExplodeOnCollision>());
+		    rainArrow.SendMessage("ArrowFired",SendMessageOptions.DontRequireReceiver);
+		    Debug.Log("rain");
+	    } else if (type > 94)
+	    {
+		    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
+		    Debug.Log("bomb");
+	    }
+	    else
+	    {
+		    Destroy(go.GetComponent<ExplodeOnCollision>());
+		    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
+		    Debug.Log("normal");
+	    }
+
+
+
+	    go.GetComponent<EnemyPlayerProjectileController>().targetMinion = target;
         go.GetComponent<EnemyPlayerProjectileController>().parentGameObject = gameObject;
         go.GetComponent<EnemyPlayerProjectileController>().enemyPlayer = this;
 
@@ -58,7 +88,6 @@ public class EnemyPlayerController : MonoBehaviour
             go.GetComponent<EnemyPlayerProjectileController>().moving = false;
         }
 
-        go.SetActive(true);
     }
 
     private void FindTarget()
