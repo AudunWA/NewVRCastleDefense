@@ -1,18 +1,11 @@
 fileFormatVersion: 2
 guid: 8224660e10b8f6e49821f462d085d057
-timeCreated: 1515333429
+timeCreated: 1514456568
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - arrowSelectionPrefab: {instanceID: 0}
-  - noArrowsPrefab: {fileID: 1155289593044958, guid: 4aeb5e7081757ff47afd556054d3d058,
-      type: 2}
-  - noBombPrefab: {fileID: 1368527364505936, guid: 4229e44e8747b3b4887b7636a369b0bd,
-      type: 2}
-  - noRainPrefab: {fileID: 1976645381009814, guid: 7040f9a5af40eb646b81455d3434b2cc,
-      type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

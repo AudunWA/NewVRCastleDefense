@@ -40,8 +40,6 @@ namespace Valve.VR.InteractionSystem
 		public int maxArrowCount = 10;
 		private List<GameObject> arrowList;
 
-		public GameObject standardArrowPrefab;
-
 
 		//-------------------------------------------------
 		void Awake()
@@ -248,8 +246,6 @@ namespace Valve.VR.InteractionSystem
 
 			currentArrow = null;
 			allowTeleport.teleportAllowed = true;
-
-			arrowPrefab = standardArrowPrefab;
 		}
 
 
