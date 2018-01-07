@@ -37,7 +37,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4111146545853882}
   - component: {fileID: 114068226778789298}
-  - component: {fileID: 114539002585548374}
   - component: {fileID: 82749430245961022}
   m_Layer: 0
   m_Name: EnemyDummyArrow
@@ -280,15 +279,3 @@ MonoBehaviour:
   ReleaseSound: {fileID: 8300000, guid: 42c5894b4199e4e4dab07ed0add303a6, type: 3}
   ImpactSound: {fileID: 8300000, guid: 2ed2bef0cb50cbd409659ea15992a227, type: 3}
   ArrowMissSound: {fileID: 8300000, guid: 7a692099f11b03447bb45b25418a68c8, type: 3}
---- !u!114 &114539002585548374
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1060369889232088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cb3ac9f4ba8b6841bb6e5a5ff0083d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Impact: 1

@@ -33,7 +33,7 @@ public class EnemyPlayerProjectileController : MonoBehaviour
 
     public void Awake()
     {
-        dummyArrowPool = GameObject.Find("EnemyDummyArrowPool").GetComponent<ObjectPooling>();
+        dummyArrowPool = GameObject.Find("DummyArrowPool").GetComponent<ObjectPooling>();
     }
 
     // Use this for initialization
@@ -94,8 +94,8 @@ public class EnemyPlayerProjectileController : MonoBehaviour
                     dummyArrow.GetComponent<Transform>().SetParent(collision.gameObject.transform);
                 }
             }
-
         }
+        Destroy(gameObject);
     }
 
     private void ShootArrow()
