@@ -405,9 +405,18 @@ public class WorldController : MonoBehaviour
         goodPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, goodPlayer.Castle.Position.z - castleSize.z);
         evilPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, evilPlayer.Castle.Position.z + castleSize.z);
         goodPlayer.Money = 1000;
-        goodPlayer.MoneyIncrementFactor = 3;
-        evilPlayer.Money = gameAILevel > 2 ? 2500 : 1000;
-        evilPlayer.MoneyIncrementFactor = gameAILevel > 2 ? 6 : 3;
+        goodPlayer.MoneyIncrementFactor = 4;
+        if (gameAILevel > 2)
+        {
+            evilPlayer.Money = gameAILevel > 3 ? 5000 : 2500;
+            evilPlayer.MoneyIncrementFactor = gameAILevel > 3 ? 16 : 8;
+        }
+        else
+        {
+            evilPlayer.Money = 1200;
+            evilPlayer.MoneyIncrementFactor = 4;
+        }
+        
         goodPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
         evilPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
         GoodPlayer.SpawnController = new SpawnController(gameflowController, CooldownLimits);
