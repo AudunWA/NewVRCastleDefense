@@ -19,6 +19,18 @@ public class WorldController : MonoBehaviour
         set { gameAILevel = value; }
     }
     private bool aiActive = false;
+    public bool AiActive
+    {
+        get { return aiActive; }
+        set { aiActive = value; }
+    }
+    private bool friendlyAi = false;
+
+    public bool FriendlyAi
+    {
+        get { return friendlyAi; }
+        set { friendlyAi = value; }
+    }
     private bool gameFinished = false;
     public bool SoundEffectsActive = false;
     // Controllers
@@ -50,25 +62,21 @@ public class WorldController : MonoBehaviour
         set { cooldownLimits = value; }
     }
 
-    [SerializeField]public Player EvilPlayer
+    public Player EvilPlayer
     {
         get { return evilPlayer; }
 
         set { evilPlayer = value; }
     }
 
-   [SerializeField] public Player GoodPlayer
+    public Player GoodPlayer
     {
         get { return goodPlayer; }
 
         set { goodPlayer = value; }
     }
 
-    public bool AiActive
-    {
-        get { return aiActive; }
-        set { aiActive = value; }
-    }
+ 
     public Player GetOtherPlayer(Player player)
     {
         if (player.PlayerType == PlayerType.Evil) return GoodPlayer;
@@ -101,7 +109,7 @@ public class WorldController : MonoBehaviour
                 SpawnType.Fighter,
                 new MinionStat(
                     spawnType: SpawnType.Fighter,
-                    armor: 2,
+                    armor: 3,
                     levels: new Dictionary<MinionAttribute, int>
                     {
                         {MinionAttribute.Armor, 1},
@@ -113,7 +121,7 @@ public class WorldController : MonoBehaviour
                     },
                     range: 5f,
                     bounty: bounties[SpawnType.Fighter],
-                    damage: 4f,
+                    damage: 6f,
                     movementspeed: 3.0f,
                     attackCooldownTime: 1f,
                     cost: costs[SpawnType.Fighter],
@@ -204,7 +212,7 @@ public class WorldController : MonoBehaviour
                     armor: 2,
                     range: 0,
                     bounty: 10,
-                    damage: 2f,
+                    damage: 3f,
                     movementspeed: 0.03f,
                     attackCooldownTime: -0.01f,
                     cost: 8,
@@ -388,8 +396,8 @@ public class WorldController : MonoBehaviour
         gameflowController = new GameflowController(EvilPlayer, GoodPlayer);
         gameflowController.MinionStatAdditions = minionStatAdditions;
         gameflowController.WorldController = this;
-        GameAILevel = 3; // TODO: Remove when variable is set from lobby
-        aiController = new AIController(EvilPlayer, GoodPlayer, gameAILevel);
+        GameAILevel = 2; // TODO: Remove when variable is set from lobby
+        aiController = new AIController(EvilPlayer, GoodPlayer, gameAILevel, friendlyAi);
     }
 
     private void InitPlayers()
@@ -430,6 +438,7 @@ public class WorldController : MonoBehaviour
             InitCastles();
         }
 
+        aiController.FriendlyAi = friendlyAi;
         GoodPlayer.SpawnController.GetTimer.UpdateTimers();
         EvilPlayer.SpawnController.GetTimer.UpdateTimers();
         gameflowController.UpdatePlayerMoney(GoodPlayer);
