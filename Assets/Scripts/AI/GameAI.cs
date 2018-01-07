@@ -114,14 +114,14 @@ public class GameAI
         return maxDiffType;
     }
 
-    private void CountOtherMinions(Dictionary<SpawnType, int> evilMinionsCounts)
+    private void CountOtherMinions()
     {
         foreach (Minion m in OtherPlayer.Minions)
         {
             otherMinionCounts[m.SpawnType]++;
         }
     }
-    private void CountMinions(Dictionary<SpawnType, int> minionCounts)
+    private void CountMinions()
     {
         foreach (Minion m in Player.Minions)
         {
@@ -160,6 +160,20 @@ public class GameAI
                 }
             }
         }
+        Dictionary<MinionAttribute, int> levels = Player.MinionStatistics[CurrentUpgradeType].Levels;
+        if (CurrentUpgradeType == SpawnType.Fighter && levels[MinionAttribute.Damage] < 10)
+        {
+            CurrentAttribute = MinionAttribute.Damage;
+        }
+        if (CurrentUpgradeType == SpawnType.Tank && levels[MinionAttribute.Health] < 10)
+        {
+            CurrentAttribute = MinionAttribute.Health;
+        }else if((CurrentUpgradeType == SpawnType.Tank || CurrentUpgradeType == SpawnType.Fighter) && 
+            levels[MinionAttribute.Armor] < 10)
+        {
+            CurrentAttribute = MinionAttribute.Armor;
+        }
+
         if (minCost == 10000000) minCost = 0;
         UpgradeMoneyGoal = minCost;
     }
@@ -182,8 +196,8 @@ public class GameAI
       /// </summary>
     private void FindIdealSpawnType()
     {
-        CountOtherMinions(otherMinionCounts);
-        CountMinions(minionCounts);
+        CountOtherMinions();
+        CountMinions();
         cheapestSpawnType = FindBiggestDifference(otherMinionCounts, minionCounts);
         ResetCounts();
         CurrentSpawnType = StrongestSpawnType();
