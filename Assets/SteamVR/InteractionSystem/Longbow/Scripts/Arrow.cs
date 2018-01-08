@@ -41,7 +41,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		void Start()
 		{
-			if (Player.instance.bodyCollider)
+			if (arrowHeadRB != null && Player.instance.bodyCollider)
 			{
 				Physics.IgnoreCollision(shaftRB.GetComponent<Collider>(), Player.instance.headCollider);
 				Physics.IgnoreCollision(shaftRB.GetComponent<Collider>(), Player.instance.bodyCollider);
