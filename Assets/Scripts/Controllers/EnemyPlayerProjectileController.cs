@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using NUnit.Framework.Constraints;
-using UnityEngine;
-using UnityEngine.Assertions;
-using Valve.VR.InteractionSystem;
-using Player = Valve.VR.InteractionSystem.Player;
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
 
 public class EnemyPlayerProjectileController : MonoBehaviour
 {

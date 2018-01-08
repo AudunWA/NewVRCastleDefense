@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections;
-using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-using Valve.VR.InteractionSystem;
-using Player = Valve.VR.InteractionSystem.Player;
-using Random = UnityEngine.Random;
 
 public class MinionController : MonoBehaviour
 {
