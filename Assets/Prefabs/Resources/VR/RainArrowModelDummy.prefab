@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4414598351154134}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Arrow Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33132133007459212}
   - component: {fileID: 23277789449721046}
   - component: {fileID: 114943702917562182}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: arrow_tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4308995952976030}
   - component: {fileID: 33216751270726246}
   - component: {fileID: 23912779092373408}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: arrow_prop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4694726598710790}
   - component: {fileID: 114754695573365144}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: RainArrowModelDummy
   m_TagString: projectile
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 54560799050467962}
   - component: {fileID: 138123651294589032}
   - component: {fileID: 65498683981549726}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Arrowhead collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,6 +11,21 @@ public class WorldController : MonoBehaviour
     public Player goodPlayer = new Player("PlayerGood", PlayerType.Good, new List<Minion>(),
     new Castle(5000, new Vector3(0.0f, 15.0f, 200.0f)), 1, new Vector3(0.0f, 0.0f, 150.0f));
 
+    private List<MinionAttribute> MinionAttributes = new List<MinionAttribute>
+    {
+        MinionAttribute.Armor,MinionAttribute.Health,
+        MinionAttribute.AttackCooldownTime, MinionAttribute.Damage,
+        MinionAttribute.Movementspeed, MinionAttribute.Range
+    };
+    public string[] FighterLevels = new string[6];
+    public string[] TankLevels = new string[6];
+    public string[] MageLevels = new string[6];
+    public string[] ArcherLevels = new string[6];
+    public string[] EvilFighterLevels = new string[6];
+    public string[] EvilTankLevels = new string[6];
+    public string[] EvilMageLevels = new string[6];
+    public string[] EvilArcherLevels = new string[6];
+
     private int gameAILevel;
     private float aiTimer = 0.0f;
     public int GameAILevel
@@ -18,7 +33,7 @@ public class WorldController : MonoBehaviour
         get { return gameAILevel; }
         set { gameAILevel = value; }
     }
-    private bool aiActive = false;
+    private bool aiActive = true;
     public bool AiActive
     {
         get { return aiActive; }
@@ -76,6 +91,65 @@ public class WorldController : MonoBehaviour
         set { goodPlayer = value; }
     }
 
+    private void DisplayMinionLevelsInspector()
+    {
+        int i = 0;
+        foreach (KeyValuePair<MinionAttribute, int> ma in GoodPlayer.MinionStatistics[SpawnType.Fighter].Levels)
+        {
+            if (i >= FighterLevels.Length) break;
+            FighterLevels[i] = ma.Key + ": " + ma.Value;
+            i++;
+        }
+        i = 0;
+        foreach (KeyValuePair<MinionAttribute, int> ma in EvilPlayer.MinionStatistics[SpawnType.Fighter].Levels)
+        {
+            if (i >= FighterLevels.Length) break;
+            EvilFighterLevels[i] = ma.Key + ": " + ma.Value;
+            i++;
+        }
+        i = 0;
+        foreach (KeyValuePair<MinionAttribute, int> ma in GoodPlayer.MinionStatistics[SpawnType.Tank].Levels)
+        {
+            if (i >= TankLevels.Length) break;
+            TankLevels[i] = ma.Key + ": " + ma.Value;
+            i++;
+        }
+        i = 0;
+        foreach (KeyValuePair<MinionAttribute, int> ma in EvilPlayer.MinionStatistics[SpawnType.Tank].Levels)
+        {
+            if (i >= TankLevels.Length) break;
+            EvilTankLevels[i] = ma.Key + ": " + ma.Value;
+            i++;
+        }
+        i = 0;
+        foreach (KeyValuePair<MinionAttribute, int> ma in GoodPlayer.MinionStatistics[SpawnType.Archer].Levels)
+        {
+            if (i >= FighterLevels.Length) break;
+            ArcherLevels[i] = ma.Key + ": " + ma.Value;
+            i++;
+        }
+        i = 0;
+        foreach (KeyValuePair<MinionAttribute, int> ma in EvilPlayer.MinionStatistics[SpawnType.Archer].Levels)
+        {
+            if (i >= FighterLevels.Length) break;
+            EvilArcherLevels[i] = ma.Key + ": " + ma.Value;
+            i++;
+        }
+        i = 0;
+        foreach (KeyValuePair<MinionAttribute, int> ma in GoodPlayer.MinionStatistics[SpawnType.Mage].Levels)
+        {
+            if (i >= FighterLevels.Length) break;
+            MageLevels[i] = ma.Key + ": " + ma.Value;
+            i++;
+        }
+        i = 0;
+        foreach (KeyValuePair<MinionAttribute, int> ma in EvilPlayer.MinionStatistics[SpawnType.Mage].Levels)
+        {
+            if (i >= FighterLevels.Length) break;
+            EvilMageLevels[i] = ma.Key + ": " + ma.Value;
+            i++;
+        }
+    }
  
     public Player GetOtherPlayer(Player player)
     {
@@ -211,9 +285,9 @@ public class WorldController : MonoBehaviour
                     spawnType: SpawnType.Fighter,
                     armor: 2,
                     range: 0,
-                    bounty: 10,
-                    damage: 3f,
-                    movementspeed: 0.03f,
+                    bounty: 4,
+                    damage: 2.2f,
+                    movementspeed: 0.28f,
                     attackCooldownTime: -0.01f,
                     cost: 8,
                     health: 15,
@@ -234,9 +308,9 @@ public class WorldController : MonoBehaviour
                     spawnType: SpawnType.Tank,
                     armor: 4,
                     range: 0,
-                    bounty: 15,
+                    bounty: 6,
                     damage: 1f,
-                    movementspeed: 0.05f,
+                    movementspeed: 0.28f,
                     attackCooldownTime: -0.01f,
                     cost: 12,
                     health: 30,
@@ -257,9 +331,9 @@ public class WorldController : MonoBehaviour
                     spawnType: SpawnType.Mage,
                     armor: 1,
                     range: 1f,
-                    bounty: 20,
+                    bounty: 5,
                     damage: 2f,
-                    movementspeed: 0.03f,
+                    movementspeed: 0.28f,
                     attackCooldownTime: -0.01f,
                     cost: 15,
                     health: 5,
@@ -280,9 +354,9 @@ public class WorldController : MonoBehaviour
                     spawnType: SpawnType.Archer,
                     armor: 1,
                     range: 1f,
-                    bounty: 20,
+                    bounty: 5,
                     damage: 2f,
-                    movementspeed: 0.03f,
+                    movementspeed: 0.28f,
                     attackCooldownTime: -0.01f,
                     cost: 15,
                     health: 5,
@@ -314,10 +388,10 @@ public class WorldController : MonoBehaviour
     {
         bounties = new Dictionary<SpawnType, int>
         {
-            { SpawnType.Fighter, 60 },
-            { SpawnType.Tank, 90 },
-            { SpawnType.Mage, 100 },
-            { SpawnType.Archer, 100 }
+            { SpawnType.Fighter, 15 },
+            { SpawnType.Tank, 25 },
+            { SpawnType.Mage, 20 },
+            { SpawnType.Archer, 20 }
         };
     }
     private void SetCosts()
@@ -403,10 +477,18 @@ public class WorldController : MonoBehaviour
     {
         goodPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, goodPlayer.Castle.Position.z - castleSize.z);
         evilPlayer.SpawnLocation = new Vector3(goodPlayer.Castle.Position.x, 0, evilPlayer.Castle.Position.z + castleSize.z);
-        goodPlayer.Money = 1000;
-        goodPlayer.MoneyIncrementFactor = 3;
-        evilPlayer.Money = gameAILevel > 2 ? 2500 : 1000;
-        evilPlayer.MoneyIncrementFactor = gameAILevel > 2 ? 6 : 3;
+        goodPlayer.Money = 500;
+        goodPlayer.MoneyIncrementFactor = 15;
+        if (gameAILevel > 2)
+        {
+            evilPlayer.Money = gameAILevel > 3 ? 4*goodPlayer.Money : 2*goodPlayer.Money;
+            evilPlayer.MoneyIncrementFactor = gameAILevel > 3 ? (int)2.7*goodPlayer.MoneyIncrementFactor : (int)1.8*goodPlayer.MoneyIncrementFactor;
+        }
+        else
+        {
+            evilPlayer.Money = goodPlayer.Money;
+            evilPlayer.MoneyIncrementFactor = goodPlayer.MoneyIncrementFactor;
+        }
         goodPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
         evilPlayer.MinionStatistics = new Dictionary<SpawnType, MinionStat>(DeepCopyMinionStats(minionStats));
         GoodPlayer.SpawnController = new SpawnController(gameflowController, CooldownLimits);
@@ -444,7 +526,7 @@ public class WorldController : MonoBehaviour
         {
             InitCastles();
         }
-
+        DisplayMinionLevelsInspector();
         aiController.FriendlyAi = friendlyAi;
         GoodPlayer.SpawnController.GetTimer.UpdateTimers();
         EvilPlayer.SpawnController.GetTimer.UpdateTimers();
@@ -474,6 +556,7 @@ public class WorldController : MonoBehaviour
             Time.timeScale = 0.1f;
             gameFinished = true;
         }
+        
     }
 }
 
