@@ -1,11 +1,10 @@
-//======= Copyright (c) Valve Corporation, All rights reserved. ===============
+﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
 // Purpose: BALLOONS!!
 //
 //=============================================================================
 
-﻿using UnityEngine;
-using System.Collections;
+ using UnityEngine;
 
 namespace Valve.VR.InteractionSystem
 {

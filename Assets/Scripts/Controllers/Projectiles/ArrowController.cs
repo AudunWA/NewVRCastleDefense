@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using NUnit.Framework.Constraints;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions;
-using Valve.VR.InteractionSystem;
-using Player = Valve.VR.InteractionSystem.Player;
 using Random = UnityEngine.Random;
 
 public class ArrowController : MonoBehaviour
