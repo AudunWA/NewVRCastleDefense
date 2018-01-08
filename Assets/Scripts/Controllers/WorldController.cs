@@ -396,7 +396,6 @@ public class WorldController : MonoBehaviour
         gameflowController = new GameflowController(EvilPlayer, GoodPlayer);
         gameflowController.MinionStatAdditions = minionStatAdditions;
         gameflowController.WorldController = this;
-        GameAILevel = 2; // TODO: Remove when variable is set from lobby
         aiController = new AIController(EvilPlayer, GoodPlayer, gameAILevel, friendlyAi);
     }
 
@@ -415,16 +414,25 @@ public class WorldController : MonoBehaviour
         GoodPlayer.SpawnController.Player = GoodPlayer;
         EvilPlayer.SpawnController.Player = EvilPlayer;
     }
+
+    private void GetSettings()
+    {
+        Settings Settings = GameObject.FindGameObjectWithTag("SETTINGS").GetComponent<Settings>();
+        GameAILevel = Settings.GetLevel();
+        FriendlyAi = Settings.IsFreeplay();
+    }
+
     //Use this for initialization
     private void Awake()
     {
-        
+        GetSettings();
         SetBounties();
         SetCosts();
         InitMinionStats();
         InitTimers();
         InitControllers();
         InitPlayers();
+        Debug.Log("GameAILevel: " + GameAILevel + " FriendlyAi: " + FriendlyAi);
     }
 
     // Update is called once per frame
