@@ -29,6 +29,7 @@ public class LobbyController : MonoBehaviour
 		loader.levelName = "Battlefield";
 		loader.showGrid = false;
 		loader.fadeOutTime = 0.5f;
+		loader.loadingScreenDistance = 15.0f;
 		loader.front = skybox.GetTexture("_FrontTex");
 		loader.back = skybox.GetTexture("_BackTex");
 		loader.left = skybox.GetTexture("_LeftTex");
