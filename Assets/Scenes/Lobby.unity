@@ -335,6 +335,18 @@ Prefab:
       propertyPath: m_Colors.m_PressedColor.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.00003058374
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.0000058113055
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.43899485
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33474db9b406d45af99755f98d97e695, type: 2}
   m_IsPrefabParent: 0
@@ -11056,6 +11068,54 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
   m_IsPrefabParent: 0
@@ -11443,6 +11503,18 @@ Prefab:
       propertyPath: m_Colors.m_PressedColor.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.00003058374
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.0000058113055
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.43899485
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33474db9b406d45af99755f98d97e695, type: 2}
   m_IsPrefabParent: 0
@@ -11721,6 +11793,18 @@ Prefab:
       propertyPath: onHandClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.439
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33474db9b406d45af99755f98d97e695, type: 2}
   m_IsPrefabParent: 0
@@ -11949,6 +12033,18 @@ Prefab:
         type: 2}
       propertyPath: m_Colors.m_PressedColor.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.00003058374
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.0000058113055
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.43899485
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33474db9b406d45af99755f98d97e695, type: 2}
@@ -12864,6 +12960,18 @@ Prefab:
       propertyPath: m_Colors.m_PressedColor.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.00003058374
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.0000058113055
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172770457888820, guid: 33474db9b406d45af99755f98d97e695, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.43899485
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33474db9b406d45af99755f98d97e695, type: 2}
   m_IsPrefabParent: 0
@@ -13467,6 +13575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 921e7453950c64956a1cfcfff5788378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skybox: {fileID: 2100000, guid: b13109bc4674dd24ebc04b7c12437ad6, type: 2}
   GameModeButtons:
   - Button: {fileID: 1382000457}
     GameMode: 0
