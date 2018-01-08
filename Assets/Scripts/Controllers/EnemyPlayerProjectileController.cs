@@ -39,12 +39,13 @@ public class EnemyPlayerProjectileController : MonoBehaviour
         Invoke("Destroy", 10.0f);
         if (enemyPlayer?.gameObject != null)
         {
-            arrowDamage = enemyPlayer.damage;
+            arrowDamage = enemyPlayer.Damage;
             if (targetMinion != null)
             {
                 distance = FindDistanceToTarget();
                 ShootArrow();
             }
+            if (enemyPlayer.Level > 2) velocity = 70f;
         }
     }
 
