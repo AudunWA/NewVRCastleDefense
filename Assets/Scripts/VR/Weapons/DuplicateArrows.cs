@@ -27,19 +27,12 @@ public class DuplicateArrows : MonoBehaviour
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
-		if (GetDistance() > 20 && startDistance > 0 && !split)
-		{
-			Invoke(nameof(Duplicate), 0.5f);
-			split = true;
-		}
-		
 	}
 
 	void ArrowFired()
 	{
 		startDistance = gameObject.transform.position.z;
-		//Invoke(nameof(Duplicate), 0.5f);
+		Invoke(nameof(Duplicate), 0.5f);
 	}
 
     void Duplicate()
@@ -72,11 +65,5 @@ public class DuplicateArrows : MonoBehaviour
 	{
 		CancelInvoke(nameof(Duplicate));
 		collision = true;
-	}
-
-	private float GetDistance()
-	{
-		float distanceFromPlayer = startDistance - gameObject.transform.position.z;
-		return distanceFromPlayer;
 	}
 }

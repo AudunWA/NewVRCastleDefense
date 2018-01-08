@@ -70,7 +70,7 @@ public class SpellController : MonoBehaviour {
             MinionController controller = collision.gameObject.GetComponent<MinionController>();
             if (parentMinion.Player != controller.Minion.Player)
             {
-                controller.Minion.TakeDamage(parentMinion.Damage);
+                controller.Minion.TakeDamage(parentMinion.Damage, parentMinion.SpawnType);
                 gameObject.SetActive(false);
             }
         } else if (collision.gameObject.tag.Contains("Castle"))

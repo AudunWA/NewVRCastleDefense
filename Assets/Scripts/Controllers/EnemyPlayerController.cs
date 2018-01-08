@@ -7,18 +7,27 @@ public class EnemyPlayerController : MonoBehaviour
     private WorldController wo;
     public float range = 150.0f;
     private Minion target;
-    public ObjectPooling arrowPool;
     public float damage = 25f;
     private float attackTimer = 0.0f;
-    private float coolDown = 3.0f;
+	
+    public float coolDown = 3.0f;
+	public bool canShootSpecialArrows = true;
 
 	private GameObject go;
 
+	public GameObject projectile;
+
+	private ExplodeOnCollision bombArrow;
+	private DuplicateArrows rainArrow;
+
+	public float bombTimer = 30.0f;
+	public float rainTimer = 60.0f;
+
     // Use this for initialization
-    void Start () 
+    void Start ()
     {
-	    go = arrowPool.GetPooledObject();
-	}
+	    
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -39,11 +48,43 @@ public class EnemyPlayerController : MonoBehaviour
 	        }
 	        attackTimer += Time.deltaTime;
         }
+		bombTimer += Time.deltaTime;
+		rainTimer += Time.deltaTime;
 	}
 
     private void ShootProjectile() //Archer only for now
     {
-        go.GetComponent<EnemyPlayerProjectileController>().targetMinion = target;
+	    float type = Random.Range(0, 100);
+
+	    go = Instantiate(projectile);
+	    
+	    if (canShootSpecialArrows)
+	    {
+	    
+			bombArrow = go.GetComponent<ExplodeOnCollision>();
+			rainArrow = go.GetComponent<DuplicateArrows>();
+
+		    if (rainTimer > 60)
+		    {
+			    Destroy(go.GetComponent<ExplodeOnCollision>());
+			    rainArrow.SendMessage("ArrowFired", SendMessageOptions.DontRequireReceiver);
+			    rainTimer = 0;
+		    }
+		    else if (bombTimer > 30)
+		    {
+			    Destroy(go.GetComponent<DuplicateArrows>());
+			    bombTimer = 0;
+		    }
+		    else
+		    {
+			    Destroy(go.GetComponent<ExplodeOnCollision>());
+			    Destroy(rainArrow = go.GetComponent<DuplicateArrows>());
+		    }
+	    }
+
+
+
+	    go.GetComponent<EnemyPlayerProjectileController>().targetMinion = target;
         go.GetComponent<EnemyPlayerProjectileController>().parentGameObject = gameObject;
         go.GetComponent<EnemyPlayerProjectileController>().enemyPlayer = this;
 
@@ -58,7 +99,6 @@ public class EnemyPlayerController : MonoBehaviour
             go.GetComponent<EnemyPlayerProjectileController>().moving = false;
         }
 
-        go.SetActive(true);
     }
 
     private void FindTarget()

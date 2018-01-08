@@ -12,21 +12,18 @@ public class GuiController : MonoBehaviour
     public PlayerMoneyController EvilMoneyController { get; set; }
     public PlayerMoneyController GoodMoneyController { get; set; }
     private WorldController worldController;
-
     private MusicController musicController;
+    public Dictionary<SpawnType, Button> upgradeButtons = new Dictionary<SpawnType, Button>();
+    public Dictionary<SpawnType, Button> spawnButtons = new Dictionary<SpawnType, Button>();
+    public Dictionary<SpawnType, Button> evilUpgradeButtons = new Dictionary<SpawnType, Button>();
+    public Dictionary<SpawnType, Button> evilSpawnButtons = new Dictionary<SpawnType, Button>();
     // Spawn buttons
     public Button fighterButton;
     public Button archerButton;
     public Button mageButton;
     public Button tankButton;
-    public Button waveButton;
 
-    public Dictionary<SpawnType, Button> upgradeButtons = new Dictionary<SpawnType, Button>();
-    public Dictionary<SpawnType, Button> spawnButtons = new Dictionary<SpawnType, Button>();
-
-    public Dictionary<SpawnType, Button> evilUpgradeButtons = new Dictionary<SpawnType, Button>();
-
-    public Dictionary<SpawnType, Button> evilSpawnButtons = new Dictionary<SpawnType, Button>();
+  
     // Upgrade buttons
     public Button fighterUpgradeButton;
     public Button archerUpgradeButton;
@@ -38,7 +35,6 @@ public class GuiController : MonoBehaviour
     public Button evilArcherButton;
     public Button evilMageButton;
     public Button evilTankButton;
-    public Button evilWaveButton;
 
     // Evil upgrade buttons
     // Upgrade buttons
@@ -50,8 +46,8 @@ public class GuiController : MonoBehaviour
 
     // Game mode toggle
     public Toggle AIToggle;
-
     public Toggle MusicToggle;
+    public Toggle friendlyAIToggle;
 
     private void AddButtonsToLists()
     {
@@ -291,7 +287,10 @@ public class GuiController : MonoBehaviour
             if(MusicToggle.isOn){musicController.PlayMusic();}
             else musicController.StopMusic();
         });
-        
+        friendlyAIToggle.onValueChanged.AddListener(delegate
+        {
+            worldController.FriendlyAi = friendlyAIToggle.isOn;
+        });
     }
 
     private void Update()

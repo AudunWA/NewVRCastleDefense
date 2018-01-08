@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,13 +7,33 @@ using Valve.VR.InteractionSystem;
 
 public class SpawnController
 {
+    private const float SPAWN_QUEUE_DELAY_SECONDS = 4f;
     private SpawnController.Timer timer;
     private GameflowController gameflowController;
     private Player player;
+    private List<Minion> spawnQueue = new List<Minion>();
+    private bool firstMinionSpawned;
+
     public SpawnController(GameflowController gameflowController, Dictionary<SpawnType, float> cooldownLimits)
     {
         this.gameflowController = gameflowController;
         timer = new Timer(cooldownLimits);
+
+        // Only MonoBehaviours can start coroutines, so we use WorldController
+        gameflowController.WorldController.StartCoroutine(SpawnMinionsFromQueue());
+    }
+
+    private IEnumerator SpawnMinionsFromQueue()
+    {
+        while (true)
+        {
+            foreach (Minion minion in spawnQueue)
+            {
+                GenerateSingleMinion(minion);
+            }
+            spawnQueue.Clear();
+            yield return new WaitForSeconds(SPAWN_QUEUE_DELAY_SECONDS);
+        }
     }
 
     public int GetUpgradeCost(SpawnType spawnType, MinionAttribute attr)
@@ -104,8 +125,8 @@ public class SpawnController
 
     public bool Spawn(SpawnType spawnType, Vector3? position = null)
     {
-        bool isAvailableSpawnType = timer.IsAvailableSpawnType(spawnType);
-        if (!isAvailableSpawnType && position == null) return false;
+        //bool isAvailableSpawnType = timer.IsAvailableSpawnType(spawnType);
+        //if (!isAvailableSpawnType && position == null) return false;
         MinionStat stat = player.MinionStatistics[spawnType];
         int cost = stat.Cost;
         if (!player.WithdrawMoney(cost)) return false;
@@ -126,8 +147,19 @@ public class SpawnController
                 minion = new Fighter(player, stat, spawnPosition);
                 break;
         }
-        timer.StartTimer(spawnType);
-        GenerateSingleMinion(minion);
+        //timer.StartTimer(spawnType);
+
+        // First minion is instant spawn (so player sees that spawning works)
+        if (!firstMinionSpawned)
+        {
+            GenerateSingleMinion(minion);
+            firstMinionSpawned = true;
+        }
+        else
+        {
+            spawnQueue.Add(minion);
+        }
+
         return true;
     }
 

@@ -22,25 +22,21 @@ public class EnemyPlayerProjectileController : MonoBehaviour
 
     private float distance;
     // Velcoity needs to be hard coded for this, improvements possible
-    private float velocity = 70f;
+    private float velocity = 65f;
 
     private float yValueAboveMinion = 3.0f;
-
-    private ObjectPooling dummyArrowPool;
 
     private WorldController wc;
 
 
     public void Awake()
     {
-        dummyArrowPool = GameObject.Find("DummyArrowPool").GetComponent<ObjectPooling>();
     }
 
     // Use this for initialization
-    private void OnEnable()
+    void Start()
     {
         Invoke("Destroy", 10.0f);
-        //float random = Random.Range(0.98f, 1.01f);
         if (enemyPlayer?.gameObject != null)
         {
             arrowDamage = enemyPlayer.damage;
@@ -54,13 +50,7 @@ public class EnemyPlayerProjectileController : MonoBehaviour
 
     private void Destroy()
     {
-        gameObject.SetActive(false);
-    }
-
-    private void OnDisable()
-    {
-
-        CancelInvoke();
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
@@ -79,31 +69,21 @@ public class EnemyPlayerProjectileController : MonoBehaviour
         {
             return;
         }
-        GameObject dummyArrow = dummyArrowPool.GetPooledObject();
-        dummyArrow.transform.position = gameObject.transform.position;
-        dummyArrow.transform.rotation = gameObject.transform.rotation;
-        dummyArrow.SetActive(true);
         gameObject.SetActive(false);
-        if (collision.gameObject.tag == "minion")
+        if (collision.gameObject.CompareTag("minion"))
         {
             // DO damage
-            MinionController controller = collision.gameObject.GetComponent<MinionController>();
-
-            controller.Minion.TakeDamage(arrowDamage);
-            if (controller.Minion.Health > 0)
+            if (gameObject?.GetComponent<ExplodeOnCollision>() || gameObject?.GetComponent<DuplicateArrows>())
             {
-                dummyArrow.GetComponent<Transform>().SetParent(collision.gameObject.transform);
+                
             }
-            
+            else
+            {
+                MinionController controller = collision.gameObject.GetComponent<MinionController>();
+                controller.Minion.TakeDamage(arrowDamage);
+            }
         }
-        else if (collision.gameObject.tag.Contains("Castle"))
-        {
-            CastleController controller = collision.gameObject.GetComponent<CastleController>();
-
-            controller.Castle.TakeDamage(enemyPlayer.damage);
-
-
-        }
+        Destroy(gameObject);
     }
 
     private void ShootArrow()

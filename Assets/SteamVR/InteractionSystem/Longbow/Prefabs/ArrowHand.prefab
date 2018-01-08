@@ -267,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85480da87762944399dab6c99985eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentArrow: {fileID: 0}
   arrowPrefab: {fileID: 173732, guid: 81fc1450441aca64e8cc1a0e14b1aa77, type: 2}
   arrowNockTransform: {fileID: 413922}
   nockDistance: 0.1
@@ -275,6 +276,7 @@ MonoBehaviour:
   positionLerpThreshold: 0.15
   arrowSpawnSound: {fileID: 11498220}
   maxArrowCount: 10
+  standardArrowPrefab: {fileID: 173732, guid: 81fc1450441aca64e8cc1a0e14b1aa77, type: 2}
 --- !u!114 &11498220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -356,4 +358,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowSelectionPrefab: {fileID: 1036749348039058, guid: 03d38069d29c5f24ab21aa1fcad8985c,
+    type: 2}
+  noArrowsPrefab: {fileID: 1155289593044958, guid: 4aeb5e7081757ff47afd556054d3d058,
+    type: 2}
+  noBombPrefab: {fileID: 1368527364505936, guid: 4229e44e8747b3b4887b7636a369b0bd,
+    type: 2}
+  noRainPrefab: {fileID: 1976645381009814, guid: 7040f9a5af40eb646b81455d3434b2cc,
     type: 2}
