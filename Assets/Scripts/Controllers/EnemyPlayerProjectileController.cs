@@ -22,7 +22,7 @@ public class EnemyPlayerProjectileController : MonoBehaviour
 
     private float distance;
     // Velcoity needs to be hard coded for this, improvements possible
-    private float velocity = 50f;
+    private float velocity = 65f;
 
     private float yValueAboveMinion = 3.0f;
 
