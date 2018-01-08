@@ -41,6 +41,8 @@ namespace Valve.VR.InteractionSystem
 		public Transform audioListener;
 
 		public bool allowToggleTo2D = true;
+		
+		public TargetablePlayer TargetablePlayer { get; set; }
 
 
 		//-------------------------------------------------

@@ -19,12 +19,12 @@ public class PlayerHealthScript : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
+		UpdateHealthBar();
 	}
 
-    public void UpdateHealthBar(float health)
+    public void UpdateHealthBar()
     {
-        currentHealth = health;
-        renderer.material.SetFloat("_Cutof",currentHealth/maxHealth);
+        currentHealth = Valve.VR.InteractionSystem.Player.instance.TargetablePlayer.Health;
+        renderer.material.SetFloat("_Cutoff",1 - currentHealth/maxHealth);
     }
 }

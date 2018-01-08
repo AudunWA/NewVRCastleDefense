@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TargetablePlayerController : MonoBehaviour
 {
-	public TargetablePlayer TargetablePlayer { get; set; }
-    public GameObject healthBarGo;
-    private PlayerHealthScript healthBar;
+	public TargetablePlayer TargetablePlayer
+	{
+		get { return Valve.VR.InteractionSystem.Player.instance.TargetablePlayer; }
+		private set { Valve.VR.InteractionSystem.Player.instance.TargetablePlayer = value; }
+	}
 
 	private Vector3 originalPosition;
 
@@ -22,7 +24,6 @@ public class TargetablePlayerController : MonoBehaviour
 		TargetablePlayer = new TargetablePlayer(worldController.goodPlayer, 100.0f, gameObject.transform.position);
 		TargetablePlayer.gameObject = gameObject;
 		originalPosition = gameObject.transform.position;
-	    healthBar = healthBarGo.GetComponent<PlayerHealthScript>();
 	}
 	
 	// Update is called once per frame
@@ -43,7 +44,6 @@ public class TargetablePlayerController : MonoBehaviour
 			Invoke(nameof(FadeIn),1f);
 			TargetablePlayer.Health = 100;
 		}
-        UpdateHealthBar(TargetablePlayer.Health);
 	}
 
 	void FadeIn()
@@ -56,9 +56,4 @@ public class TargetablePlayerController : MonoBehaviour
 	{
 		SteamVR_Fade.Start( new Color(0.09f, 0.01f, 0f), 0.3f );
 	}
-
-    void UpdateHealthBar(float health)
-    {
-        healthBar.UpdateHealthBar(health);
-    }
 }
