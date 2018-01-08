@@ -81,6 +81,15 @@ public abstract class GameEntity {
     /// Override this method to add more specific calculations (e.g. armor)
     /// </summary>
     /// <param name="baseDamage">The damage to apply</param>
+    public virtual void TakeDamage(float baseDamage, SpawnType attackerSpawnType)
+    {
+        Health = Mathf.Max(Health - baseDamage, 0);
+    }
+    /// <summary>
+    /// Applies damage to this minion.
+    /// Override this method to add more specific calculations (e.g. armor)
+    /// </summary>
+    /// <param name="baseDamage">The damage to apply</param>
     public virtual void TakeDamage(float baseDamage)
     {
         Health = Mathf.Max(Health - baseDamage, 0);

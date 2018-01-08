@@ -270,7 +270,7 @@ public class MinionController : MonoBehaviour
             else
             {
                 fightSoundController.PlayRandomFightSound();
-                targetEntity.TakeDamage(Minion.Damage);
+                targetEntity.TakeDamage(Minion.Damage, Minion.SpawnType);
             }
             BroadcastMessage("OnAttack", Minion.AttackCooldownTime);
         }

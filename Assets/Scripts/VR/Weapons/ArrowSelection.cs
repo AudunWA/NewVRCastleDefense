@@ -15,7 +15,7 @@ public class ArrowSelection : MonoBehaviour
 	[SerializeField] private GameObject noRainPrefab;
 
 	private float bombTimer = 30.0f;
-	private float rainTimer = 30.0f;
+	private float rainTimer = 60.0f;
 
 	public float bombCoolDown = 30.0f;
 	public float rainCoolDown = 60.0f;

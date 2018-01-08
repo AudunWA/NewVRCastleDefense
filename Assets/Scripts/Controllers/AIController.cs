@@ -3,16 +3,31 @@ using UnityEngine;
 
 public class AIController
 {
-    private GameAI gameAI;
+    private GameAI gameAi;
+    private GameAI goodGameAI;
     private GameflowController gameflowController;
+    private bool friendlyAi;
+
+    public bool FriendlyAi
+    {
+        get { return friendlyAi; }
+        set { friendlyAi = value; }
+    }
     private List<SpawnType> spawnTypes;
     private Dictionary<SpawnType, bool> availableSpawnTypes;
-    public AIController(Player aiPlayer, Player player, int gameAiLevel)
+    public AIController(Player aiPlayer, Player player, int gameAiLevel, bool friendlyAi)
     {
-        gameAI = new GameAI();
-        gameAI.Level = gameAiLevel;
-        gameAI.Player = aiPlayer;
-        gameAI.OtherPlayer = player;
+        this.friendlyAi = friendlyAi;
+        gameAi = new GameAI();
+        gameAi.Level = gameAiLevel;
+        gameAi.Player = aiPlayer;
+        gameAi.OtherPlayer = player;
+       
+        goodGameAI = new GameAI();
+        goodGameAI.Level = gameAiLevel;
+        goodGameAI.Player = player;
+        goodGameAI.OtherPlayer = aiPlayer;
+     
         spawnTypes = new List<SpawnType>
         {
             SpawnType.Archer,
@@ -31,7 +46,17 @@ public class AIController
 
     public void PlayAI()
     {
-        SetAvailableAIActions();
+        SetAvailableAIActions(gameAi);
+        UpdateAi(gameAi);
+        if (friendlyAi)
+        {
+            SetAvailableAIActions(goodGameAI);
+            UpdateAi(goodGameAI);
+        }
+    }
+
+    private void UpdateAi(GameAI gameAI)
+    {
         if (gameAI.CurrentAction == GameAI.AIAction.Spawn)
         {
             gameAI.Player.SpawnController.Spawn(gameAI.CurrentSpawnType);
@@ -44,8 +69,7 @@ public class AIController
 
         gameAI.FindNextAction();
     }
-
-    private void SetAvailableAIActions()
+    private void SetAvailableAIActions(GameAI gameAI)
     {
         gameAI.AvailableTimers = gameAI.Player.SpawnController.GetAvailableSpawnTypeTimers();
         foreach (SpawnType s in spawnTypes)
