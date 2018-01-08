@@ -17,7 +17,7 @@ public class GameflowController
         EvilPlayer = evilPlayer;
         GoodPlayer = goodPlayer;
         MAX_ATTR_LVL = 10;
-        MAX_E_ATTR_LVL = 12;
+        MAX_E_ATTR_LVL = 14;
     }
 
     private Player GetOtherPlayer(Player player)
