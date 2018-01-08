@@ -432,7 +432,6 @@ public class WorldController : MonoBehaviour
         InitTimers();
         InitControllers();
         InitPlayers();
-        Debug.Log("GameAILevel: " + GameAILevel + " FriendlyAi: " + FriendlyAi);
     }
 
     // Update is called once per frame
