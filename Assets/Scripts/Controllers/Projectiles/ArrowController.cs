@@ -21,6 +21,8 @@ public class ArrowController : MonoBehaviour
     public bool moving;
     public float enemyMovementspeed;
 
+    public GameObject bleedEffect;
+
     private float distance;
     // Velcoity needs to be hard coded for this, improvements possible
     private float velocity = 70f;
@@ -111,10 +113,10 @@ public class ArrowController : MonoBehaviour
         {
             dummyArrow.GetComponent<ArrowSoundController>().PlayImpactSound();
             TargetablePlayerController controller = collision.gameObject.GetComponent<TargetablePlayerController>();
-            GameObject bleed = Resources.Load("Bleed") as GameObject;
-            bleed.transform.position = gameObject.transform.position;
-            bleed.transform.rotation = gameObject.transform.rotation;
-            Destroy(bleed, 5.0f);
+            GameObject bleed = Instantiate(bleedEffect, gameObject.transform.position,
+                gameObject.transform.rotation);
+            bleed.transform.parent = dummyArrow.transform;
+            Destroy(bleed.gameObject, 5.0f);
             controller.TargetablePlayer.TakeDamage(parentMinion.Damage);
             
         }
