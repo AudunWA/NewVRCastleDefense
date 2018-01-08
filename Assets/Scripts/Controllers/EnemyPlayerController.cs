@@ -7,7 +7,7 @@ public class EnemyPlayerController : MonoBehaviour
     private WorldController wo;
     private float range = 100.0f;
     private Minion target;
-    private float damage = 25f;
+    private float damage = 20f;
     public int Level { get; private set; }
     public float Damage
     {
@@ -37,7 +37,7 @@ public class EnemyPlayerController : MonoBehaviour
         if (Level > 2)
         {
             range = 125f;
-            damage = 50f;
+            damage = 40f;
         }
     }
 	
