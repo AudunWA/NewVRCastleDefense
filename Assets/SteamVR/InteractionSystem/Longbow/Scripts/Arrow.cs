@@ -41,10 +41,13 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		void Start()
 		{
-			Physics.IgnoreCollision( shaftRB.GetComponent<Collider>(), Player.instance.headCollider );
-			Physics.IgnoreCollision( shaftRB.GetComponent<Collider>(), Player.instance.bodyCollider );
-			Physics.IgnoreCollision( arrowHeadRB.GetComponent<Collider>(), Player.instance.bodyCollider );
-			Physics.IgnoreCollision( arrowHeadRB.GetComponent<Collider>(), Player.instance.headCollider );
+			if (arrowHeadRB != null && Player.instance.bodyCollider)
+			{
+				Physics.IgnoreCollision(shaftRB.GetComponent<Collider>(), Player.instance.headCollider);
+				Physics.IgnoreCollision(shaftRB.GetComponent<Collider>(), Player.instance.bodyCollider);
+				Physics.IgnoreCollision(arrowHeadRB.GetComponent<Collider>(), Player.instance.bodyCollider);
+				Physics.IgnoreCollision(arrowHeadRB.GetComponent<Collider>(), Player.instance.headCollider);
+			}
 		}
 
 

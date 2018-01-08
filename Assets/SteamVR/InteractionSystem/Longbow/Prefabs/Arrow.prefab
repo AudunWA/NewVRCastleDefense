@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 13505402}
   - component: {fileID: 5410438}
   - component: {fileID: 114000011478424400}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FireSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ GameObject:
   m_Component:
   - component: {fileID: 432120}
   - component: {fileID: 8289636}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sound_ArrowFireIgnition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 409194}
   - component: {fileID: 11455580}
   - component: {fileID: 8214378}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sound_ArrowCollideTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 490582}
   - component: {fileID: 11479486}
   - component: {fileID: 8204952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sound_BowReleaseFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 490454}
   - component: {fileID: 11460240}
   - component: {fileID: 8217470}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sound_BowReleaseAir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5425834}
   - component: {fileID: 13884258}
   - component: {fileID: 6557450}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arrowhead collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 11487904}
   - component: {fileID: 6590140}
   - component: {fileID: 5410824}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arrow
   m_TagString: projectile
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 407072}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arrow Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 420542}
   - component: {fileID: 11470766}
   - component: {fileID: 8213592}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sound_ArrowCollideGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 407214}
   - component: {fileID: 19818360}
   - component: {fileID: 19984524}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ArrowGlint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4547,7 +4547,7 @@ GameObject:
   - component: {fileID: 4152537962727494}
   - component: {fileID: 33882325288609592}
   - component: {fileID: 23027655677452380}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4564,7 +4564,7 @@ GameObject:
   - component: {fileID: 4889013312232868}
   - component: {fileID: 33797652923134596}
   - component: {fileID: 23148620118437338}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}

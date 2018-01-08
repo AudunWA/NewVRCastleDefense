@@ -28,7 +28,7 @@ public class FollowVelocity : MonoBehaviour
 	//THIS HAS TO BE NORMAL UPDATE, NOT FIXED
 	private void Update()
 	{
-		if (followObGameObject.activeInHierarchy)
+		if (followObGameObject != null)
 		{
 			if (followObGameObject?.GetComponent<Rigidbody>().velocity.magnitude + tolerance >
 			    gameObject?.GetComponent<Rigidbody>().velocity.magnitude || followObGameObject?.GetComponent<Rigidbody>().velocity.magnitude - tolerance <

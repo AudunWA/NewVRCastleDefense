@@ -51,12 +51,12 @@ public class TargetablePlayerController : MonoBehaviour
 
 	void FadeIn()
 	{
-		cameraRig.transform.position = originalPosition;
 		SteamVR_Fade.Start( Color.clear, 1.0f );
 	}
 
 	void FadeOut()
 	{
 		SteamVR_Fade.Start( new Color(0.09f, 0.01f, 0f), 0.3f );
+		cameraRig.transform.position = originalPosition;
 	}
 }
