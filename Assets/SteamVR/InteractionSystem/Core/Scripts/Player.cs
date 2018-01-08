@@ -27,6 +27,9 @@ namespace Valve.VR.InteractionSystem
 
 		[Tooltip( "Reference to the physics collider that follows the player's HMD position." )]
 		public Collider headCollider;
+		
+		[Tooltip( "Reference to the physics collider that follows the player's position." )]
+		public Collider bodyCollider;
 
 		[Tooltip( "These objects are enabled when SteamVR is available" )]
 		public GameObject rigSteamVR;
@@ -38,6 +41,8 @@ namespace Valve.VR.InteractionSystem
 		public Transform audioListener;
 
 		public bool allowToggleTo2D = true;
+		
+		public TargetablePlayer TargetablePlayer { get; set; }
 
 
 		//-------------------------------------------------

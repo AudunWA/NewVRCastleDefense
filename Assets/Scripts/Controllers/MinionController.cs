@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
+using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using Valve.VR.InteractionSystem;
+using Player = Valve.VR.InteractionSystem.Player;
 using Random = UnityEngine.Random;
 
 public class MinionController : MonoBehaviour
@@ -27,7 +29,7 @@ public class MinionController : MonoBehaviour
     private bool lightningAvailable = true;
 
     public Minion Minion;
-    public Player Owner { get; set; }
+    public global::Player Owner { get; set; }
 
     public NavMeshAgent Agent => agent;
 
@@ -61,12 +63,13 @@ public class MinionController : MonoBehaviour
             {
                 targetEntity = null;
             }
+            GameEntity oldEntity = targetEntity;
+            FindNewTargetEntity();
+            
             switch (Minion.State)
             {
                 case Minion.MinionState.Moving:
                     Agent.isStopped = false;
-                    GameEntity oldEntity = targetEntity;
-                    FindNewTargetEntity();
 
                     if (Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) <=
                         Minion.Range)
@@ -84,11 +87,13 @@ public class MinionController : MonoBehaviour
                     break;
 
                 case Minion.MinionState.Fighting:
+                    // Check if target is out of range
                     if (targetEntity == null ||
                         Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) >
-                        Minion.Range)
+                        Minion.Range + 30f)
                     {
                         Minion.State = Minion.MinionState.Moving;
+                        targetEntity = null;
                         break;
                     }
                     break;
@@ -157,15 +162,27 @@ public class MinionController : MonoBehaviour
     private void FindNewTargetEntity()
     {
         GameEntity newTarget = targetEntity;
+        GameEntity player = null;
         Collider[] inRange = Physics.OverlapSphere(Minion.Position, Minion.Range + 30.0f);
         foreach (Collider collision in inRange)
         {
+            var targetablePlayerController = collision.gameObject.GetComponent<TargetablePlayerController>();
+            if (targetablePlayerController != null)
+            {
+                // Y position < 5 -> player is not on castle, and can be targeted
+                if (Minion.Player.PlayerType == PlayerType.Evil && targetablePlayerController.cameraRig.transform.position.y < 5)
+                {
+                    player = targetablePlayerController.TargetablePlayer;
+                }
+            }
+
+
             MinionController otherMinionController = collision.gameObject.GetComponent<MinionController>();
             if (otherMinionController == null || otherMinionController.Minion.Player == null ||
                 otherMinionController.Minion.Player == Minion.Player)
                 continue;
 
-            if(!otherMinionController.Minion.IsAlive)
+            if (!otherMinionController.Minion.IsAlive)
                 continue;
 
             if (newTarget == null)
@@ -181,8 +198,17 @@ public class MinionController : MonoBehaviour
         }
 
         // Select evil castle if no minions has been found
-        if (newTarget == null)
-            newTarget = GetEnemyCastle();
+        if (newTarget == null || newTarget is Castle || newTarget is TargetablePlayer)
+        {    
+            if (player != null)
+            {
+                newTarget = player;
+            }
+            else
+            {
+                newTarget = GetEnemyCastle();
+            }
+        }
         targetEntity = newTarget;
     }
 
