@@ -80,5 +80,12 @@ public class SpellController : MonoBehaviour {
             gameObject.SetActive(false);
                 
         }
+        else if (collision.gameObject.GetComponent<TargetablePlayerController>() != null)
+        {
+            TargetablePlayerController controller = collision.gameObject.GetComponent<TargetablePlayerController>();
+            controller.TargetablePlayer.TakeDamage(parentMinion.Damage);
+            gameObject.SetActive(false);
+            
+        }
     }
 }

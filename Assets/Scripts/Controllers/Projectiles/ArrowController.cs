@@ -107,6 +107,13 @@ public class ArrowController : MonoBehaviour
                 controller.Castle.TakeDamage(parentMinion.Damage);
             }
         }
+        else if (collision.gameObject.GetComponent<TargetablePlayerController>() != null)
+        {
+            dummyArrow.GetComponent<ArrowSoundController>().PlayImpactSound();
+            TargetablePlayerController controller = collision.gameObject.GetComponent<TargetablePlayerController>();
+            controller.TargetablePlayer.TakeDamage(parentMinion.Damage);
+            
+        }
         else
         {
            dummyArrow.GetComponent<ArrowSoundController>().PlayMissSound();
