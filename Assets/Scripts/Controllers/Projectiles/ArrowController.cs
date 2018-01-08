@@ -111,6 +111,10 @@ public class ArrowController : MonoBehaviour
         {
             dummyArrow.GetComponent<ArrowSoundController>().PlayImpactSound();
             TargetablePlayerController controller = collision.gameObject.GetComponent<TargetablePlayerController>();
+            GameObject bleed = Resources.Load("Bleed") as GameObject;
+            bleed.transform.position = gameObject.transform.position;
+            bleed.transform.rotation = gameObject.transform.rotation;
+            Destroy(bleed, 5.0f);
             controller.TargetablePlayer.TakeDamage(parentMinion.Damage);
             
         }
