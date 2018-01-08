@@ -19879,6 +19879,38 @@ Prefab:
       propertyPath: ShapeModule.radiusThickness
       value: 1.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f7aa4d40edff6e48b549003cad031e1, type: 2}
   m_IsPrefabParent: 0
@@ -27881,6 +27913,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c234e0d4b6fc5604699ce40a93694f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FighterLevels:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  TankLevels:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  MageLevels:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  ArcherLevels:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  EvilFighterLevels:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  EvilTankLevels:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  EvilMageLevels:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  EvilArcherLevels:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   SoundEffectsActive: 0
 --- !u!4 &808032864
 Transform:
@@ -31189,7 +31277,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4747740610776038, guid: 592f3ca062c87574fb15fd2d57fcb415, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114071874072856600, guid: 592f3ca062c87574fb15fd2d57fcb415,
         type: 2}
