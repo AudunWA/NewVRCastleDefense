@@ -114,6 +114,13 @@ public class GameAI
         return maxDiffType;
     }
 
+    private SpawnType GetRandomSpawnTypeExclude(SpawnType spawnType)
+    {
+        List<SpawnType> s = new List<SpawnType>{SpawnType.Fighter, SpawnType.Archer, SpawnType.Tank, SpawnType.Mage};
+        s.Remove(spawnType);
+        return s[UnityEngine.Random.Range(0, 3)];
+    }
+
     private void CountOtherMinions()
     {
         foreach (Minion m in OtherPlayer.Minions)
@@ -147,7 +154,9 @@ public class GameAI
     private void FindIdealUpgradeType()
     {
         int minCost = 10000000;
-        foreach (SpawnType s in Player.MinionStatistics.Keys.ToList())
+        List<SpawnType> spawnTypes = Player.MinionStatistics.Keys.ToList();
+        
+        foreach (SpawnType s in spawnTypes)
         {
             foreach (MinionAttribute attr in Player.MinionStatistics[s].Levels.Keys)
             {
@@ -155,25 +164,29 @@ public class GameAI
                 if ( cost > 0 && minCost > cost)
                 {
                     minCost = cost;
-                    CurrentUpgradeType = s;
+                    CurrentUpgradeType = UnityEngine.Random.Range(0,100) > 20?s:GetRandomSpawnTypeExclude(s);
                     CurrentAttribute = attr;
                 }
             }
         }
         Dictionary<MinionAttribute, int> levels = Player.MinionStatistics[CurrentUpgradeType].Levels;
-        if (CurrentUpgradeType == SpawnType.Fighter && levels[MinionAttribute.Damage] < 10)
-        {
-            CurrentAttribute = MinionAttribute.Damage;
-        }
         if (CurrentUpgradeType == SpawnType.Tank && levels[MinionAttribute.Health] < 10)
         {
             CurrentAttribute = MinionAttribute.Health;
-        }else if((CurrentUpgradeType == SpawnType.Tank || CurrentUpgradeType == SpawnType.Fighter) && 
-            levels[MinionAttribute.Armor] < 10)
+        }
+        else if(levels[MinionAttribute.Damage] < 10)
+        {
+            CurrentAttribute = MinionAttribute.Damage;
+        }
+        else if(levels[MinionAttribute.AttackCooldownTime] < 10)
+        {
+            CurrentAttribute = MinionAttribute.AttackCooldownTime;
+        }
+        else if ((CurrentUpgradeType == SpawnType.Tank || CurrentUpgradeType == SpawnType.Fighter) &&
+                 levels[MinionAttribute.Armor] < 10)
         {
             CurrentAttribute = MinionAttribute.Armor;
         }
-
         if (minCost == 10000000) minCost = 0;
         UpgradeMoneyGoal = minCost;
     }
@@ -203,7 +216,7 @@ public class GameAI
         CurrentSpawnType = StrongestSpawnType();
         int cheapestCost = player.MinionStatistics[cheapestSpawnType].Cost;
         int rnd = UnityEngine.Random.Range(0, 2);
-        if (Player.Money > SpawnMoneyGoal + cheapestCost && rnd == 0 || otherPlayer.Minions.Count > player.minions.Count * 3)
+        if ((Player.Money > SpawnMoneyGoal + cheapestCost && rnd == 0) || (otherPlayer.Minions.Count > player.minions.Count * 3 && Player.Minions.Count > 2))
         {
             CurrentSpawnType = cheapestSpawnType;
         }
