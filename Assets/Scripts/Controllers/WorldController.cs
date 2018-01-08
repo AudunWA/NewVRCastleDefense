@@ -33,7 +33,7 @@ public class WorldController : MonoBehaviour
         get { return gameAILevel; }
         set { gameAILevel = value; }
     }
-    private bool aiActive = false;
+    private bool aiActive = true;
     public bool AiActive
     {
         get { return aiActive; }
@@ -470,7 +470,6 @@ public class WorldController : MonoBehaviour
         gameflowController = new GameflowController(EvilPlayer, GoodPlayer);
         gameflowController.MinionStatAdditions = minionStatAdditions;
         gameflowController.WorldController = this;
-        GameAILevel = 4; // TODO: Remove when variable is set from lobby
         aiController = new AIController(EvilPlayer, GoodPlayer, gameAILevel, friendlyAi);
     }
 
@@ -498,11 +497,17 @@ public class WorldController : MonoBehaviour
         EvilPlayer.SpawnController.Player = EvilPlayer;
     }
 
+    private void GetSettings()
+    {
+        Settings Settings = GameObject.FindGameObjectWithTag("SETTINGS").GetComponent<Settings>();
+        GameAILevel = Settings.GetLevel();
+        FriendlyAi = Settings.IsFreeplay();
+    }
 
     //Use this for initialization
     private void Awake()
     {
-        
+        GetSettings();
         SetBounties();
         SetCosts();
         InitMinionStats();
