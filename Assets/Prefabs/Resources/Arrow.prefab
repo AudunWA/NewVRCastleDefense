@@ -116,8 +116,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1864904123255300}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.9049118, y: 0.01, z: -61.38945}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 2}
+  m_LocalPosition: {x: 50.74021, y: 0.01, z: 60.31782}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 1.5}
   m_Children:
   - {fileID: 4167286299164780}
   m_Father: {fileID: 0}
@@ -364,8 +364,6 @@ MonoBehaviour:
     spawnType: 0
   moving: 0
   enemyMovementspeed: 0
-  bleedEffect: {fileID: 1998759169709222, guid: eb1ae50e8b1b3be4094b4c73144faf20,
-    type: 2}
 --- !u!114 &114752495399941680
 MonoBehaviour:
   m_ObjectHideFlags: 1
