@@ -25,4 +25,5 @@ public class TargetablePlayer : GameEntity {
 		await Task.Delay(200);
 		SteamVR_Fade.Start( Color.clear, 1.0f );
 	}
+
 }

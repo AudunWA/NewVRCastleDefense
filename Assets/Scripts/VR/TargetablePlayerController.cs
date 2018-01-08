@@ -15,12 +15,14 @@ public class TargetablePlayerController : MonoBehaviour
 	public GameObject cameraRig;
 
 	private float timer = 0.0f;
+
+	private WorldController worldController;
 	
 	// Use this for initialization
 	void Start () 
 	{
 		GameObject goWorld = GameObject.FindWithTag("World");
-		WorldController worldController = goWorld.GetComponent<WorldController>();
+		worldController = goWorld.GetComponent<WorldController>();
 		TargetablePlayer = new TargetablePlayer(worldController.goodPlayer, 100.0f, gameObject.transform.position);
 		TargetablePlayer.gameObject = gameObject;
 		originalPosition = gameObject.transform.position;
@@ -31,7 +33,7 @@ public class TargetablePlayerController : MonoBehaviour
 	{
 		timer += Time.deltaTime;
 
-		if (timer > 5 && TargetablePlayer.Health < 100)
+		if (timer > 3 && TargetablePlayer.Health < 100)
 		{
 			TargetablePlayer.Health += 1;
 			timer = 0;
@@ -43,6 +45,7 @@ public class TargetablePlayerController : MonoBehaviour
 			FadeOut();
 			Invoke(nameof(FadeIn),1f);
 			TargetablePlayer.Health = 100;
+			worldController.EvilPlayer.Money += 100;
 		}
 	}
 
