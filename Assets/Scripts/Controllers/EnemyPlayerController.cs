@@ -5,9 +5,14 @@ using UnityEngine;
 public class EnemyPlayerController : MonoBehaviour
 {
     private WorldController wo;
-    public float range = 150.0f;
+    private float range = 100.0f;
     private Minion target;
-    public float damage = 25f;
+    private float damage = 25f;
+    public int Level { get; private set; }
+    public float Damage
+    {
+        get { return damage; }
+    }
     private float attackTimer = 0.0f;
 	
     public float coolDown = 3.0f;
@@ -26,7 +31,14 @@ public class EnemyPlayerController : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-	    
+        GameObject goWorld = GameObject.FindWithTag("World");
+        WorldController worldController = goWorld.GetComponent<WorldController>();
+        Level = worldController.GameAILevel;
+        if (Level > 2)
+        {
+            range = 125f;
+            damage = 50f;
+        }
     }
 	
 	// Update is called once per frame
