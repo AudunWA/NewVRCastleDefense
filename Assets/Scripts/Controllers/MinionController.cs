@@ -88,13 +88,16 @@ public class MinionController : MonoBehaviour
 
                 case Minion.MinionState.Fighting:
                     // Check if target is out of range
-                    if (targetEntity == null ||
-                        Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position)) >
-                        Minion.Range + 30f)
+                    float distanceToTarget = Vector3.Distance(transform.position, targetEntity.GetAttackPosition(transform.position));
+                    if (targetEntity == null || !targetEntity.IsAlive || distanceToTarget > Minion.Range)
                     {
                         Minion.State = Minion.MinionState.Moving;
-                        targetEntity = null;
-                        break;
+                        
+                        // Check if not visible to us
+                        if (distanceToTarget > Minion.Range + 30f)
+                        {
+                            targetEntity = null;
+                        }
                     }
                     break;
             }
