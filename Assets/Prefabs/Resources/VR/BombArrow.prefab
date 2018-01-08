@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4229208388281168}
   - component: {fileID: 114458718284273410}
   - component: {fileID: 82853631269052590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sound_ArrowCollideTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 135016947774378762}
   - component: {fileID: 54317722229134720}
   - component: {fileID: 114314924044948658}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FireSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 33881290123280686}
   - component: {fileID: 23090140835411852}
   - component: {fileID: 114416399956413406}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arrow_tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4069726893921598}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arrow Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 65168983756919374}
   - component: {fileID: 54454671476636182}
   - component: {fileID: 114960374069788662}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BombArrow
   m_TagString: projectile
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 54412729252640966}
   - component: {fileID: 138279590391422396}
   - component: {fileID: 65862516333203586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arrowhead collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 4677698543863118}
   - component: {fileID: 33355817286766550}
   - component: {fileID: 23759471926281706}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arrow_prop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 4099190930690158}
   - component: {fileID: 198734133527024714}
   - component: {fileID: 199034526444756908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ArrowGlint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 4648704143296088}
   - component: {fileID: 114274618769036226}
   - component: {fileID: 82227687128647282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sound_BowReleaseFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 4027999883775290}
   - component: {fileID: 33032032811950422}
   - component: {fileID: 23186011781377532}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4471659568878200}
   - component: {fileID: 82517372664142970}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sound_ArrowFireIgnition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 4734892040329746}
   - component: {fileID: 114534099569299582}
   - component: {fileID: 82598841895821952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sound_BowReleaseAir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 4967276238855172}
   - component: {fileID: 114549882869297920}
   - component: {fileID: 82257358455740044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sound_ArrowCollideGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}

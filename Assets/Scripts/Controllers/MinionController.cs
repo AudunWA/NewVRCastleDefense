@@ -270,7 +270,14 @@ public class MinionController : MonoBehaviour
             else
             {
                 fightSoundController.PlayRandomFightSound();
-                targetEntity.TakeDamage(Minion.Damage, Minion.SpawnType);
+                if (targetEntity.gameObject.GetComponent<TargetablePlayerController>() != null)
+                {
+                    targetEntity.TakeDamage(Minion.Damage);
+                }
+                else
+                {
+                    targetEntity.TakeDamage(Minion.Damage, Minion.SpawnType);
+                }
             }
             BroadcastMessage("OnAttack", Minion.AttackCooldownTime);
         }
@@ -357,6 +364,6 @@ public class MinionController : MonoBehaviour
     /// </summary>
     public void OnHitByPlayerArrow()
     {
-        Minion.TakeDamage(50);
+        Minion.TakeDamage(20);
     }
 }
