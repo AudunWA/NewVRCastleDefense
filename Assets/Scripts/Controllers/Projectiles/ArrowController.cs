@@ -119,7 +119,7 @@ public class ArrowController : MonoBehaviour
         float angle = -TrajectoryCalculations();
         arrowSoundController.PlayReleaseSound();
         Vector3 arrowposition = new Vector3(0, yValueAboveMinion, 0);
-        targetPosition = targetMinion.Position;
+        targetPosition = targetMinion.GetAttackPosition(transform.position);
         arrowposition = arrowposition + parentMinion.Position;
 
         // Rotate to position of parent minion
@@ -184,7 +184,8 @@ public class ArrowController : MonoBehaviour
     private float FindDistanceToTarget()
     {
 
-        Vector3 targetPositionDist = new Vector3(targetMinion.Position.x, targetMinion.Position.y, targetMinion.Position.z);
+        Vector3 attackPositon = targetMinion.GetAttackPosition(targetPosition);
+        Vector3 targetPositionDist = new Vector3(attackPositon.x, attackPositon.y,attackPositon.z);
 
         if (moving)
         {

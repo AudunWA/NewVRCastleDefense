@@ -46,13 +46,15 @@ public class SpellController : MonoBehaviour {
             {
                 gameObject.SetActive(false);
             }
+
+            Vector3 attackPositon = minion.GetAttackPosition(transform.position);
             if (moving)
             {
-                float distance = Vector3.Distance(gameObject.transform.position, minion.Position);
+                float distance = Vector3.Distance(gameObject.transform.position, attackPositon);
 
                 transform.Translate(Vector3.forward * Time.deltaTime * 50);
 
-                var rotation = Quaternion.LookRotation(minion.Position - transform.position);
+                var rotation = Quaternion.LookRotation(attackPositon - transform.position);
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 1000);
             }
